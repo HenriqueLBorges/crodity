@@ -37,14 +37,6 @@ ServiceConfiguration.configurations.insert({
 	secret: '6ca48aa92ee91b1bf30d38c9b609f766'
 });
 
-// // Facebook (Production)
-// ServiceConfiguration.configurations.insert({
-// 	service: 'facebook',
-// 	appId: '943741645643957',
-// 	secret: '9904ce5d05d858d496229a63c59362ed'
-// });
-
-
 // Twitter (Development)
 ServiceConfiguration.configurations.insert({
 	service: 'twitter',
@@ -59,7 +51,6 @@ ServiceConfiguration.configurations.insert({
 	clientId: '688333420130-7pc9d108lfol64anj81b29goqm5c1hm1.apps.googleusercontent.com',
 	secret: 'jeEJnL9HVyqV1L2MkSBPLhzY'
 });
-
 
 // Linkedin (Development)
 ServiceConfiguration.configurations.insert({

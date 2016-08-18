@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
+import { Button } from 'react-onsenui';
 
 class AccountsLogin extends Component {
 	
@@ -25,9 +26,7 @@ class AccountsLogin extends Component {
 
 	loginWithTwitter() {
 		Meteor.loginWithTwitter({loginStyle: 'redirect'}, function(e){
-			if(e)
-				console.log(e);
-		});	
+		});
 	}
 
 	loginWithGoogle() {
@@ -44,18 +43,26 @@ class AccountsLogin extends Component {
 		});	
 	}
 
-	logout() {
-		Meteor.logout();
+	buttonText() {
+		if(this.props.text == 'login')
+			return 'Login With';
+		if(this.props.text == 'connect')
+			return 'Connect With';
+		else
+			return '';
 	}
 
 	render() {
 		return(
-			<div>
-				<ons-button onClick={this.loginWithFacebook.bind(this)}>Facebook</ons-button>
-				<ons-button onClick={this.loginWithTwitter.bind(this)}>Twitter</ons-button>
-				<ons-button onClick={this.loginWithGoogle.bind(this)}>Google</ons-button>
-				<ons-button onClick={this.loginWithLinkedin.bind(this)}>Linkedin</ons-button>
-				<ons-button onClick={this.logout.bind(this)}>Logout</ons-button>
+			<div className="connect-buttons">
+				<Button className="facebook" onClick={this.loginWithFacebook.bind(this)}>
+					<span className="fa fa-facebook"></span>
+					{this.buttonText()} Facebook
+				</Button>
+				<Button className="twitter" onClick={this.loginWithTwitter.bind(this)}>
+					<span className="fa fa-twitter"></span>
+					{this.buttonText()} Twitter
+				</Button>
 			</div>
 		);
 	}

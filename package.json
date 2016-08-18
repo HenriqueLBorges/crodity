@@ -7,11 +7,17 @@
   "dependencies": {
     "fibers": "^1.0.13",
     "meteor-node-stubs": "~0.2.0",
+    "moment": "^2.14.1",
     "onsenui": "^2.0.0-rc.15",
     "react": "^15.1.0",
+    "react-addons-pure-render-mixin": "^15.2.1",
     "react-dom": "^15.1.0",
     "react-komposer": "^1.11.0",
     "react-mounter": "^1.2.0",
+    "react-router": "^2.6.0",
     "twit": "^2.2.4"
+  },
+  "devDependencies": {
+    "react-onsenui": "^0.6.2"
   }
 }

@@ -1,10 +1,17 @@
 import React from 'react';
+import FeedUnit from './FeedUnit.jsx'
 
-const Feed = ({feed}) => (
+const Feed = ({feed}) => {
+	
+	return (
 
-	<div>
-		<h1>Feed</h1>
-	</div>
-);
+		<div className="feed">
+			{feed.map((feedUnitData,i) => (
+				<FeedUnit data={feedUnitData} key={i} />
+			))}
+			
+		</div>
+	);
+}
 
 export default Feed;
