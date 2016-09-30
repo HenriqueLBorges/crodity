@@ -5,9 +5,19 @@ import Main from './mobile/layouts/Main.jsx';
 import { AppContainer, EmailFieldContainer } from './containers/App.jsx';
 import FeedContainer from './containers/FeedContainer.jsx';
 
+const Routes = (
+	<Router history={browserHistory}>
+		<Route component={Main}>
+			<Route path='/' component={AppContainer}>
+				<IndexRoute component={FeedContainer} feedType='profile' />
+				<Route path='email-form' component={EmailFieldContainer} />
+			</Route>
+		</Route>
+	</Router>
+);
 
 class App extends Component {
-	
+
 	// Checking if the user device is mobile (returning true)
 	// or tablet/desktop (returning false)
 	isMobile() {
@@ -22,20 +32,10 @@ class App extends Component {
 		// Mobile
 		// ======
 		if(!this.isMobile()) {
-
 			// Routes for the mobile app
-			return(
-				<Router history={browserHistory}>
-					<Route component={Main}>
-						<Route path='/' component={AppContainer}>
-							<IndexRoute component={FeedContainer} feedType='profile' />
-							<Route path='email-form' component={EmailFieldContainer} />
-						</Route>
-					</Route>
-				</Router>
-			);
+			return Routes;
 		}
-		
+
 		// ===
 		// Web
 		// ===

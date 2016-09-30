@@ -1,9 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
-import { Button } from 'react-onsenui';
 
 class AccountsLogin extends Component {
-	
+
 	loginWithFacebook() {
 
 		if(Meteor.isCordova) {
@@ -33,14 +32,14 @@ class AccountsLogin extends Component {
 		Meteor.loginWithGoogle({loginStyle: 'redirect'}, function(e){
 			if(e)
 				console.log(e);
-		});	
+		});
 	}
 
 	loginWithLinkedin() {
 		Meteor.loginWithLinkedin({loginStyle: 'redirect'}, function(e){
 			if(e)
 				console.log(e);
-		});	
+		});
 	}
 
 	buttonText() {
@@ -55,14 +54,14 @@ class AccountsLogin extends Component {
 	render() {
 		return(
 			<div className="connect-buttons">
-				<Button className="facebook" onClick={this.loginWithFacebook.bind(this)}>
+				<button className="facebook" onClick={this.loginWithFacebook.bind(this)}>
 					<span className="fa fa-facebook"></span>
 					{this.buttonText()} Facebook
-				</Button>
-				<Button className="twitter" onClick={this.loginWithTwitter.bind(this)}>
+				</button>
+				<button className="twitter" onClick={this.loginWithTwitter.bind(this)}>
 					<span className="fa fa-twitter"></span>
 					{this.buttonText()} Twitter
-				</Button>
+				</button>
 			</div>
 		);
 	}

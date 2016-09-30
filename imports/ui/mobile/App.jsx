@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { Splitter, SplitterSide, SplitterContent, Page } from 'react-onsenui';
 
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import AccountsLogin from './AccountsLogin.jsx';
@@ -32,7 +31,7 @@ class App extends Component {
 			});
 		}
 	}
-	
+
 	hide() {
 		this.setState({isOpen: false});
 	}
@@ -40,7 +39,7 @@ class App extends Component {
 	show() {
 		this.setState({isOpen: true});
 	}
-	
+
 
 	renderToolbar() {
 		return(
@@ -55,31 +54,10 @@ class App extends Component {
 		if(this.props.currentUser != null) {
 			return (
 				<div className='mobile-app'>
-					<Splitter>
-						<SplitterSide
-							style={{
-								boxShadow: '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)'
-							}}
-							side='right'
-							width={200}
-							collapse={true}
-							isSwipeable={true}
-							isOpen={this.state.isOpen}
-							onClose={this.hide.bind(this)}
-							onOpen={this.show.bind(this)}
-						>
-							<Page>
-								<Header />
-							</Page>
-						</SplitterSide>
-						<SplitterContent>
-							<Page renderToolbar={this.renderToolbar.bind(this)}>
-								<main>
-									{this.props.children}
-								</main>
-							</Page>
-						</SplitterContent>
-					</Splitter>
+					<Header />
+					<main>
+						{this.props.children}
+					</main>
 				</div>
 			);
 		}
@@ -98,7 +76,7 @@ class App extends Component {
 		}
 
 	}
-	
+
 
 }
 

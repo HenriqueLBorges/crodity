@@ -22,7 +22,7 @@ const FeedUnit = ({data}) => {
 			</ons-col>
 		</ons-row>
 		<ons-row>
-			<div className="content">
+			<div className="feed-content">
 				{data.content}
 			</div>
 		</ons-row>
