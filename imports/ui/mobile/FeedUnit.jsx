@@ -2,25 +2,30 @@ import React from 'react';
 import FeedService from './FeedService.jsx';
 import DateDisplay from './DateDisplay.jsx';
 
+
+import DatePicker from 'material-ui/DatePicker';
+
 const FeedUnit = ({data}) => {
 	return (
 	<div className="feed-unit">
-		<ons-row>
-			<ons-col width="24%">
+		<div className="row">
+			<div className="phone-4 column">
 				<div className="avatar">
 					<img className="responsive" src={(data.user.image?data.user.image:'https://cdn1.iconfinder.com/data/icons/user-pictures/100/boy-512.png')} alt=""/>
 				</div>
-			</ons-col>
-			<ons-col>
+			</div>
+			<div className="phone-6 column">
 			<div className="header-data">
 					<p className="title">{data.title}</p>
+						<DatePicker hintText="Portrait Dialog" />
 					<p className="date"><span className="icon ss-clock"></span>
 						<DateDisplay date={data.created} />
 					</p>
 					<FeedService service={data.service} />
 				</div>
-			</ons-col>
-		</ons-row>
+			</div>
+		</div>
+
 		<ons-row>
 			<div className="feed-content">
 				{data.content}

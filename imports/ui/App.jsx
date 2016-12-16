@@ -2,13 +2,13 @@ import React , {Component} from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
 import Main from './mobile/layouts/Main.jsx';
-import { AppContainer, EmailFieldContainer } from './containers/App.jsx';
+import { MobileAppContainer, EmailFieldContainer } from './containers/MobileApp.jsx';
 import FeedContainer from './containers/FeedContainer.jsx';
 
 const Routes = (
 	<Router history={browserHistory}>
 		<Route component={Main}>
-			<Route path='/' component={AppContainer}>
+			<Route path='/' component={MobileAppContainer}>
 				<IndexRoute component={FeedContainer} feedType='profile' />
 				<Route path='email-form' component={EmailFieldContainer} />
 			</Route>
@@ -45,7 +45,8 @@ class App extends Component {
 		// ======
 		// Mobile
 		// ======
-		if(!this.isMobile()) {
+		if(1) {
+		// if(this.isMobile()) {
 			// Routes for the mobile app
 			return Routes;
 		}

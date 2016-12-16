@@ -5,18 +5,8 @@ import { withRouter } from 'react-router';
 
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import AccountsLogin from './AccountsLogin.jsx';
-import Header from './Header.jsx';
-import Top from './Top';
 
 class App extends Component {
-
-	constructor(props){
-		super(props);
-
-		this.state = {
-			isOpen: false
-		}
-	}
 
 	componentDidMount() {
 		let self = this;
@@ -32,32 +22,14 @@ class App extends Component {
 		}
 	}
 
-	hide() {
-		this.setState({isOpen: false});
-	}
-
-	show() {
-		this.setState({isOpen: true});
-	}
-
-
-	renderToolbar() {
-		return(
-			<Top show={this.show.bind(this)} />
-		);
-	}
-
 	render() {
 		/* ********************* */
 		/* Mobile Connected User */
 		/* ********************* */
 		if(this.props.currentUser != null) {
 			return (
-				<div className='mobile-app'>
-					<Header />
-					<main>
-						{this.props.children}
-					</main>
+				<div className='mobile-app content'>
+					{this.props.children}
 				</div>
 			);
 		}

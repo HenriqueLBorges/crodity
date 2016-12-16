@@ -4,6 +4,7 @@ import AccountsLogin from './AccountsLogin.jsx';
 
 const Header = () => (
 	<div>
+		<p>teste</p>
 		<LogoutButton />
 		<AccountsLogin />
 	</div>

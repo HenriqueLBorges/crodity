@@ -5,11 +5,12 @@ const Feed = ({feed}) => {
 
 	return (
 
-		<div className="feed container">
+		<div className="feed">
+			<div className="padded-full">
 			{feed.map((feedUnitData,i) => (
 				<FeedUnit data={feedUnitData} key={i} />
 			))}
-
+			</div>
 		</div>
 	);
 }
