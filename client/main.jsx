@@ -11,7 +11,6 @@ import App from '../imports/client/ui/App.jsx';
 // Run basic configuration and rendering at client startup
 Meteor.startup(() => {
 
-	// Accounts Package Permissions
 	Accounts.ui.config({
 		requestPermissions: {
 			facebook: ['email, feed']
