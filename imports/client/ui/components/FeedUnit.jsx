@@ -2,9 +2,6 @@ import React from 'react';
 import FeedService from './FeedService.jsx';
 import DateDisplay from './DateDisplay.jsx';
 
-
-import DatePicker from 'material-ui/DatePicker';
-
 const FeedUnit = ({data}) => {
 	return (
 	<div className="feed-unit">
@@ -17,7 +14,6 @@ const FeedUnit = ({data}) => {
 			<div className="phone-6 column">
 			<div className="header-data">
 					<p className="title">{data.title}</p>
-						<DatePicker hintText="Portrait Dialog" />
 					<p className="date"><span className="icon ss-clock"></span>
 						<DateDisplay date={data.created} />
 					</p>

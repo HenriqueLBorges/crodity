@@ -1,34 +1,22 @@
+// Main Modules
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
-import AccountsUIWrapper from './AccountsUIWrapper.jsx';
+// Components
 import AccountsLogin from './AccountsLogin.jsx';
 
-class App extends Component {
-
-	componentDidMount() {
-		let self = this;
-
-		console.log(this.props);
-		if(this.props.currentUser != null) {
-			console.log('getUserRegisteredEmails');
-			Meteor.call('getUserRegisteredEmails', function(error,result) {
-				if (result.length == 0) {
-					self.props.router.push('/email-form');
-				}
-			});
-		}
-	}
+class Home extends Component {
 
 	render() {
+
 		/* ********************* */
 		/* Mobile Connected User */
 		/* ********************* */
 		if(this.props.currentUser != null) {
 			return (
-				<div className='mobile-app content'>
+				<div className='home content'>
 					{this.props.children}
 				</div>
 			);
@@ -39,7 +27,7 @@ class App extends Component {
 		/* ************ */
 		else {
 			return (
-				<div className="mobile-login">
+				<div className="login">
 					<img className="circle-logo" src="/img/CrodityCircle100x100.png" alt="Crodity Logo"/>
 					<h3>Connect To Crodity</h3>
 					<AccountsLogin text="connect" />
@@ -52,4 +40,4 @@ class App extends Component {
 
 }
 
-export default withRouter(App);
+export default withRouter(Home);

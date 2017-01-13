@@ -1,3 +1,8 @@
+/*
+	Crodity API
+	This file contains the API endpoints for Crodity
+*/
+
 import { Meteor } from 'meteor/meteor';
 import Twit from 'twit';
 
@@ -20,12 +25,12 @@ Api.addRoute('twitter/feed/:userId', {authRequired: false}, {
 		Twitter.get('statuses/home_timeline', {}, function(err,data,response){
 			if(err) {
 				console.log(err);
-			}	
+			}
 			else {
 				console.log(typeof(data));
 				return data;
 			}
 		});
-		
+
 	}
 });

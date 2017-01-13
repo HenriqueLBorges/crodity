@@ -1,5 +1,6 @@
 import React from 'react';
-import FeedUnit from './FeedUnit.jsx'
+import FeedUnit from './FeedUnit.jsx';
+import Card from './Card.jsx';
 
 const Feed = ({feed}) => {
 
@@ -8,7 +9,7 @@ const Feed = ({feed}) => {
 		<div className="feed">
 			<div className="padded-full">
 			{feed.map((feedUnitData,i) => (
-				<FeedUnit data={feedUnitData} key={i} />
+				<Card data={feedUnitData} key={i} />
 			))}
 			</div>
 		</div>

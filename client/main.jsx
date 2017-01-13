@@ -1,41 +1,27 @@
-// Hot Reloading Packages
-import 'react-hot-loader/patch';
-import { AppContainer } from 'react-hot-loader';
-
-// Main Imports
+// Main Modules
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
 import { render } from 'react-dom';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import App from '../imports/ui/App.jsx';
 
-// Frontend Libraries Imports
-import '../imports/vendor/ss-gizmo/webfonts/ss-gizmo.js';
-import '../imports/vendor/ss-gizmo/webfonts/ss-gizmo.css';
+// Components
+import App from '../imports/client/ui/App.jsx';
+
 
 // Run basic configuration and rendering at client startup
 Meteor.startup(() => {
 
-	// Needed for onTouchTap
-	// http://stackoverflow.com/a/34015469/988941
-	injectTapEventPlugin();
+	// Accounts Package Permissions
+	Accounts.ui.config({
+		requestPermissions: {
+			facebook: ['email, feed']
+		}
+	});
 
 	// Locale configurations for the client (from the moment.js module)
 	moment.locale('pt-br');
 
 	// Rendering the App Component
-	render(<AppContainer><App /></AppContainer>, document.getElementById('app'));
-
-	if (module.hot) {
-		module.hot.accept('../imports/ui/App.jsx', () => {
-			const NextApp = require('../imports/ui/App.jsx').default;
-			render(
-				<AppContainer>
-					<NextApp />
-				</AppContainer>,
-				document.getElementById('app')
-			);
-		});
-	}
+	render(<App />, document.getElementById('app'));
 
 });

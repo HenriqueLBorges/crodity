@@ -1,8 +1,26 @@
+// Main Modules
 import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import Twit from 'twit';
-import FeedComposer from './FeedComposer.jsx';
 
+// Components
+import Feed from '../components/Feed.jsx';
+
+/*
+  FeedSorter
+  Sorts the feeds from the various social networks in chronological order
+*/
+const FeedSorter = ({facebookFeed,twitterFeed}) => {
+
+	let feed = []
+		.concat(facebookFeed)
+		.concat(twitterFeed)
+		.sort(function(a,b) {return (a.created < b.created) ? 1 : ((b.created < a.created) ? -1 : 0);} );
+
+	return(
+		<Feed feed={feed} />
+	);
+}
 
 class FeedContainer extends Component {
 
@@ -18,7 +36,7 @@ class FeedContainer extends Component {
 			twitterFeed: new Array()
 		};
 	}
-	
+
 	// ==========================================
 	// getFeed()
 	// Get the Feed of a specific social network,
@@ -34,15 +52,15 @@ class FeedContainer extends Component {
 
 			// Setting the method name that we are going to call from the server, using Meteor.call()
 			let methodName = (this.props.route.feedType == 'profile'? 'get'+serviceCapitalized+'ProfileFeed': 'get'+serviceCapitalized+'Feed');
-			
+
 			// Async calling the method whose name was set above
 			Meteor.call(methodName, function(error, result) {
 				if(error);
 					console.log(error);
-				
+
 				if(typeof result != 'undefined') {
 					let stateObject = {};
-					stateObject[service+'Feed'] = result; 
+					stateObject[service+'Feed'] = result;
 					self.setState(stateObject);
 				}
 				console.log(service+' feed');
@@ -51,7 +69,7 @@ class FeedContainer extends Component {
 			});
 		}
 	}
-	
+
 	// ===========================================
 	// getAllFeeds()
 	// Calls the APIs for the social networks that
@@ -64,7 +82,7 @@ class FeedContainer extends Component {
 		let self = this;
 		let timeout = (Meteor.user()?60000:500);
 		setTimeout(self.getAllFeeds.bind(self),timeout);
-		
+
 	}
 
 	// ===================
@@ -74,7 +92,7 @@ class FeedContainer extends Component {
 		// Configures long polling to make live updates possible
 		(this.getAllFeeds.bind(this))();
 	}
-	
+
 	// ======================
 	// componentWillUnmount()
 	// ======================
@@ -89,7 +107,7 @@ class FeedContainer extends Component {
 	render() {
 		if(this.state.facebookFeed.length > 0 || this.state.twitterFeed.length > 0) {
 			return(
-				<FeedComposer facebookFeed={this.state.facebookFeed} twitterFeed={this.state.twitterFeed} />
+				<FeedSorter facebookFeed={this.state.facebookFeed} twitterFeed={this.state.twitterFeed} />
 			);
 		}
 		else {
