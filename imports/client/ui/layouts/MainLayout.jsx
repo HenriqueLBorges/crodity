@@ -5,7 +5,7 @@ import DrawerContainer from '../containers/DrawerContainer.jsx';
 export default class MainLayout extends Component {
 render(){
   return (
-    <div>
+    <div className="main-logged">
       <AppBar /> 
       <DrawerContainer />
       <div className="content">{this.props.children}</div>

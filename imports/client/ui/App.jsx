@@ -11,6 +11,7 @@ import RegisterConfirmation from './components/RegisterConfirmation';
 import AccountsLogin from './components/AccountsLogin.jsx';
 
 class App extends Component {
+    
     render() {
 
       console.log(this);
@@ -26,6 +27,7 @@ class App extends Component {
 
                 return (
                     <Router history={browserHistory}>
+                    
                         <Route path='/' component={MainLayout} currentUser={this.props.loading ? false : this.props.currentUser}>
                             <IndexRoute component={FeedContainer} feedType='profile' />
                             <Route path='RegisterConfirmation' component={RegisterConfirmation} />
