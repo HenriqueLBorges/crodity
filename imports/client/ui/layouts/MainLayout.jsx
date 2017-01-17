@@ -6,10 +6,11 @@ export default class MainLayout extends Component {
 render(){
   return (
     <div>
-      <AppBar />
+      <AppBar /> 
       <DrawerContainer />
       <div className="content">{this.props.children}</div>
     </div>
+   
     );
   }
 }

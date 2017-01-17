@@ -7,6 +7,20 @@ import { withRouter } from 'react-router';
 // Components
 import AccountsLogin from './AccountsLogin.jsx';
 
+
+const styles = {
+	img: {
+		display: 'flex',
+		flexWrap: 'wrap',
+		justifyContent: 'space-around',
+		marginTop: 50,
+	},
+	button: {
+
+	},
+};
+
+
 class Home extends Component {
 
 	render() {
@@ -27,10 +41,18 @@ class Home extends Component {
 		/* ************ */
 		else {
 			return (
-				<div className="login">
-					<img className="circle-logo" src="/img/CrodityCircle100x100.png" alt="Crodity Logo"/>
-					<h3>Connect To Crodity</h3>
-					<AccountsLogin text="connect" />
+				<div>
+					<div className="row">
+						<div className="col s12 m4 offset-m4">
+							<div className="mobile-login" style={styles.img}>
+								<img className="responsive-img" src="/img/CrodityLogo.jpg" alt="Crodity Logo" />
+							</div>
+						</div>
+					</div>
+
+					<div>
+						<AccountsLogin text="connect" />
+					</div>
 				</div>
 			);
 		}
