@@ -107,7 +107,8 @@ class FeedContainer extends Component {
 	render() {
 		if(this.state.facebookFeed.length > 0 || this.state.twitterFeed.length > 0) {
 			return(
-				<FeedSorter facebookFeed={this.state.facebookFeed} twitterFeed={this.state.twitterFeed} />
+				<FeedSorter facebookFeed={this.state.facebookFeed} 
+				twitterFeed={this.state.twitterFeed} />
 			);
 		}
 		else {
