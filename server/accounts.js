@@ -98,6 +98,61 @@ Meteor.methods({
 	// ================
 	// Accounts Methods
 	// ================
+	/*
+- Method to check the registered phones
+*/
+	'getUserRegisteredPhones':function(){
+		let user = Meteor.users.findOne(this.userId);
+		
+		let returnedPhones = [];
+
+		// If the usr has at least one registered email
+		if(typeof user.profile.phones !== 'undefined' && Array.isArray(user.profile.phones)) {
+			
+			for(let i=0; i<user.profile.phones; i++) {
+				returnedPhones.push(user.profile.phones[i]);
+			}
+			console.log(returnedPhones);
+			
+		}		
+		return returnedPhones;
+	},
+
+
+/*
+- Method to add phones to account
+*/
+
+	'addRegisteredPhones':function(phone){
+		// Get the logged user object
+		let user = Meteor.users.findOne(this.userId);
+		
+		// Sets the initial state of the profile.phones array to
+		// later be updated inside the user object
+		let registered_phones = new Array();
+		console.log(typeof user.profile.phones);
+		if(typeof user.profile.phones !== 'undefined') {
+			registered_phones = user.profile.phones;
+		}
+		
+		// Checks if the profile.phones is unique
+		let isUnique = true;
+		for(let i=0; i<registered_emails.length; i++) {
+			if(registered_phones[i] == email) {
+				isUnique = false;
+			}
+		}
+
+		// Adds the newly added email to the registered_emails array
+		// only if the email was not already there.
+		if(isUnique) {
+			registered_phones.push(phone);
+
+			// Updates the user in the database
+			Meteor.users.update({'_id': this.userId}, { $set: {registered_phones: registered_phones} });
+		}
+	},
+
 	'getUserRegisteredEmails': function() {
 
 		// Setting the user

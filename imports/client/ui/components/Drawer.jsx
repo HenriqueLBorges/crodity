@@ -9,6 +9,8 @@ class Drawer extends Component {
         $(".button-collapse").sideNav();
     }
 
+    
+
     render() {
 
         //Here I get the image from the user logged to used after that

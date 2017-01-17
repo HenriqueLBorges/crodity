@@ -5,7 +5,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { render } from 'react-dom';
 
 // Components
-import App from '../imports/client/ui/App.jsx';
+import {AppContainer} from '../imports/client/ui/containers/AppContainer.jsx';
 
 
 // Run basic configuration and rendering at client startup
@@ -21,6 +21,6 @@ Meteor.startup(() => {
 	moment.locale('pt-br');
 
 	// Rendering the App Component
-	render(<App />, document.getElementById('app'));
+	render(<AppContainer />, document.getElementById('app'));
 
 });
