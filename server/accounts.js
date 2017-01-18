@@ -169,7 +169,6 @@ Meteor.methods({
 				returnedEmails.push(user.registered_emails[i].address);
 			}
 			console.log(returnedEmails);
-			
 		}
 		
 		return returnedEmails;
@@ -267,6 +266,7 @@ let convertFacebookFeedToGlobal = function(feed) {
 			shares: feed[i].shares,
 			comments: feed[i].comments,
 			media: false,
+			attachments: feed[i].attachments,
 			user: {
 				name: feed[i].from.name,
 				screen_name: false,

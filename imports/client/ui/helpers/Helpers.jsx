@@ -17,12 +17,12 @@ class Repeatable extends Component {
 	}
 
 	addChild() {
-		this.setState({count: this.state.count+1});
+		this.setState({ count: this.state.count + 1 });
 	}
 
 	removeChild() {
-		if(this.state.count > 1) {
-			this.setState({count: this.state.count-1});
+		if (this.state.count > 1) {
+			this.setState({ count: this.state.count - 1 });
 		}
 	}
 
@@ -37,11 +37,11 @@ class Repeatable extends Component {
 		return React.Children.map(children, (child, j) => {
 
 			// First, we check if this child is NOT the defaultRef child
-			if(typeof child.props.defaultRef === 'undefined') {
+			if (typeof child.props.defaultRef === 'undefined') {
 
 				// Now we check if the refName prop for this child is defined
-				if(typeof child.props.refName !== 'undefined') {
-					refName = child.props.refName+refName;
+				if (typeof child.props.refName !== 'undefined') {
+					refName = child.props.refName + refName;
 				}
 
 				// Then, if the refName is not defined, we must check if
@@ -50,7 +50,7 @@ class Repeatable extends Component {
 
 					// If this is not the only child, we must set its ref to null
 					// in order to avoid ref names conflict.
-					if(children instanceof Array) {
+					if (children instanceof Array) {
 						refName = null;
 					}
 				}
@@ -60,9 +60,9 @@ class Repeatable extends Component {
 	}
 
 	render() {
-		return(
+		return (
 			<div className='repeatable'>
-				{[...Array(this.state.count)].map((x,i) => (
+				{[...Array(this.state.count)].map((x, i) => (
 					<div key={i}>
 						{this.renderChildren(this.props.children, i)}
 						<button onClick={this.removeChild.bind(this)}>X</button>
@@ -97,8 +97,8 @@ class DataSelect extends Component {
 	}
 
 	handleChange(event) {
-		this.setState({ value: event.target.value }, function() {
-			if(typeof this.props.onChange === 'function') {
+		this.setState({ value: event.target.value }, function () {
+			if (typeof this.props.onChange === 'function') {
 				this.props.onChange(event);
 			}
 		});
@@ -108,11 +108,11 @@ class DataSelect extends Component {
 
 		let valueProperty = '_id';
 		let style = {};
-		if(typeof this.props.valueProperty !== 'undefined') valueProperty = this.props.valueProperty
-		if(typeof this.props.style !== 'undefined') style = this.props.style
+		if (typeof this.props.valueProperty !== 'undefined') valueProperty = this.props.valueProperty
+		if (typeof this.props.style !== 'undefined') style = this.props.style
 
-		if(this.props.data.length > 0) {
-			return(
+		if (this.props.data.length > 0) {
+			return (
 				<select style={style} ref="_id" defaultValue={this.props.defaultValue || ''} onChange={this.handleChange.bind(this)}>
 					<option value="" disabled>{this.props.placeholder}</option>
 					{this.props.data.map((obj) => (
@@ -124,8 +124,8 @@ class DataSelect extends Component {
 			);
 		}
 		else {
-			return(
-				<p>Nenhuma opção de {this.props.placeholder} cadastrada.</p>
+			return (
+				<p>Nenhuma opção de {this.props.placeholder}cadastrada.</p>
 			);
 		}
 	}
@@ -159,8 +159,8 @@ class CheckboxList extends Component {
 		stateValue = this.state.value;
 		console.log(event);
 
-		this.setState({ value: event.target.value }, function() {
-			if(typeof this.props.onChange === 'function') {
+		this.setState({ value: event.target.value }, function () {
+			if (typeof this.props.onChange === 'function') {
 				this.props.onChange(event);
 			}
 		});
@@ -172,12 +172,12 @@ class CheckboxList extends Component {
 		// Setting the valueProperty and style variables
 		let valueProperty = '_id';
 		let style = {};
-		if(typeof this.props.valueProperty !== 'undefined') valueProperty = this.props.valueProperty
-		if(typeof this.props.style !== 'undefined') style = this.props.style
+		if (typeof this.props.valueProperty !== 'undefined') valueProperty = this.props.valueProperty
+		if (typeof this.props.style !== 'undefined') style = this.props.style
 
 		// Checks if there's data and renders
-		if(typeof this.props.data !== 'undefined' && this.props.data.length > 0) {
-			return(
+		if (typeof this.props.data !== 'undefined' && this.props.data.length > 0) {
+			return (
 				<div>
 					<div className="title">{this.props.title}</div>
 					{this.props.data.map((obj) => (
@@ -191,8 +191,8 @@ class CheckboxList extends Component {
 		}
 
 		else {
-			return(
-				<p>Nenhuma opção de {this.props.title} cadastrada.</p>
+			return (
+				<p>Nenhuma opção de {this.props.title}cadastrada.</p>
 			);
 		}
 
@@ -216,10 +216,10 @@ class Helpers {
 
 		for (var key in refs) {
 			if (refs.hasOwnProperty(key)) {
-				if(typeof refs[key].nodeName !== 'undefined' && (refs[key].nodeName == 'INPUT' || refs[key].nodeName == 'SELECT' || refs[key].nodeName == 'TEXTAREA')) {
+				if (typeof refs[key].nodeName !== 'undefined' && (refs[key].nodeName == 'INPUT' || refs[key].nodeName == 'SELECT' || refs[key].nodeName == 'TEXTAREA')) {
 					refValues[key] = refs[key].value;
-				} else if(typeof refs[key].props !== 'undefined' && typeof refs[key].props.stateValue !== 'undefined') {
-					if(refs[key].props.stateValue === true)
+				} else if (typeof refs[key].props !== 'undefined' && typeof refs[key].props.stateValue !== 'undefined') {
+					if (refs[key].props.stateValue === true)
 						refValues[key] = refs[key].state['value'];
 					else
 						refValues[key] = refs[key].state[refs[key].props.stateValue];
@@ -231,7 +231,7 @@ class Helpers {
 
 	// Merges the obj2 properties into ojb1. Overwrites any property
 	// that may already exist in obj1
-	static push(obj1,obj2) {
+	static push(obj1, obj2) {
 		var obj3 = {};
 		for (var attrname in obj1) { obj3[attrname] = obj1[attrname]; }
 		for (var attrname in obj2) { obj3[attrname] = obj2[attrname]; }
@@ -241,15 +241,15 @@ class Helpers {
 	// Recursively checks the nested properties of an object and returns the
 	// object property in case it exists.
 	static get(obj, key) {
-		return key.split(".").reduce(function(o, x) {
-		return (typeof o == "undefined" || o === null) ? o : o[x];
+		return key.split(".").reduce(function (o, x) {
+			return (typeof o == "undefined" || o === null) ? o : o[x];
 		}, obj);
 	}
 
 	// Recursively checks the nested properties of an object and returns
 	//true in case it exists.
 	static has(obj, key) {
-		return key.split(".").every(function(x) {
+		return key.split(".").every(function (x) {
 			if (typeof obj != "object" || obj === null || !x in obj)
 				return false;
 			obj = obj[x];
@@ -257,17 +257,28 @@ class Helpers {
 		});
 	}
 
-	static socialIcon(service,size) {
-        switch(service){
-            case 'facebook':
-            return <i className={"indigo-text fa fa-facebook-square fa-"+size+"x"} aria-hidden="true"></i>;
 
-            case 'twitter':
-            return <i className={"blue-text fa fa-twitter-square fa-"+size+"x"} aria-hidden="true"></i>;
-        }
-    };
+	//This sets the socialIcon according for the social 
+	static socialIcon(service, size) {
+		switch (service) {
+			case 'facebook':
+				return <i className={"indigo-text fa fa-facebook-square fa-" + size + "x"} aria-hidden="true"></i>;
 
+			case 'twitter':
+				return <i className={"blue-text fa fa-twitter-square fa-" + size + "x"} aria-hidden="true"></i>;
+		}
+	};
 
+	static checkContentExists(content) {
+		let returnedContent;
+		try {
+			returnedContent = content;
+		}
+		catch (err) {
+			returnedContent = "";
+		}
+		return content;
+	}
 }
 
 export { Repeatable, DataSelect, Helpers, CheckboxList };
