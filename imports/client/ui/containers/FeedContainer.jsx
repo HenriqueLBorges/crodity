@@ -5,6 +5,7 @@ import Twit from 'twit';
 
 // Components
 import Feed from '../components/Feed.jsx';
+import CommentList from '../components/CommentList.jsx';
 
 /*
   FeedSorter

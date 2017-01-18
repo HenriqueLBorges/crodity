@@ -9,6 +9,7 @@ import FeedContainer from './containers/FeedContainer.jsx';
 import Register from './components/Register.jsx'
 import RegisterConfirmation from './components/RegisterConfirmation';
 import AccountsLogin from './components/AccountsLogin.jsx';
+import Comment from './components/Comment.jsx';
 
 class App extends Component {
     render() {
@@ -41,6 +42,7 @@ class App extends Component {
                             <Route path='RegisterConfirmation' component={RegisterConfirmation} />
                         </Route>
                         <Route path='/register' component={Register} />
+                        <Route path='/comment' component={Comment} />
                     </Router>
                 );
             }

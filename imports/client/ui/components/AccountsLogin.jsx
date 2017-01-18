@@ -78,25 +78,32 @@ class AccountsLogin extends Component {
 		return (
 
 			<div>
-				<br/>
+				<br />
+				<div className="row">
+					<div className="col s12 m4 offset-m4">
+						<div className="mobile-login">
+							<img className="responsive-img" src="/img/CrodityLogo.jpg" alt="Crodity Logo" />
+						</div>
+					</div>
+				</div>
 				<div className="container ">
 					<p className="center-align">
 						<button style={styles.buttonFb} className="btn waves-effect waver-light" type="submit" name="action"
-							onClick={this.loginWithFacebook.bind(this)}>{this.buttonText()}Facebook
+							onClick={this.loginWithFacebook.bind(this)}>Login With Facebook
           	<i className="fa fa-facebook-square left"></i>
 						</button>
 					</p>
 					<p className="center-align">
 						<button style={styles.buttonTt} className="btn waves-effect waver-light" type="submit" name="action"
-							onClick={this.loginWithTwitter.bind(this)}>{this.buttonText()}Twitter
+							onClick={this.loginWithTwitter.bind(this)}>Login With Twitter
             <i className="fa fa-twitter-square left" aria-hidden="true"></i>
 						</button>
 					</p>
 					<br />
 					<hr style={styles.hrStyle} />
-					
+
 					<LoginCrodityAccount />
-				
+
 					<br />
 					<p className="center-align">
 						<Link to="/register">
@@ -104,7 +111,7 @@ class AccountsLogin extends Component {
 								CRIAR NOVA CONTA</button>
 						</Link>
 					</p>
-					
+
 				</div>
 			</div>
 

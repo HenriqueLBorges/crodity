@@ -1,12 +1,27 @@
 import React from 'react';
-import {Helpers} from '../helpers/Helpers';
+import { Helpers } from '../helpers/Helpers';
+import CommentList from './CommentList.jsx';
 
-//Constructing a const called card, it'll be used where Card.jsx is imported
+
+
+
+//Constructing a const called card, it'll be used where FeedUnit.jsx is imported
 const FeedUnit = ({data}) => {
+
     //Formatting the date
     formattedDate = moment(data.created).calendar();
 
+
     if (!(typeof data === 'undefined')) {
+        let content;
+        try {
+            content = data.comments.data[0];
+            console.log(content);
+        }
+        catch (err) {
+            console.log("undefined");
+        }
+
 
         return (
             <div className="row">
@@ -22,13 +37,13 @@ const FeedUnit = ({data}) => {
                                 </div>
                                 <div className="feedUnitService col s2">{Helpers.socialIcon(data.service, 2)}</div>
                             </div>
-                            
+
                             <p>{data.content}</p>
                         </div>
 
                         <div className="card-image">
-                            <img src={Helpers.get(this.props,'data.attachments.postUnitImage')} />
-                            <div>{"Content of the post (image, video, etc)"}</div>
+                            <img src={Helpers.get(this.props, 'data.attachments.postUnitImage')} />
+                            <div>{content}</div>
                             <div className="row">
                                 <i className="fa fa-heart fa-lg reactionIcon" aria-hidden="true"> 137</i>
                                 <i className="fa fa-comments fa-lg reactionIcon" aria-hidden="true"> 5</i>
@@ -37,7 +52,7 @@ const FeedUnit = ({data}) => {
                         </div>
 
                         <div className="card-action">
-                            <a href="#">Like</a>
+                            <a href="#">Likes</a>
                             <a href="#">Comment</a>
                             <a href="#">Share</a>
                         </div>
