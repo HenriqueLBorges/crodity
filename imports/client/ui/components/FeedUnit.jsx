@@ -2,9 +2,6 @@ import React from 'react';
 import { Helpers } from '../helpers/Helpers';
 import CommentList from './CommentList.jsx';
 
-
-
-
 //Constructing a const called card, it'll be used where FeedUnit.jsx is imported
 const FeedUnit = ({data}) => {
 
@@ -20,7 +17,7 @@ const FeedUnit = ({data}) => {
     if (!(typeof data === 'undefined')) {
         let content;
         let id;
-        console.log(data.comments.);
+        console.log(data.comments);
 
 
         return (
