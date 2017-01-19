@@ -12,15 +12,15 @@ const FeedUnit = ({data}) => {
     formattedDate = moment(data.created).calendar();
 
 
+    // let contentType = {
+    //     comments: data.comments,
+    //     commentsFrom: data.comments.
+    // }
+
     if (!(typeof data === 'undefined')) {
         let content;
-        try {
-            content = data.comments.data[0];
-            console.log(content);
-        }
-        catch (err) {
-            console.log("undefined");
-        }
+        let id;
+        console.log(data.comments.);
 
 
         return (
@@ -37,7 +37,7 @@ const FeedUnit = ({data}) => {
                                 </div>
                                 <div className="feedUnitService col s2">{Helpers.socialIcon(data.service, 2)}</div>
                             </div>
-
+                            <div><img src={'http://graph.facebook.com/' + id + '/picture?type=square&height=80&width=80'} /></div>
                             <p>{data.content}</p>
                         </div>
 
@@ -53,6 +53,7 @@ const FeedUnit = ({data}) => {
 
                         <div className="card-action">
                             <a href="#">Likes</a>
+                            <div><CommentList comments={data.comments} /></div>
                             <a href="#">Comment</a>
                             <a href="#">Share</a>
                         </div>

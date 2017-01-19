@@ -31,6 +31,7 @@ class App extends Component {
                             <IndexRoute component={FeedContainer} feedType='profile' />
                             <Route path='RegisterConfirmation' component={RegisterConfirmation} />
                         </Route>
+                             <Route path='/comment' component={Comment} />
                     </Router>
                 );
             }
@@ -42,7 +43,6 @@ class App extends Component {
                             <Route path='RegisterConfirmation' component={RegisterConfirmation} />
                         </Route>
                         <Route path='/register' component={Register} />
-                        <Route path='/comment' component={Comment} />
                     </Router>
                 );
             }
