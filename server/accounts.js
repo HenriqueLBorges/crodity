@@ -269,8 +269,7 @@ let convertFacebookFeedToGlobal = function (feed) {
 					like: comment.like_count,
 				});
 			});
-		}else
-			comments = "";
+		}
 
 		// Created the globalFeed[i] object
 		globalFeed[i] = {

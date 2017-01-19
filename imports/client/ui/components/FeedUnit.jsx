@@ -20,7 +20,7 @@ const FeedUnit = ({data}) => {
     if (!(typeof data === 'undefined')) {
         let content;
         let id;
-        console.log(data.comments.);
+        console.log(data.comments);
 
 
         return (

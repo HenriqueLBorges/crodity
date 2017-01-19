@@ -43,9 +43,8 @@ class Comment extends Component {
       <ul className="collection">
         <li className="collection-item avatar">
           <img src={this.props.comment.fromImg} alt="" className="circle" />
-          <span className="title"> Profile Name </span>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tincidunt consectetur finibus. Nulla ultricies sapien vitae orci lacinia, porttitor dictum ligula blandit. Etiam nec augue auctor, auctor sem ornare, tempus eros. Nulla scelerisque tellus nisi,
-           ut accumsan nunc vulputate ut. Vivamus ac nulla ac sem auctor aliquam gravida rutrum odio. <br />
+          <span className="title"> {this.props.comment.from} </span>
+          <p> {this.props.comment.message} <br />
             <span style={{ cursor: 'pointer' }} className="blue-text"> Curtir <i className="fa fa-thumbs-up grey-text left"></i></span>   &#8226;
                 <span style={{ cursor: 'pointer' }} className="blue-text" onClick={this.handleToggle.bind(this)}>  Responder </span>
             {this.state.open ? <textarea ref="comment" placeholder="Responder" id="comment" className="materialize-textarea"></textarea> : ''}

@@ -6,7 +6,10 @@ const CommentList = ({comments}) => (
  
     <div className="feed">
         <div className="padded-full">
-            
+            {comments.map((comment, i) => (
+                <Comment 
+                comment={comment} key={i} />
+            ))}
         </div>
     </div>
 );
