@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helpers } from '../helpers/Helpers';
+import {emojify} from 'react-emojione';
 
 //Constructing a const called card, it'll be used where Card.jsx is imported
 const FeedUnit = ({data}) => {
@@ -7,21 +8,6 @@ const FeedUnit = ({data}) => {
     formattedDate = moment(data.created).calendar();
 
     if (!(typeof data === 'undefined')) {
-
-
-        // === Getting the post image === /
-        //let FeedUnitImage = Helpers.checkContentExists(data.attachments.data[0].media.image.src);
-        //let FeedUnitComents = Helpers.checkContentExists(data.comments.data[0].message);
-
-        let FeedUnitImage;
-        try {
-            //console.log(data.attachments.data[0].media.image.src);
-            FeedUnitImage = data.attachments.data[0].media.image.src;
-        }
-        catch (err) {
-            //console.log('undefined');
-            FeedUnitImage = "";
-        }
 
         return (
             <div className="row">
@@ -42,11 +28,11 @@ const FeedUnit = ({data}) => {
                         </div>
 
                         <div className="card-image">
-                            <img src={FeedUnitImage} />
+                            <img src={Helpers.get(data, 'post_image')} />
                             <div className="row">
-                                <i className="fa fa-heart fa-lg reactionIcon" aria-hidden="true"> 137</i>
-                                <i className="fa fa-comments fa-lg reactionIcon" aria-hidden="true"> 5</i>
-                                <i className="fa fa-share-square-o fa-lg reactionIcon" aria-hidden="true"> 2</i>
+                                <i className="fa fa-heart fa-lg reactionIcon" aria-hidden="true">{Helpers.get(data, 'likes.data.length')}</i>
+                                <i className="fa fa-comments fa-lg reactionIcon" aria-hidden="true">{Helpers.get(data, 'comments.data.length')}</i>
+                                <i className="fa fa-share-square-o fa-lg reactionIcon" aria-hidden="true">{Helpers.get(data, 'shares.data.length')}</i>
                             </div>
                         </div>
 

@@ -18,7 +18,8 @@
     "react-mounter": "^1.2.0",
     "react-router": "^2.6.0",
     "react-tap-event-plugin": "^1.0.0",
-    "twit": "^2.2.4"
+    "twit": "^2.2.4",
+    "react-emojione": "~2.0.0"
   },
   "devDependencies": {
     "babel-runtime": "^6.11.6",
