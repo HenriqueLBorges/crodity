@@ -37,3 +37,4 @@ shell-server
 materialize:materialize@=0.97.0
 react-meteor-data
 ecmascript
+emojione:emojione

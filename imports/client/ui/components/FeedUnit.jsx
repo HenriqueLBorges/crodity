@@ -8,7 +8,6 @@ const FeedUnit = ({data}) => {
     //Formatting the date
     formattedDate = moment(data.created).calendar();
 
-
     // let contentType = {
     //     comments: data.comments,
     //     commentsFrom: data.comments.
@@ -34,17 +33,14 @@ const FeedUnit = ({data}) => {
                                 </div>
                                 <div className="feedUnitService col s2">{Helpers.socialIcon(data.service, 2)}</div>
                             </div>
-                            <div><img src={'http://graph.facebook.com/' + id + '/picture?type=square&height=80&width=80'} /></div>
                             <p>{data.content}</p>
                         </div>
-
                         <div className="card-image">
-                            <img src={Helpers.get(this.props, 'data.attachments.postUnitImage')} />
-                            <div>{content}</div>
+                            <img src={Helpers.get(data, 'post_image')} />
                             <div className="row">
-                                <i className="fa fa-heart fa-lg reactionIcon" aria-hidden="true"> 137</i>
-                                <i className="fa fa-comments fa-lg reactionIcon" aria-hidden="true"> 5</i>
-                                <i className="fa fa-share-square-o fa-lg reactionIcon" aria-hidden="true"> 2</i>
+                                <i className="fa fa-heart fa-lg reactionIcon" aria-hidden="true">{Helpers.get(data, 'likes.data.length')}</i>
+                                <i className="fa fa-comments fa-lg reactionIcon" aria-hidden="true">{Helpers.get(data, 'comments.data.length')}</i>
+                                <i className="fa fa-share-square-o fa-lg reactionIcon" aria-hidden="true">{Helpers.get(data, 'shares.data.length')}</i>
                             </div>
                         </div>
 
