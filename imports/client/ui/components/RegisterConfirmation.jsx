@@ -44,6 +44,10 @@ export default class App extends Component {
 
 
 	render() {
+		console.log(this.props.route.currentUser);
+		//if(this.props.route.currentUser){
+
+		//}
 		return(
 			<form>
 				<div className="email-field-component">
