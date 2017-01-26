@@ -12,9 +12,6 @@ class Drawer extends Component {
     }
 
     render() {
-        // console.log(Helpers.get(this.props,'currentUser.profile'));
-        // console.log('teste');
-        //Principal method of return by the drawer
 
         return (
 

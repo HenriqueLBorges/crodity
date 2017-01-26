@@ -63,7 +63,6 @@ class FeedContainer extends Component {
 					let stateObject = {};
 					stateObject[service+'Feed'] = result;
 					self.setState(stateObject);
-					console.log(self.state);
 				}
 				// console.log(service+' feed');
 				// console.log(result);
@@ -107,7 +106,6 @@ class FeedContainer extends Component {
 	// render()
 	// ========
 	render() {
-		console.log(this.state);
 		if(this.state.facebookFeed.length > 0 || this.state.twitterFeed.length > 0) {
 			return(
 				<FeedSorter facebookFeed={this.state.facebookFeed} 

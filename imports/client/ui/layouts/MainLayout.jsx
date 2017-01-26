@@ -8,27 +8,30 @@ class MainLayout extends Component {
   componentDidMount() {
     let self = this;
 
-    //console.log(Meteor.call('teste', function (error, result) {
-      //console.log(result);
-    //}));
-
-      if (this.props.route.currentUser != null) {
-        Meteor.call('getUserRegisteredEmails', function (error, result) {
-          console.log(result);
-          if (result.length == 0) {
+    if (this.props.route.currentUser != null) {
+      Meteor.call('getUserRegisteredEmails', function (error, result) {
+        //console.log(result);
+        Meteor.call('getUserRegisteredPhones', function (error2, result2) {
+          // console.log(result2);
+          // console.log("teste");
+          // console.log(result.length);
+          // console.log(result2.length);
+          //If the user has no email or cellphone registered then the page 
+          //RegisterConfirmation is show
+          if (result.length == 0 || result2.length == 0) {
             self.props.router.push('/RegisterConfirmation');
           }
         });
+      });
+    }
+
+
+
+    Meteor.call('getUserRegisteredPhones', function (error2, result2) {
+      if (result.length == 0 && result2.lenght == 0) {
+        self.router.push('/RegisterConfirmation');
       }
-
-    // Meteor.call('getUserRegisteredPhones', function (error2, result2) {
-    //   if (result.length == 0 && result2.lenght == 0) {
-    //     self.router.push('/RegisterConfirmation');
-    //   } else if (result.lenght > 0 && result2.lenght == 0) {
-    //     self.router.push('/RegisterConfirmation');
-    //   }
-
-    // });
+    });
 
     //self.props.router.push('/RegisterConfirmation');
   }

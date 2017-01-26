@@ -3,7 +3,6 @@ import { Accounts } from 'meteor/accounts-base';
 import Twit from 'twit';
 import Future from 'fibers/future';
 
-
 Meteor.methods({
 
   // =======================
@@ -67,11 +66,13 @@ Meteor.methods({
     // Sets future and user
     let future = new Future();
     let user = Meteor.users.findOne(this.userId);
+
     // Checks if the user has the facebook accessToken
     if (user.services.facebook.accessToken) {
+
       // Facebook Graph API Call
       HTTP.get(
-        'https://graph.facebook.com/v2.5/me/feed?fields=id,from,story,message,message_tags,place,shares,source,to,link,comments,attachments{media},created_time,description,likes,sharedposts&limit=25',
+        'https://graph.facebook.com/v2.8/me/feed?fields=id,from,story,message,message_tags,place,shares,source,to,link,comments,attachments{media},created_time,description,likes,sharedposts&limit=25',
         {
           headers: {
             'Authorization': 'Bearer ' + user.services.facebook.accessToken
@@ -80,9 +81,7 @@ Meteor.methods({
         function (error, response) {
           if (!error) {
             future["return"](convertFacebookFeedToGlobal(response.data.data));
-                      console.log(response.data);
           }
-          console.log(response.data.data);
         }
       );
 
@@ -104,16 +103,16 @@ Meteor.methods({
   'getUserRegisteredPhones': function () {
     let user = Meteor.users.findOne(this.userId);
 
-    let returnedPhones = [];
+    // let returnedPhones = [];
+    let returnedPhones = new Array();
+    // If the usr has at least one registered phone
+    if (typeof user.registered_phones !== 'undefined') {
 
-    // If the usr has at least one registered email
-    if (typeof user.profile.phones !== 'undefined' && Array.isArray(user.profile.phones)) {
-
-      for (let i = 0; i < user.profile.phones; i++) {
-        returnedPhones.push(user.profile.phones[i]);
+      for (let i = 0; i < user.registered_phones; i++) {
+        returnedPhones.push(user.registered_phones[i]);
       }
-      console.log(returnedPhones);
-
+      // console.log(returnedPhones);
+      // console.log("teste");
     }
     return returnedPhones;
   },
@@ -123,28 +122,27 @@ Meteor.methods({
 	- Method to add phones to account
 	*/
 
-  'addRegisteredPhones': function (phone) {
+  'addRegisteredPhone': function (phone) {
     // Get the logged user object
     let user = Meteor.users.findOne(this.userId);
 
     // Sets the initial state of the profile.phones array to
     // later be updated inside the user object
     let registered_phones = new Array();
-    console.log(typeof user.profile.phones);
-    if (typeof user.profile.phones !== 'undefined') {
-      registered_phones = user.profile.phones;
+    if (typeof user.registered_phones !== 'undefined') {
+      registered_phones = user.registered_phones;
     }
 
     // Checks if the profile.phones is unique
     let isUnique = true;
-    for (let i = 0; i < registered_emails.length; i++) {
-      if (registered_phones[i] == email) {
+    for (let i = 0; i < registered_phones.length; i++) {
+      if (registered_phones[i] == phone) {
         isUnique = false;
       }
     }
 
-    // Adds the newly added email to the registered_emails array
-    // only if the email was not already there.
+    // Adds the newly added phone to the registered_phones array
+    // only if the phone was not already there.
     if (isUnique) {
       registered_phones.push(phone);
 
@@ -161,11 +159,10 @@ Meteor.methods({
     let user = Meteor.users.findOne(this.userId);
 
     let returnedEmails = new Array();
-    console.log(user);
+
     // If the usr has at least one registered email
     if (typeof user.registered_emails !== 'undefined') {
-      console.log(user.registered_emails.length);
-      console.log(user.registered_emails);
+
       for (let i = 0; i < user.registered_emails.length; i++) {
         returnedEmails.push(user.registered_emails[i].address);
       }
@@ -210,10 +207,6 @@ Meteor.methods({
     }
   },
 
-  'teste': function () {
-    console.log("Teste");
-  },
-
 });
 
 // ============================
@@ -256,7 +249,7 @@ let convertTwitterFeedToGlobal = function (feed) {
 }
 
 let convertFacebookFeedToGlobal = function (feed) {
-console.log(feed);
+
   // Creates the global feed array
   globalFeed = new Array();
 
@@ -278,7 +271,7 @@ console.log(feed);
       comments = feed[i].comments.data.map((comment, i) => {
         return ({
           from: comment.from.name,
-          fromImg: 'http://graph.facebook.com/v2.5/' + comment.from.id + '/picture?width=100&height=100',
+          fromImg: 'http://graph.facebook.com/v2.8/' + comment.from.id + '/picture?width=100&height=100',
           created: new Date(comment.created_time),
           message: comment.message,
           attachments: comment.attachments,
@@ -303,7 +296,7 @@ console.log(feed);
         name: feed[i].from.name,
         screen_name: false,
         service_id: feed[i].from.id,
-        image: 'http://graph.facebook.com/v2.5/' + feed[i].from.id + '/picture?width=100&height=100',
+        image: 'http://graph.facebook.com/v2.8/' + feed[i].from.id + '/picture?width=100&height=100',
       }
     }
 
@@ -321,7 +314,6 @@ console.log(feed);
 
 }
 
-
 // =======================
 // Accounts.onCreateUser()
 // =======================
@@ -333,14 +325,14 @@ Accounts.onCreateUser(function (options, user) {
   // Assigns first and last names to the newly created user object
   user.profile.firstName = options.firstName;
   user.profile.lastName = options.lastName;
-  console.log(user.services.facebook);
+  user.registered_phones = [];
 
-  //Checking what is the service the user connected, and defining the informations about the profile
+  // //Checking what is the service the user connected, and defining the informations about the profile
   if (user.services.facebook) {
     user.profile.image = 'http://graph.facebook.com/' + user.services.facebook.id + '/picture?type=square&height=80&width=80';
     user.profile.name = user.services.facebook.name;
-    //user.profile.cover = 'http://graph.facebook.com/v2.5/' + user.services.facebook.id + '/cover';
-  } else if (user.services.twitter) {
+    user.profile.cover = 'https://graph.facebook.com/v2.8/me?fields=cover{source}&access_token=' + user.services.facebook.accessToken;
+  } else {
 
   }
 
