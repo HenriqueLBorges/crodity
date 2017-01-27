@@ -14,8 +14,8 @@ class MainLayout extends Component {
         Meteor.call('getUserRegisteredPhones', function (error2, result2) {
           // console.log(result2);
           // console.log("teste");
-          // console.log(result.length);
-          // console.log(result2.length);
+          //  console.log("result "+result.length);
+          //  console.log("result2" + result2.length);
           //If the user has no email or cellphone registered then the page 
           //RegisterConfirmation is show
           if (result.length == 0 || result2.length == 0) {
@@ -24,16 +24,6 @@ class MainLayout extends Component {
         });
       });
     }
-
-
-
-    Meteor.call('getUserRegisteredPhones', function (error2, result2) {
-      if (result.length == 0 && result2.lenght == 0) {
-        self.router.push('/RegisterConfirmation');
-      }
-    });
-
-    //self.props.router.push('/RegisterConfirmation');
   }
 
   render() {

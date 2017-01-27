@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 
-export default class App extends Component {
+class RegisterConfirmation extends Component {
 
 	EmailField() {
 		return (
@@ -28,23 +29,32 @@ export default class App extends Component {
 	}
 
 	handleSubmitEmail() {
+				let self = this;
+		this.props.router.push('/');
 		Meteor.call('addRegisteredEmail', this.refs.email.value, function (e, r) {
 			console.log(r);
+					self.props.router.push('/');
 		});
 	}
 
-	handleSubmitPhone() {
+	handleSubmitPhone(event) {
+		event.preventDefault();
+		let self = this;
+		//this.props.router.push('/');
 		Meteor.call('addRegisteredPhone', this.refs.phone.value, function (e, r) {
 			console.log(r);
+			self.props.router.push('/');
 		});
 	}
 
-	handleSubmitEmailAndPhone(){
+	handleSubmitEmailAndPhone() {
+		let self = this;
 		Meteor.call('addRegisteredEmail', this.refs.email.value, function (e, r) {
 			console.log(r);
 		});
 		Meteor.call('addRegisteredPhone', this.refs.phone.value, function (e, r) {
 			console.log(r);
+			this.props.router.push('/');
 		});
 	}
 
@@ -93,3 +103,5 @@ export default class App extends Component {
 		}
 	}
 }
+
+export default withRouter(RegisterConfirmation);

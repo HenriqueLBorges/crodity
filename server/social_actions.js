@@ -8,12 +8,24 @@ Meteor.methods({
     // Post actions methods
     // ==========================================
 
-    'likeFacebook': function () {
+    'commentFacebook': function (postId, comment) {
 
         let user = Meteor.users.findOne(this.userId);
 
         HTTP.post(
-
+            'https://graph.facebook.com/' + postId + '/comments/?message=' + comment,
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + user.services.facebook.accessToken
+                }
+            },
+            function (error, response) {
+                if(error){
+                    console.log(error);
+                }
+                console.log(response);
+            }
         );
+
     },
 });

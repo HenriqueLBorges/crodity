@@ -4,7 +4,6 @@ import FeedUnit from './FeedUnit.jsx';
 const Feed = ({feed}) => {
 
 	return (
-
 		<div className="feed">
 			<div className="padded-full">
 			{feed.map((feedUnitData,i) => (
