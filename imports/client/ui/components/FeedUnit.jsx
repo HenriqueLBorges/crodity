@@ -26,6 +26,7 @@ class FeedUnit extends Component {
 
     if (!(typeof data === 'undefined')) {
       console.log(data.comments);
+      console.log(data.user.cover);
       return (
         <div className="row">
           <div className="col s12 m7">

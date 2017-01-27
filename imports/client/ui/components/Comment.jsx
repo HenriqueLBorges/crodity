@@ -36,7 +36,7 @@ class Comment extends Component {
    
 
   render() {
-
+    console.log(this.props.comment); 
 
 
     return (

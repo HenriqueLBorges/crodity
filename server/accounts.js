@@ -63,7 +63,7 @@ Meteor.methods({
       }
       else {
         future["return"](convertTwitterFeedToGlobal(data));
-            }
+      }
     });
 
     return future.wait();
@@ -80,15 +80,19 @@ Meteor.methods({
 
       // Facebook Graph API Call
       HTTP.get(
-        'https://graph.facebook.com/v2.5/me/feed?fields=id,from,story,message,message_tags,place,shares,source,to,link,comments,attachments{media},created_time,description,likes,sharedposts&limit=25',
+        'https://graph.facebook.com/v2.8/me?fields=id,name,cover,feed.limit(25){id,story,message,message_tags,place,shares,source,to,link,comments,attachments,created_time,description,likes,sharedposts,name,from}',
         {
+          
           headers: {
             'Authorization': 'Bearer ' + user.services.facebook.accessToken
           }
         },
         function (error, response) {
+         // console.log(response + error);
           if (!error) {
-            future["return"](convertFacebookFeedToGlobal(response.data.data));
+            // console.log(response.content);
+            future["return"](convertFacebookFeedToGlobal(response.data));
+             
           }
         }
       );
@@ -101,6 +105,49 @@ Meteor.methods({
       return [];
     }
   },
+
+  //Getting user profile of Facebook  
+  'getFacebookProfile': function (accessToken) {
+
+    // Sets future and user
+    let future = new Future();
+    let user = Meteor.users.findOne(this.userId);
+
+    // Checks if the user has the facebook accessToken
+    if (accessToken) {
+      console.log('TESTE TO NO FACEBOOK');
+      // Facebook Graph API Call
+      HTTP.get(
+        'https://graph.facebook.com/v2.8/me?fields=id,name,about,cover,first_name,last_name,email,birthday,gender,locale,timezone',
+        {
+          headers: {
+            'Authorization': 'Bearer ' + accessToken
+          }
+        },
+        //console.log('TESTE');
+        function (error, response) {
+          
+          if (!error) {
+            // console.log(response+ 'RESPONSE');
+            // console.log(response.data + ' DATA RESPONSE ');
+             console.log('TESTANDO O IF');
+             console.log(response);
+            future["return"](convertFacebookProfileToGlobal(response.data));
+            
+          }
+        }
+      );
+
+      return future.wait();
+    }
+
+    // If the user does not have a facebook accessToken, returns an empty array
+    else {
+      return [];
+    }
+  },
+
+
 
   // ================
   // Accounts Methods
@@ -262,7 +309,12 @@ let convertFacebookFeedToGlobal = function (feed) {
   // Creates the global feed array
   globalFeed = new Array();
 
+  let data = feed; 
+
+  feed = feed.feed.data; 
+
   let feed_unit_image;
+  //console.log(feed);
   for (let i = 0; i < feed.length; i++) {
 
     //Defining the image of each post
@@ -290,6 +342,7 @@ let convertFacebookFeedToGlobal = function (feed) {
     }
 
     // Created the globalFeed[i] object
+    //console.log(feed);
     globalFeed[i] = {
       title: (feed[i].story ? feed[i].story : feed[i].from.name),
       service: 'facebook',
@@ -323,6 +376,39 @@ let convertFacebookFeedToGlobal = function (feed) {
 
 }
 
+let convertFacebookProfileToGlobal = function (profile) {
+
+
+  // Creates the global profile array
+  globalProfile = new Array();
+
+  // Created the globalFeed[i] object
+  globalProfile = {
+    service: 'facebook',
+    midia:{
+      profile: 'http://graph.facebook.com/' + profile.id + '/picture?type=square&height=80&width=80', 
+      cover: profile.cover.source
+    },
+
+    user: {
+      first_name: profile.first_name,
+      last_name: profile.last_name,
+      service_id: profile.id,
+      gender: profile.gender,
+      locale: profile.locale,
+      timezone: profile.timezone,
+      birthday: profile.birthday,
+      email: profile.email
+    }
+  }
+  return globalProfile;
+}
+
+
+
+
+
+
 
 // =======================
 // Accounts.onCreateUser()
@@ -335,12 +421,19 @@ Accounts.onCreateUser(function (options, user) {
   // Assigns first and last names to the newly created user object
   user.profile.firstName = options.firstName;
   user.profile.lastName = options.lastName;
-  console.log(user.services.facebook);
+  //console.log(user.services.facebook);
+  profileData = Meteor.call('getFacebookProfile', user.services.facebook.accessToken);
 
   // //Checking what is the service the user connected, and defining the informations about the profile
   if (user.services.facebook) {
-    user.profile.image = 'http://graph.facebook.com/' + user.services.facebook.id + '/picture?type=square&height=80&width=80';
-    user.profile.name = user.services.facebook.name;
+    user.profile.firstName = profileData.user.first_name;
+    user.profile.lastName = profileData.user.last_name;
+    user.profile.gender = profileData.user.gender;
+    user.profile.birthday = profileData.user.birthday;
+    user.profile.timezone = profileData.user.timezone;
+    user.profile.firstName = profileData.user.first_name;
+    user.profile.image  = profileData.midia.profile;
+    user.profile.cover = profileData.midia.cover;
   } else if (user.services.twitter) {
 
   }
