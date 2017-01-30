@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-
 import { Meteor } from 'meteor/meteor';
-
 import { Helpers } from '../helpers/Helpers.jsx';
-import LogoutButton from './LogoutButton.jsx';
 
 import LogoutButton from './LogoutButton.jsx';
-
+  
 class Drawer extends Component {
 
     componentDidMount() {
