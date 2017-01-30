@@ -45,6 +45,45 @@ Meteor.methods({
     return future.wait();
   },
 
+
+'getInstagramFeed': function () {
+       // Sets future and user
+    let future = new Future();
+    let user = Meteor.users.findOne(this.userId);
+
+    // Checks if the user has the facebook accessToken
+    if (user.services.instagram.accessToken) {
+      console.log(user.services.instagram.bio); 
+      // Facebook Graph API Call
+      // HTTP.get(
+      //  // 'https://graph.facebook.com/v2.8/me?fields=id,name,cover,feed.limit(25){id,story,message,message_tags,place,shares,source,to,link,comments,attachments,created_time,description,likes,sharedposts,name,from}',
+      //   {
+          
+      //     headers: {
+      //       'Authorization': 'Bearer ' + user.services.facebook.accessToken
+      //     }
+      //   },
+      //   function (error, response) {
+      //    // console.log(response + error);
+      //     if (!error) {
+      //       // console.log(response.content);
+      //       future["return"](convertFacebookFeedToGlobal(response.data));
+             
+      //     }
+      //   }
+      // );
+
+      // return future.wait();
+    }
+
+    // If the user does not have a facebook accessToken, returns an empty array
+    // else {
+    //   return [];
+    // }
+  },
+
+
+
   'getTwitterProfileFeed': function () {
     let future = new Future();
     let user = Meteor.users.findOne(this.userId);
@@ -114,7 +153,7 @@ Meteor.methods({
     let user = Meteor.users.findOne(this.userId);
 
     // Checks if the user has the facebook accessToken
-    if (accessToken) {
+    if (accessToken || user.services.facebook.accessToken) {
       console.log('TESTE TO NO FACEBOOK');
       // Facebook Graph API Call
       HTTP.get(
@@ -401,6 +440,7 @@ let convertFacebookProfileToGlobal = function (profile) {
       email: profile.email
     }
   }
+  console.log(globalProfile); 
   return globalProfile;
 }
 
