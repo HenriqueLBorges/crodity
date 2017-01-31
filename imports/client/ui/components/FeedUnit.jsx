@@ -9,14 +9,6 @@ export default class FeedUnit extends React.Component {
     this.state = { open: true };
   }
 
-  // handleToggle() {
-  //   this.setState({ open: !this.state.open });
-  // }
-
-  // handleClose() {
-  //   this.setState({ open: false });
-  // }
-
   toComment(id) {
     Meteor.call('commentFacebook', id, this.refs.comment.value, function (e, r) {
       if (e)
@@ -24,14 +16,16 @@ export default class FeedUnit extends React.Component {
     });
   }
 
-  // let contentType = {
-  //     comments: data.comments,
-  //     commentsFrom: data.comments.
-  // }
+  toLike(id) {
+    Meteor.call('likeCrodity', id, "felipe", "like", function (e, r) {
+      if (e)
+        console.log(e);
+    });
+  }
 
   render() {
     let data = this.props.data;
-    //console.log(data.id);
+    console.log(data);
 
     //Formatting the date
     formattedDate = moment(data.created).calendar();
@@ -43,32 +37,34 @@ export default class FeedUnit extends React.Component {
 
               <div className="card-content">
                 <div className="row">
-                  <div className="col s2"><img src={data.user.image} className="responsive-img" width="50" /></div>
-                  <div className="feedUnitTittle col s8">
-                    <p>{data.title} <i className="fa fa-map-marker" aria-hidden="true"></i>{" - Localization - "}</p>
+                  <div className="col s1"><img src={data.user.image} className="responsive-img" width="50" /></div>
+                  <div className="feedUnitTittle col s10">
+                    <p>{data.title} {Helpers.get(data, 'location') ? <div><i className="fa fa-map-marker" aria-hidden="true"> </i>{Helpers.get(data, 'location.name')}</div> : ""}</p>
                     <p className="feedUnitDate">{formattedDate}</p>
                   </div>
-                  <div className="feedUnitService col s2">{Helpers.socialIcon(data.service, 2)}</div>
+                  <div className="feedUnitService col s1">{Helpers.socialIcon(data.service, 2)}</div>
                 </div>
                 <p>{data.content}</p>
-              </div>
-
-              <div className="card-image">
-                <img src={Helpers.get(data, 'post_image')} />
-                <div className="row">
-                  <i className="fa fa-heart fa-lg reactionIcon" aria-hidden="true">{Helpers.get(data, 'likes.data.length')}</i>
-                  <i className="fa fa-comments fa-lg reactionIcon" aria-hidden="true">{Helpers.get(data, 'comments.data.length')}</i>
-                  <i className="fa fa-share-square-o fa-lg reactionIcon" aria-hidden="true">{Helpers.get(data, 'shares.data.length')}</i>
+                <div className="card-image">
+                  <img src={Helpers.get(data, 'post_image')} />
+                  <div className="row">
+                    <i className="fa fa-heart reactionIcon" aria-hidden="true"></i>{" " + Helpers.get(data, 'likes.data.length') + " people"}
+                    <i className="fa fa-comments reactionIcon" aria-hidden="true"></i>{" "+Helpers.get(data, 'comments.length')}
+                    <i className="fa fa-share-square-o reactionIcon" aria-hidden="true"></i>{Helpers.get(data, 'shares.data.length')}
+                  </div>
                 </div>
-              </div>
-
-              <div className="card-action">
-                <a href="#" onClick="">Likes</a>
-                <div><CommentList comments={data.comments} /></div>
-                <a href="#">Comment</a>
-                <textarea ref="comment" placeholder="Responder" id="comment" className="materialize-textarea"></textarea>
-                <button onClick={this.toComment.bind(this, data.id)}>Enviar</button>
-                <a href="#">Share</a>
+                <div className="card-action">
+                  <i className="fa fa-thumbs-o-up grey-text" aria-hidden="true"></i>
+                  <a onClick={this.toLike.bind(this, data.id)}> Like</a>
+                  <i className="fa fa-comments-o grey-text" aria-hidden="true"></i>
+                  <a > Comment</a>
+                  <i className="fa fa-share grey-text" aria-hidden="true"></i>
+                  <a > Share</a>
+                  <div><CommentList comments={data.comments} /></div>
+                  <form onSubmit={this.toComment.bind(this, data.id)}>
+                    <input type="text" ref="comment" placeholder="Comentar" id="comment" className="materialize-textarea" />
+                  </form>
+                </div>
               </div>
             </div>
           </div>

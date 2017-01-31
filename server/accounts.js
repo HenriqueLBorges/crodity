@@ -143,6 +143,7 @@ Accounts.onCreateUser(function (options, user) {
     user.profile.image = 'http://graph.facebook.com/' + user.services.facebook.id + '/picture?type=square&height=80&width=80';
     user.profile.name = user.services.facebook.name;
     user.profile.cover = 'https://graph.facebook.com/v2.8/me?fields=cover{source}&access_token=' + user.services.facebook.accessToken;
+
   } else {
 
   }

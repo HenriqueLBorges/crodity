@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import Twit from 'twit';
 import Future from 'fibers/future';
-import '../imports/api/posts.js';
+import { Posts } from '../imports/api/posts.js';
 
 Meteor.methods({
 
@@ -73,7 +73,7 @@ Meteor.methods({
 
       // Facebook Graph API Call
       HTTP.get(
-        'https://graph.facebook.com/v2.8/me/feed?fields=id,from,story,message,message_tags,place,shares,source,to,link,comments,attachments{media},created_time,description,likes,sharedposts&limit=2',
+        'https://graph.facebook.com/v2.8/me/feed?fields=id,from,story,message,message_tags,place,shares,source,to,link,comments,attachments{media},created_time,description,likes,sharedposts&limit=25',
         {
           headers: {
             'Authorization': 'Bearer ' + user.services.facebook.accessToken
@@ -131,6 +131,31 @@ let convertTwitterFeedToGlobal = function (feed) {
         image: feed[i].user.profile_image_url
       }
     }
+    //Saving Twitter feed on data base
+    if (Posts.findOne({ id: globalFeed[i].id })) {
+      console.log("true");
+
+    } else {
+      Posts.insert({
+        //_id: ObjectId(feed[i].id),
+        title: feed[i].user.name + ' @' + feed[i].user.screen_name,
+        service: 'twitter',
+        created: new Date(feed[i].created_at),
+        content: feed[i].text,
+        likes: Math.max(feed[i].retweeted_status.favorite_count, feed[i].quoted_status.favorite_count, feed[i].favorite_count),
+        shares: feed[i].retweet_count,
+        comments: false,
+        media: false,
+        location: feed[i].geo,
+        user: {
+          name: feed[i].user.name,
+          screen_name: feed[i].user.screen_name,
+          image: feed[i].user.profile_image_url
+        }
+      });
+      console.log("false");
+    }
+    
   }
 
   return globalFeed;
@@ -197,8 +222,35 @@ let convertFacebookFeedToGlobal = function (feed) {
         geo: feed[i].place.location
       };
     }
+
+    //Creating a global feed on Database
+    if (Posts.findOne({ id: globalFeed[i].id })) {
+      console.log("true");
+
+    } else {
+      Posts.insert({
+        //_id: ObjectId(feed[i].id),
+        id: feed[i].id,
+        title: (feed[i].story ? feed[i].story : feed[i].from.name),
+        service: 'facebook',
+        created: new Date(feed[i].created_time),
+        content: (feed[i].message ? feed[i].message : feed[i].description),
+        likes: feed[i].likes,
+        crodity_reactions:[],
+        shares: feed[i].shares,
+        comments: comments,
+        media: false,
+        post_image: feed_unit_image,
+        attachments: feed[i].attachments,
+        user: {
+          name: feed[i].from.name,
+          screen_name: false,
+          service_id: feed[i].from.id,
+          image: 'http://graph.facebook.com/v2.8/' + feed[i].from.id + '/picture?width=100&height=100',
+        }
+      });
+      console.log("false");
+    }
   }
-
   return globalFeed;
-
 }

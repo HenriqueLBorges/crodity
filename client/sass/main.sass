@@ -20,12 +20,40 @@ $colorCrodity: #ffca43
         background: $colorCrodity
         cursor: 'pointer'
         color: '#000'
+        line-height: 42px
+
+    .card .card-action a 
+        color: gray
+        margin-right: 20px
+        -webkit-transition: color .3s ease
+        -moz-transition: color .3s ease
+        -o-transition: color .3s ease
+        -ms-transition: color .3s ease
+        transition: color .3s ease
+        cursor: pointer
+        text-transform: none
+
+    input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly])
+        border-bottom: 1px solid yellow
+        box-shadow: 0 1px 0 0 yellow
 
     .waves-effect.waves-crodityColor
         background-color: $colorCrodity
 
-    .card
-        padding: 20px
+    .card .card-content 
+        padding: 12px
+        border-radius: 0 0 2px 2px
+
+    .card .card-action 
+        border-top: 1px solid rgba(160, 160, 160, 0.2)
+        padding: 0px
+
+    .row .col 
+        float: left
+        -webkit-box-sizing: border-box
+        -moz-box-sizing: border-box
+        box-sizing: border-box
+        padding: 0 0.2rem
 
     .email-field-component
         padding-left: 20px

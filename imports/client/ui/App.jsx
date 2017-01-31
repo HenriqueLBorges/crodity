@@ -14,7 +14,6 @@ import Comment from './components/Comment.jsx';
 class App extends Component {
 
   render() {
-    console.log(this.props.currentUser);
     /*
     - We need to return the result of the render, a variable or something like this
     - Using </> we can return the result of the variable (or const) used
