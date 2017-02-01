@@ -69,6 +69,7 @@ ServiceConfiguration.configurations.insert({
 // Instagram (Development)
 ServiceConfiguration.configurations.insert({
 	service: 'instagram',
+  	scope: ['basic', 'follower_list' , 'likes' , 'public_content' ,'relationships', 'comments'],
 	clientId: '82ab52816ae14e49ac6eca4c1986c7d3',
 	secret: '83547966969c45f1a56a7c4e54d0d1a7'
 });

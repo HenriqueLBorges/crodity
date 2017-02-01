@@ -266,6 +266,8 @@ class Helpers {
 
 			case 'twitter':
 				return <i className={"blue-text fa fa-twitter-square fa-" + size + "x"} aria-hidden="true"></i>;
+			case 'instagram': 
+				return <i className={"black-text fa fa-instagram fa-" + size + "x" } aria-hidden="true"></i>
 		}
 	};
 

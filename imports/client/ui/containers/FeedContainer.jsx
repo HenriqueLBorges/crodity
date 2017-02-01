@@ -11,11 +11,12 @@ import CommentList from '../components/CommentList.jsx';
   FeedSorter
   Sorts the feeds from the various social networks in chronological order
 */
-const FeedSorter = ({facebookFeed,twitterFeed}) => {
+const FeedSorter = ({facebookFeed,twitterFeed, instagramFeed}) => {
 
 	let feed = []
 		.concat(facebookFeed)
 		.concat(twitterFeed)
+		.concat(instagramFeed)
 		.sort(function(a,b) {return (a.created < b.created) ? 1 : ((b.created < a.created) ? -1 : 0);} );
 
 	return(
@@ -34,7 +35,8 @@ class FeedContainer extends Component {
 		// Set the social network feeds as new state arrays
 		this.state = {
 			facebookFeed: new Array(),
-			twitterFeed: new Array()
+			twitterFeed: new Array(),
+			instagramFeed: new Array(), 
 		};
 	}
 
@@ -79,6 +81,7 @@ class FeedContainer extends Component {
 	getAllFeeds() {
 		this.getFeed('facebook');
 		this.getFeed('twitter');
+		this.getFeed('instagram');
 
 		let self = this;
 		let timeout = (Meteor.user()?60000:500);
@@ -109,7 +112,8 @@ class FeedContainer extends Component {
 		if(this.state.facebookFeed.length > 0 || this.state.twitterFeed.length > 0) {
 			return(
 				<FeedSorter facebookFeed={this.state.facebookFeed} 
-				twitterFeed={this.state.twitterFeed} />
+				twitterFeed={this.state.twitterFeed}
+				instagramFeed={this.state.instagramFeed} />
 			);
 		}
 		else {

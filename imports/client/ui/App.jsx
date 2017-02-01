@@ -10,6 +10,7 @@ import Register from './components/Register.jsx'
 import RegisterConfirmation from './components/RegisterConfirmation';
 import AccountsLogin from './components/AccountsLogin.jsx';
 import Comment from './components/Comment.jsx';
+import Profile from './components/Profile.jsx'; 
 
 class App extends Component {
     
@@ -31,9 +32,10 @@ class App extends Component {
                     
                         <Route path='/' component={MainLayout} currentUser={this.props.loading ? false : this.props.currentUser}>
                             <IndexRoute component={FeedContainer} feedType='profile' />
-                            <Route path='RegisterConfirmation' component={RegisterConfirmation} />
+                            <Route path='RegisterConfirmation' component={RegisterConfirmation} />                            
                         </Route>
-                             <Route path='/comment' component={Comment} />
+                            <Route path='/profile' component={Profile} />
+
                     </Router>
                 );
             }
