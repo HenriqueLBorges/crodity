@@ -30,8 +30,6 @@ class Drawer extends Component {
 
     render() {
 
-        //Principal method of return by the drawer
-
         return (
 
             <ul id="slide-out" className="side-nav fixed">

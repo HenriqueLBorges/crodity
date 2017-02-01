@@ -11,7 +11,6 @@ class Comment extends Component {
   }
 
   componentDidMount() {
-
     $('#comment').trigger('autoresize');
     $('.collapsible').collapsible({
       accordion: false, // A setting that changes the collapsible behavior to expandable instead of the default accordion style
@@ -19,9 +18,7 @@ class Comment extends Component {
       onClose: function (el) { alert('Closed'); } // Callback for Collapsible close
     }
     );
-
   }
-
 
   handleToggle() {
     this.setState({ open: !this.state.open });
@@ -29,15 +26,9 @@ class Comment extends Component {
 
   handleClose() {
     this.setState({ open: false });
-  
+
   }
-
-
-   
-
   render() {
-    console.log(this.props.comment); 
-
 
     return (
       <ul className="collection">
