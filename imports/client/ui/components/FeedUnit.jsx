@@ -25,8 +25,6 @@ class FeedUnit extends Component {
 
 
     if (!(typeof data === 'undefined')) {
-      console.log(data.comments);
-      console.log(data.user.cover);
       return (
         <div className="row">
           <div className="col s12 m7">
@@ -46,7 +44,7 @@ class FeedUnit extends Component {
               <div className="card-image">
                 <img src={Helpers.get(data, 'post_image')} />
                 <div className="row">
-                  <i className="fa fa-heart fa-lg reactionIcon" aria-hidden="true">{Helpers.get(data, 'likes.data.length')}</i>
+                  <i className="fa fa-heart fa-lg reactionIcon" aria-hidden="true">{Helpers.get(data, 'likes')}</i>
                   <i className="fa fa-comments fa-lg reactionIcon" aria-hidden="true">{Helpers.get(data, 'comments.data.length')}</i>
                   <i className="fa fa-share-square-o fa-lg reactionIcon" aria-hidden="true">{Helpers.get(data, 'shares.data.length')}</i>
                 </div>
@@ -54,21 +52,9 @@ class FeedUnit extends Component {
 
               <div className="card-action">
                 <a href="#">Likes</a>
-
-                <button data-target="modal1" className="btn modal-trigger">Modal</button>
-                <div id="modal1" className="modal modal-fixed-footer">
-                  <div className="modal-content">
-                    <h4>Modal Header</h4>
-                    <p>A bunch of text</p>
-                  </div>
-                  <div className="modal-footer">
-                    <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
-                  </div>
-                </div>
-
-                <div><CommentList comments={data.comments} /></div>
                 <a href="#">Comment</a>
                 <a href="#">Share</a>
+                <div></div>
               </div>
             </div>
           </div>

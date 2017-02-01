@@ -46,40 +46,41 @@ Meteor.methods({
   },
 
 
-'getInstagramFeed': function () {
-       // Sets future and user
+  'getInstagramProfileFeed': function () {
+    // Sets future and user
     let future = new Future();
     let user = Meteor.users.findOne(this.userId);
 
     // Checks if the user has the facebook accessToken
     if (user.services.instagram.accessToken) {
-      console.log(user.services.instagram.bio); 
+      console.log(user.services.instagram);
       // Facebook Graph API Call
-      // HTTP.get(
-      //  // 'https://graph.facebook.com/v2.8/me?fields=id,name,cover,feed.limit(25){id,story,message,message_tags,place,shares,source,to,link,comments,attachments,created_time,description,likes,sharedposts,name,from}',
-      //   {
-          
-      //     headers: {
-      //       'Authorization': 'Bearer ' + user.services.facebook.accessToken
-      //     }
-      //   },
-      //   function (error, response) {
-      //    // console.log(response + error);
-      //     if (!error) {
-      //       // console.log(response.content);
-      //       future["return"](convertFacebookFeedToGlobal(response.data));
-             
-      //     }
-      //   }
-      // );
+      HTTP.get(
+        'https://api.instagram.com/v1/users/self/media/recent/?access_token=' + user.services.instagram.accessToken,
+        {
 
-      // return future.wait();
+          headers: {
+            'Authorization': 'Bearer ' + user.services.instagram.accessToken
+          }
+        },
+        function (error, response) {
+          console.log(error);
+          if (!error) {
+            console.log('OI CONVERTI OS DADOS');
+            //console.log(response.data.data.type);
+            future["return"](convertInstagramFeedToGlobal(response.data.data));
+
+          }
+        }
+      );
+
+      return future.wait();
     }
 
     // If the user does not have a facebook accessToken, returns an empty array
-    // else {
-    //   return [];
-    // }
+    else {
+      return [];
+    }
   },
 
 
@@ -119,19 +120,19 @@ Meteor.methods({
 
       // Facebook Graph API Call
       HTTP.get(
-        'https://graph.facebook.com/v2.8/me?fields=id,name,cover,feed.limit(25){id,story,message,message_tags,place,shares,source,to,link,comments,attachments,created_time,description,likes,sharedposts,name,from}',
+        'https://graph.facebook.com/v2.8/me?fields=id,name,cover,feed.limit(25){id,story,message,message_tags,place,shares,source,to,link,comments,attachments,created_time,description,likes,sharedposts,name,from,reactions}',
         {
-          
+
           headers: {
             'Authorization': 'Bearer ' + user.services.facebook.accessToken
           }
         },
         function (error, response) {
-         // console.log(response + error);
+          // console.log(response + error);
           if (!error) {
             // console.log(response.content);
             future["return"](convertFacebookFeedToGlobal(response.data));
-             
+
           }
         }
       );
@@ -165,14 +166,14 @@ Meteor.methods({
         },
         //console.log('TESTE');
         function (error, response) {
-          
+
           if (!error) {
             // console.log(response+ 'RESPONSE');
             // console.log(response.data + ' DATA RESPONSE ');
-             console.log('TESTANDO O IF');
-             console.log(response);
+            console.log('TESTANDO O IF');
+            console.log(response);
             future["return"](convertFacebookProfileToGlobal(response.data));
-            
+
           }
         }
       );
@@ -348,23 +349,26 @@ let convertFacebookFeedToGlobal = function (feed) {
   // Creates the global feed array
   globalFeed = new Array();
 
-  let data = feed; 
+  let data = feed;
 
-  feed = feed.feed.data; 
+  feed = feed.feed.data;
 
   let feed_unit_image;
+  let likespost;
   //console.log(feed);
   for (let i = 0; i < feed.length; i++) {
 
     //Defining the image of each post
     try {
+      likespost = feed[i].reactions.data.length;
       //console.log(data.attachments.data[0].media.image.src);
       feed_unit_image = feed[i].attachments.data[0].media.image.src;
     }
     catch (err) {
       //console.log('undefined');
       feed_unit_image = "";
-    }
+      likespost='';
+       }
 
     let comments = [];
     if (typeof feed[i].comments !== 'undefined' && typeof feed[i].comments !== 'undefined') {
@@ -380,14 +384,15 @@ let convertFacebookFeedToGlobal = function (feed) {
       });
     }
 
+    
+    console.log(likespost);
     // Created the globalFeed[i] object
-    //console.log(feed);
     globalFeed[i] = {
       title: (feed[i].story ? feed[i].story : feed[i].from.name),
       service: 'facebook',
       created: new Date(feed[i].created_time),
       content: (feed[i].message ? feed[i].message : feed[i].description),
-      likes: feed[i].likes,
+      likes: likespost,
       shares: feed[i].shares,
       comments: comments,
       media: false,
@@ -415,6 +420,59 @@ let convertFacebookFeedToGlobal = function (feed) {
 
 }
 
+
+let convertInstagramFeedToGlobal = function (feed) {
+
+  
+
+
+  // Creates the global feed array
+  globalFeed = new Array();
+
+  let textDescription;
+  //  console.log(feed.type);
+  for (let i = 0; i < feed.length; i++) {
+
+
+    try {
+      //console.log(data.attachments.data[0].media.image.src);
+      textDescription = feed[i].caption.text + ' - ' + feed[i].caption.from.username;
+    }
+    catch (err) {
+      //console.log('undefined');
+      textDescription = feed[i].user.username;
+    }
+
+    globalFeed[i] = {
+      atribution: feed[i].atribution,
+      title: textDescription,
+      content: textDescription,
+      service: 'instagram',
+      created: new Date(feed[i].created_time * 1000),
+      post_image: feed[i].images.standard_resolution.url,
+      likes: feed[i].likes.count,
+      comments: feed[i].comments,
+      media: false,
+      filter: feed[i].filter,
+      id: feed[i].id,
+      type: feed[i].type,
+      tags: feed[i].tags,
+      location: feed[i].location,
+      user: {
+        image: feed[i].user.profile_picture,
+      }
+    }
+
+   
+  }
+
+  //console.log('ESSE AQUI TA NO GLOBALFEED')
+  //console.log(globalFeed); 
+
+  return globalFeed;
+
+}
+
 let convertFacebookProfileToGlobal = function (profile) {
 
 
@@ -424,8 +482,8 @@ let convertFacebookProfileToGlobal = function (profile) {
   // Created the globalFeed[i] object
   globalProfile = {
     service: 'facebook',
-    midia:{
-      profile: 'http://graph.facebook.com/' + profile.id + '/picture?type=square&height=80&width=80', 
+    midia: {
+      profile: 'http://graph.facebook.com/' + profile.id + '/picture?type=square&height=80&width=80',
       cover: profile.cover.source
     },
 
@@ -440,7 +498,7 @@ let convertFacebookProfileToGlobal = function (profile) {
       email: profile.email
     }
   }
-  console.log(globalProfile); 
+  console.log(globalProfile);
   return globalProfile;
 }
 
@@ -472,7 +530,7 @@ Accounts.onCreateUser(function (options, user) {
     user.profile.birthday = profileData.user.birthday;
     user.profile.timezone = profileData.user.timezone;
     user.profile.firstName = profileData.user.first_name;
-    user.profile.image  = profileData.midia.profile;
+    user.profile.image = profileData.midia.profile;
     user.profile.cover = profileData.midia.cover;
   } else if (user.services.twitter) {
 

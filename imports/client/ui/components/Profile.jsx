@@ -27,9 +27,9 @@ class Profile extends Component {
         return (
             <div>
 
-                <div className="card">
+                <div className="card large">
                     <div className="card-image userView waves-effect waves-block waves-light">
-                        <img className="activator background responsive-img" src="img/testeImg.jpg" />
+                        <img className="background responsive-img" src="img/testeImg.jpg" />
                     </div>
                     <div className="card-content">
                         <div className="row valign-wrapper">

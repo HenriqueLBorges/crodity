@@ -53,7 +53,7 @@ class Drawer extends Component {
                     </button></li>
                 <li>
                     <button className="btn-flat btTwitter waves-effect waver-light" type="submit" name="action"
-                        onClick={this.loginWithInstagram.bind(this)}>Connect With Twitter
+                        onClick={this.loginWithInstagram.bind(this)}>Instagram
             <i className="fa fa-twitter-square left" aria-hidden="true"></i>
                     </button></li>
                 <li><a href="#!" className="logout-drawer"><LogoutButton /></a></li>
