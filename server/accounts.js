@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo'; 
+import { Mongo } from 'meteor/mongo';
 import { Accounts } from 'meteor/accounts-base';
 import Twit from 'twit';
 import Future from 'fibers/future';
@@ -29,21 +29,20 @@ Meteor.methods({
   - Method to add phones to account
   */
 
-  'addRegisteredPhones': function (phone) {
+  'addRegisteredPhone': function (phone) {
     // Get the logged user object
     let user = Meteor.users.findOne(this.userId);
 
     // Sets the initial state of the profile.phones array to
     // later be updated inside the user object
     let registered_phones = new Array();
-    if (typeof user.profile.phones !== 'undefined') {
-      registered_phones = user.profile.phones;
+    if (typeof user.registered_phones !== 'undefined') {
+      registered_phones = user.registered_phones;
     }
-
     // Checks if the profile.phones is unique
     let isUnique = true;
-    for (let i = 0; i < registered_emails.length; i++) {
-      if (registered_phones[i] == email) {
+    for (let i = 0; i < registered_phones.length; i++) {
+      if (registered_phones[i] == phones) {
         isUnique = false;
       }
     }
@@ -55,7 +54,8 @@ Meteor.methods({
         number: phone,
         verified: false
       });
-
+      console.log("AQUI");
+      console.log(registered_phones);
       // Updates the user in the database
       Meteor.users.update({ '_id': this.userId }, { $set: { registered_phones: registered_phones } });
     }
@@ -90,7 +90,6 @@ Meteor.methods({
     // Sets the initial state of the registered_emails array to
     // later be updated inside the user object
     let registered_emails = new Array();
-    console.log(typeof user.registered_emails);
     if (typeof user.registered_emails !== 'undefined') {
       registered_emails = user.registered_emails;
     }
@@ -115,6 +114,47 @@ Meteor.methods({
 
     // Updates the user in the database
     Meteor.users.update({ '_id': this.userId }, { $set: { registered_emails: registered_emails } });
+  },
+
+  //Getting user profile of Facebook  
+  'getFacebookProfile': function (accessToken) {
+
+    // Sets future and user
+    let future = new Future();
+    let user = Meteor.users.findOne(this.userId);
+
+    // Checks if the user has the facebook accessToken
+    if (accessToken || user.services.facebook.accessToken) {
+      console.log('TESTE TO NO FACEBOOK');
+      // Facebook Graph API Call
+      HTTP.get(
+        'https://graph.facebook.com/v2.8/me?fields=id,name,about,cover,first_name,last_name,email,birthday,gender,locale,timezone',
+        {
+          headers: {
+            'Authorization': 'Bearer ' + accessToken
+          }
+        },
+        //console.log('TESTE');
+        function (error, response) {
+
+          if (!error) {
+            // console.log(response+ 'RESPONSE');
+            // console.log(response.data + ' DATA RESPONSE ');
+            console.log('TESTANDO O IF');
+            console.log(response);
+            future["return"](convertFacebookProfileToGlobal(response.data));
+
+          }
+        }
+      );
+
+      return future.wait();
+    }
+
+    // If the user does not have a facebook accessToken, returns an empty array
+    else {
+      return [];
+    }
   }
 
 });
@@ -132,13 +172,13 @@ Accounts.onCreateUser(function (options, user) {
   user.profile.firstName = options.firstName;
   user.profile.lastName = options.lastName;
   user.registered_phones = [];
-  
+
 
   // //Checking what is the service the user connected, and defining the informations about the profile
-   if (user.services.facebook) {
+  if (user.services.facebook) {
 
     let profileData = Meteor.call('getFacebookProfile', user.services.facebook.accessToken);
-    
+
     user.profile.firstName = profileData.user.first_name;
     user.profile.lastName = profileData.user.last_name;
     user.profile.gender = profileData.user.gender;
@@ -154,6 +194,36 @@ Accounts.onCreateUser(function (options, user) {
   // Returns the user object
   return user;
 });
+
+let convertFacebookProfileToGlobal = function (profile) {
+
+
+  // Creates the global profile array
+  globalProfile = new Array();
+
+  // Created the globalFeed[i] object
+  globalProfile = {
+    service: 'facebook',
+    midia: {
+      profile: 'http://graph.facebook.com/' + profile.id + '/picture?type=square&height=80&width=80',
+      cover: profile.cover.source
+    },
+
+    user: {
+      first_name: profile.first_name,
+      last_name: profile.last_name,
+      service_id: profile.id,
+      gender: profile.gender,
+      locale: profile.locale,
+      timezone: profile.timezone,
+      birthday: profile.birthday,
+      email: profile.email
+    }
+  }
+  console.log(globalProfile);
+  return globalProfile;
+}
+
 
 
 

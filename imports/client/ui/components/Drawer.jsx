@@ -29,7 +29,7 @@ class Drawer extends Component {
     }
 
     render() {
-
+        console.log(this.props.currentUser);
         return (
 
             <ul id="slide-out" className="side-nav fixed">
@@ -37,22 +37,28 @@ class Drawer extends Component {
                     <div className="background">
                         <img className="responsive-img" src={Helpers.get(this.props, 'currentUser.profile.cover')} />
                     </div>
-                    <a href="#!user"><img className="circle" src={Helpers.get(this.props, 'currentUser.services.instagram.profile_picture')} /></a>
+                    <a href="#!user"><img className="circle" src={Helpers.get(this.props, 'currentUser.profile.image')} /></a>
                     <a href="#!name"><span className="white-text name">{Helpers.get(this.props, 'currentUser.profile.name')}</span></a>
                 </div>
                 </li>
-                <li><a href="#!"><i className="fa fa-cog fa2x" aria-hidden="true"></i> Painel de controle</a></li>
-                <li><div className="divider"></div></li>
                 <li>
-                    <button className="btn-flat btTwitter waves-effect waver-light" type="submit" name="action"
-                        onClick={this.loginWithTwitter.bind(this)}>Connect With Twitter
-            <i className="fa fa-twitter-square left" aria-hidden="true"></i>
-                    </button></li>
+                    <a href="#!"><i className="icon-drawer mdi-action-dashboard fa-2x" aria-hidden="true" ></i> Dashboard</a>
+                </li>
                 <li>
-                    <button className="btn-flat btTwitter waves-effect waver-light" type="submit" name="action"
-                        onClick={this.loginWithInstagram.bind(this)}>Instagram
-            <i className="fa fa-twitter-square left" aria-hidden="true"></i>
-                    </button></li>
+                    <div className="divider"></div>
+                </li>
+                <li>
+                    <a href="#!" onClick={this.loginWithTwitter.bind(this)}>
+                        <i className="icon-drawer blue-text fa fa-twitter-square fa-2x" aria-hidden="true"></i> Connect with Twitter
+                    </a>
+                </li>
+                <li>
+                    <a href="#!" onClick={this.loginWithInstagram.bind(this)}>
+                        <i className="icon-drawer fa fa-instagram fa-2x" aria-hidden="true"></i> Instagram
+                    </a></li>
+                <li>
+                    <div className="divider"></div>
+                </li>
                 <li><a href="#!" className="logout-drawer"><LogoutButton /></a></li>
             </ul>
         );

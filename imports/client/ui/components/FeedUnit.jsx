@@ -10,6 +10,7 @@ class FeedUnit extends Component {
   constructor(props) {
     super(props);
     this.state = { open: true };
+    this.toComment = this.toComment.bind(this);
   }
 
   componentDidMount() {
@@ -21,7 +22,9 @@ class FeedUnit extends Component {
 
   }
 
-  toComment(id) {
+  toComment(event, id) {
+    console.log( this);
+    event.preventDefault();
     Meteor.call('commentFacebook', id, this.refs.comment.value, function (e, r) {
       if (e)
         console.log(e);
@@ -52,7 +55,7 @@ class FeedUnit extends Component {
 
                   <div className="col s1"><img src={data.user.image} className="responsive-img" width="50" /></div>
                   <div className="feedUnitTittle col s10">
-                    <p>{data.title} {Helpers.get(data, 'location') ? <div><i className="fa fa-map-marker" aria-hidden="true"> </i>{Helpers.get(data, 'location.name')}</div> : ""}</p>
+                    <div>{data.title} {Helpers.get(data, 'location') ? <p><i className="fa fa-map-marker" aria-hidden="true"> </i>{Helpers.get(data, 'location.name')}</p> : ""}</div>
                     <p className="feedUnitDate">{formattedDate}</p>
                   </div>
                   <div className="feedUnitService col s1">{Helpers.socialIcon(data.service, 2)}</div>
@@ -62,7 +65,7 @@ class FeedUnit extends Component {
                   <img src={Helpers.get(data, 'post_image')} />
                   <div className="row">
                     <i className="fa fa-heart reactionIcon" aria-hidden="true"></i>{" " + Helpers.get(data, 'likes') + " people"}
-                    <i className="fa fa-comments reactionIcon" aria-hidden="true"></i>{" "+Helpers.get(data, 'comments.length')}
+                    <i className="fa fa-comments reactionIcon" aria-hidden="true"></i>{" " + Helpers.get(data, 'comments.length')}
                     <i className="fa fa-share-square-o reactionIcon" aria-hidden="true"></i>{Helpers.get(data, 'shares.data.length')}
                   </div>
                 </div>
@@ -74,7 +77,7 @@ class FeedUnit extends Component {
                   <i className="fa fa-share grey-text" aria-hidden="true"></i>
                   <a > Share</a>
                   <div><CommentList comments={data.comments} /></div>
-                  <form onSubmit={this.toComment.bind(this, data.id)}>
+                  <form onSubmit={this.toComment(event, data.id)}>
                     <input type="text" ref="comment" placeholder="Comentar" id="comment" className="materialize-textarea" />
                   </form>
                 </div>
