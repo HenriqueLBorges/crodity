@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
+import { Mongo } from 'meteor/mongo'; 
 import { Accounts } from 'meteor/accounts-base';
 import Twit from 'twit';
 import Future from 'fibers/future';
@@ -111,6 +111,7 @@ Meteor.methods({
         address: email,
         verified: true
       });
+    }
 
     // Updates the user in the database
     Meteor.users.update({ '_id': this.userId }, { $set: { registered_emails: registered_emails } });
@@ -131,10 +132,13 @@ Accounts.onCreateUser(function (options, user) {
   user.profile.firstName = options.firstName;
   user.profile.lastName = options.lastName;
   user.registered_phones = [];
-  profileData = Meteor.call('getFacebookProfile', user.services.facebook.accessToken);
+  
 
   // //Checking what is the service the user connected, and defining the informations about the profile
    if (user.services.facebook) {
+
+    let profileData = Meteor.call('getFacebookProfile', user.services.facebook.accessToken);
+    
     user.profile.firstName = profileData.user.first_name;
     user.profile.lastName = profileData.user.last_name;
     user.profile.gender = profileData.user.gender;

@@ -134,7 +134,7 @@ Meteor.methods({
     else {
       return [];
     }
-  }
+  },
 
     //Getting user profile of Facebook  
   'getFacebookProfile': function (accessToken) {
@@ -214,29 +214,13 @@ let convertTwitterFeedToGlobal = function (feed) {
       }
     }
     //Saving Twitter feed on data base
-    if (Posts.findOne({ id: globalFeed[i].id })) {
-      console.log("true");
+    // if (Posts.findOne({ id: globalFeed[i].id })) {
+    //   console.log("true");
 
-    } else {
-      Posts.insert({
-        //_id: ObjectId(feed[i].id),
-        title: feed[i].user.name + ' @' + feed[i].user.screen_name,
-        service: 'twitter',
-        created: new Date(feed[i].created_at),
-        content: feed[i].text,
-        likes: Math.max(feed[i].retweeted_status.favorite_count, feed[i].quoted_status.favorite_count, feed[i].favorite_count),
-        shares: feed[i].retweet_count,
-        comments: false,
-        media: false,
-        location: feed[i].geo,
-        user: {
-          name: feed[i].user.name,
-          screen_name: feed[i].user.screen_name,
-          image: feed[i].user.profile_image_url
-        }
-      });
-      console.log("false");
-    }
+    // } else {
+    //   Posts.insert(globalFeed[i]);
+    //   console.log("false");
+    // }
     
   }
 
