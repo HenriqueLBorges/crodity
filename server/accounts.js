@@ -115,6 +115,46 @@ Meteor.methods({
 
     // Updates the user in the database
     Meteor.users.update({ '_id': this.userId }, { $set: { registered_emails: registered_emails } });
+  }, 
+
+  'getFacebookProfile': function (accessToken) {
+
+    // Sets future and user
+    let future = new Future();
+    let user = Meteor.users.findOne(this.userId);
+
+    // Checks if the user has the facebook accessToken
+    if (accessToken || user.services.facebook.accessToken) {
+      console.log('TESTE TO NO FACEBOOK');
+      // Facebook Graph API Call
+      HTTP.get(
+        'https://graph.facebook.com/v2.8/me?fields=id,name,about,cover,first_name,last_name,email,birthday,gender,locale,timezone',
+        {
+          headers: {
+            'Authorization': 'Bearer ' + accessToken
+          }
+        },
+        //console.log('TESTE');
+        function (error, response) {
+
+          if (!error) {
+            // console.log(response+ 'RESPONSE');
+            // console.log(response.data + ' DATA RESPONSE ');
+            console.log('TESTANDO O IF');
+            console.log(response);
+            future["return"](convertFacebookProfileToGlobal(response.data));
+
+          }
+        }
+      );
+
+      return future.wait();
+    }
+
+    // If the user does not have a facebook accessToken, returns an empty array
+    else {
+      return [];
+    }
   }
 
 });
@@ -155,6 +195,34 @@ Accounts.onCreateUser(function (options, user) {
   return user;
 });
 
+
+let convertFacebookProfileToGlobal = function (profile) {
+
+
+  // Creates the global profile array
+  globalProfile = new Array();
+
+  // Created the globalFeed[i] object
+  globalProfile = {
+    service: 'facebook',
+    midia: {
+      profile: 'http://graph.facebook.com/' + profile.id + '/picture?type=square&height=80&width=80',
+      cover: profile.cover.source
+    },
+
+    user: {
+      first_name: profile.first_name,
+      last_name: profile.last_name,
+      service_id: profile.id,
+      gender: profile.gender,
+      locale: profile.locale,
+      timezone: profile.timezone,
+      birthday: profile.birthday,
+      email: profile.email
+    }
+  }
+  return globalProfile;
+}
 
 
 // ==========================================

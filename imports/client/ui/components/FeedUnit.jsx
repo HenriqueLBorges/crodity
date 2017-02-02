@@ -73,7 +73,8 @@ class FeedUnit extends Component {
                   <a > Comment</a>
                   <i className="fa fa-share grey-text" aria-hidden="true"></i>
                   <a > Share</a>
-                  <div><CommentList comments={data.comments} /></div>
+                  <div>{//<CommentList comments={data.comments} />}
+                  }</div>
                   <form onSubmit={this.toComment.bind(this, data.id)}>
                     <input type="text" ref="comment" placeholder="Comentar" id="comment" className="materialize-textarea" />
                   </form>

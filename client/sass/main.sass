@@ -11,7 +11,7 @@ $twitterBlue: #46d0fe
 $lightGray: #d3dddf
 $colorCrodity: #ffca43
 
-@media (min-width: 600px)
+@media (min-width: 100px)
 
     body
         background: #fff
@@ -53,7 +53,7 @@ $colorCrodity: #ffca43
         -webkit-box-sizing: border-box
         -moz-box-sizing: border-box
         box-sizing: border-box
-        padding: 0 0.2rem
+        padding: 0 0.75rem
 
     .email-field-component
         padding-left: 20px
@@ -111,3 +111,56 @@ $colorCrodity: #ffca43
 
     .btTwitter
         background-color: #1da1f2
+
+    .backgroundCard
+        position: absolute
+        overflow: hidden
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+        z-index: -1
+    
+    .headerPage .card-profile-image 
+        width: 110px 
+        position: absolute 
+        top: 190px 
+        z-index: 1 
+        left: 40px 
+        cursor: pointer 
+        margin: 0 
+
+    .headerPage .card-image
+        height: 250px
+    
+    .tabs
+        display: -webkit-box
+        display: -moz-box
+        display: -ms-flexbox
+        display: -webkit-flex
+        display: flex
+        position: relative
+        overflow-x: hidden
+        overflow-y: hidden
+        height: 48px
+        background-color: #fff
+        margin: 0 auto
+        width: 100%
+        white-space: nowrap
+
+    .tabs .tab a 
+        color: #00bcd4
+        display: block
+        width: 100%
+        height: 100%
+        text-overflow: ellipsis
+        overflow: hidden
+        -webkit-transition: color 0.28s ease
+        -moz-transition: color 0.28s ease
+        -o-transition: color 0.28s ease
+        -ms-transition: color 0.28s ease
+        transition: color 0.28s ease
+    
+    .profile-page-wall .tab-content
+        padding: 10px
+
