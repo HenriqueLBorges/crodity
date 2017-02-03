@@ -29,6 +29,7 @@ class RegisterConfirmation extends Component {
 	}
 
 	handleSubmitEmail() {
+		event.preventDefault();
 				let self = this;
 		this.props.router.push('/');
 		Meteor.call('addRegisteredEmail', this.refs.email.value, function (e, r) {
@@ -43,11 +44,13 @@ class RegisterConfirmation extends Component {
 		//this.props.router.push('/');
 		Meteor.call('addRegisteredPhone', this.refs.phone.value, function (e, r) {
 			console.log(r);
+			console.log(e);
 			self.props.router.push('/');
 		});
 	}
 
 	handleSubmitEmailAndPhone() {
+		event.preventDefault();
 		let self = this;
 		Meteor.call('addRegisteredEmail', this.refs.email.value, function (e, r) {
 			console.log(r);
@@ -65,7 +68,7 @@ class RegisterConfirmation extends Component {
 
 		if ((!this.props.route.currentUser.registered_emails.length) && (!this.props.route.currentUser.registered_phones.length)) {
 			return (
-				<form onSubmit={this.handleSubmitEmailAndPhone.bind(this)}>
+				<form onSubmit={this.handleSubmitEmailAndPhone.bind(this)} autocomplete="off">
 					<div className="email-field-component">
 						<p>Por favor, realize a confirmação de dados para continuar:</p>
 						{this.EmailField()}
@@ -78,7 +81,7 @@ class RegisterConfirmation extends Component {
 			);
 		} else if (!this.props.route.currentUser.registered_phones.length) {
 			return (
-				<form onSubmit={this.handleSubmitPhone.bind(this)} >
+				<form onSubmit={this.handleSubmitPhone.bind(this)} autocomplete="off">
 					<div className="email-field-component">
 						<p>Por favor, confirme seu telefone para continuar:</p>
 						{this.PhoneField()}
@@ -90,7 +93,7 @@ class RegisterConfirmation extends Component {
 			);
 		} else if (!this.props.route.currentUser.registered_emails.length) {
 			return (
-				<form onSubmit={this.handleSubmitEmail.bind(this)}>
+				<form onSubmit={this.handleSubmitEmail.bind(this)} autocomplete="off">
 					<div className="email-field-component">
 						<p>Por favor, confirme seu e-mail para continuar:</p>
 						{this.EmailField()}

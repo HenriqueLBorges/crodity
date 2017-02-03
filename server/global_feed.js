@@ -73,7 +73,7 @@ Meteor.methods({
 
       // Facebook Graph API Call
       HTTP.get(
-        'https://graph.facebook.com/v2.8/me?fields=id,name,cover,feed.limit(25){id,story,message,message_tags,place,shares,source,to,link,comments,attachments,created_time,description,likes,sharedposts,name,from,reactions}',
+        'https://graph.facebook.com/v2.8/me?fields=id,name,cover,feed.limit(2){id,story,message,message_tags,place,shares,source,to,link,comments,attachments,created_time,description,likes,sharedposts,name,from,reactions}',
         {
 
           headers: {
@@ -134,7 +134,9 @@ Meteor.methods({
     else {
       return [];
     }
-  }
+  },
+
+ 
 
 });
 
@@ -333,5 +335,5 @@ let convertInstagramFeedToGlobal = function (feed) {
 
   return globalFeed;
 
-}
 
+}

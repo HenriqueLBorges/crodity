@@ -212,7 +212,7 @@ class Register extends Component {
 
         <div className="container">
           <div className="row">
-            <form className="col s12" onSubmit={this.handleSubmit.bind(this)}>
+            <form className="col s12" onSubmit={this.handleSubmit.bind(this)} autocomplete="off">
               <div className="row">
                 <div className="input-field col s6">
                   <input ref="firstName" placeholder="First Name" id="first_name" type="text" className="validate" />
@@ -270,4 +270,4 @@ class Register extends Component {
   }
 }
 
-export default Register;length
+export default Register;
