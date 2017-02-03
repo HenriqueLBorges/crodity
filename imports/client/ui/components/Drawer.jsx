@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { Link } from 'react-router';
 import { Helpers } from '../helpers/Helpers.jsx';
 import LogoutButton from './LogoutButton.jsx';
 
@@ -37,8 +38,10 @@ class Drawer extends Component {
                     <div className="background">
                         <img className="responsive-img" src={Helpers.get(this.props, 'currentUser.profile.cover')} />
                     </div>
-                    <a href="#!user"><img className="circle" src={Helpers.get(this.props, 'currentUser.services.instagram.profile_picture')} /></a>
-                    <a href="#!name"><span className="white-text name">{Helpers.get(this.props, 'currentUser.profile.name')}</span></a>
+                    <Link to="/profile">
+                        <a href="#!user"><img className="circle" src={Helpers.get(this.props, 'currentUser.profile.image')} /></a>
+                        <a href="#!name"><span className="white-text name">{Helpers.get(this.props, 'currentUser.profile.name')}</span></a>
+                    </Link>
                 </div>
                 </li>
                 <li><a href="#!"><i className="fa fa-cog fa2x" aria-hidden="true"></i> Painel de controle</a></li>

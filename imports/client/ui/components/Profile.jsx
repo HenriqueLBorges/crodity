@@ -9,11 +9,12 @@ class Profile extends Component {
             swipeable: true,
 
         });
-
     }
 
-    render() {
 
+
+
+    render() {
 
         return (
 
@@ -31,30 +32,24 @@ class Profile extends Component {
                   {/*  headerPage */}
                   <div id="headerPage" className="card headerPage">
                     <div className="card-image waves-effect waves-block waves-light">
-                      <img className="activator" src="img/testeImg.jpg" alt="user background" />                    
+                      <img className="activator" src={Helpers.get(this.props, 'currentUser.profile.cover')} alt="user background" />                    
                     </div>
                     <figure className="card-profile-image">
-                      <img src=" img/CrodityCircle100x100.png" alt="profile image" className="circle z-depth-2 responsive-img activator" />
+                      <img src={Helpers.get(this.props, 'currentUser.profile.image')} alt="profile image" className="circle z-depth-2 responsive-img activator" />
                     </figure>
                     <div className="card-content">
                       <div className="row">                    
-                        <div className="col s3 offset-s2">                        
-                          <h4 className="card-title grey-text text-darken-4">Crodity Software S.A</h4>
-                          <p className="medium-small grey-text"> Software development</p>                        
+                        <div className="col  m3 s12 offset-m2 center-align">                        
+                          <h4 className="card-title grey-text text-darken-4">{Helpers.get(this.props, 'currentUser.profile.name')}</h4>
                         </div>
-                        <div className="col s2 center-align">
+                        <div className="col m3 s6 center-align">
                           <h4 className="card-title grey-text text-darken-4">10k</h4>
                           <p className="medium-small grey-text">Followers</p>                        
                         </div>
-                        <div className="col s2 center-align">
-                          <h4 className="card-title grey-text text-darken-4">6</h4>
-                          <p className="medium-small grey-text">Completed Projects</p>                        
-                        </div>                    
-                        <div className="col s2 center-align">
-                          <h4 className="card-title grey-text text-darken-4">$ 1,253,000</h4>
-                          <p className="medium-small grey-text">Busness Profit</p>                        
-                        </div>                    
-                        <div className="col s1 right-align">
+                        <div className="col m3 s6 center-align">
+                          <a className=" btnFollowProfile waves-effect waves-light btn-flat">Follow</a>                        
+                        </div>                                      
+                        <div className="col m3 s12 center-align">
                           <a className="btn-floating activator waves-effect waves-light darken-2 right">
                             <i className="mdi-action-perm-identity" />
                           </a>
@@ -125,7 +120,7 @@ class Profile extends Component {
                       {/* Profile feed  */}
                       <ul id="profile-page-about-feed" className="collection z-depth-1">
                         <li className="collection-item avatar">
-                          <img src=" img/CrodityCircle100x100.png" alt className="circle" />
+                          <img src={Helpers.get(this.props, 'currentUser.profile.image')} alt className="circle" />
                           <span className="title">Project Title</span>
                           <p>Task assigned to new changes.
                             <br /> <span className="ultra-small">Second Line</span>
@@ -158,7 +153,6 @@ class Profile extends Component {
                         </li>
                       </ul>
                       {/* Profile feed  */}
-                      {/* task-card */}
                      
                       {/* Map Card */}
                       <div className="map-card">
@@ -193,18 +187,18 @@ class Profile extends Component {
                       <div id="profile-page-wall-share" className="row">
                         <div className="col s12">
                           <ul className="tabs tab-profile z-depth-1 light-blue">
-                            <li className="tab col s3"><a className="white-text waves-effect waves-light active" href="#UpdateStatus"><i className="mdi-editor-border-color" /> Update Status</a>
+                            <li className="tab col m4 s3 offset-m2"><a className="white-text waves-effect waves-light active" href="#UpdateStatus"><i className="mdi-editor-border-color" /> Update Status</a>
                             </li>
-                            <li className="tab col s3"><a className="white-text waves-effect waves-light" href="#AddPhotos"><i className="mdi-image-camera-alt" /> Add Photos</a>
+                            <li className="tab col m4 s3 offset-m2"><a className="white-text waves-effect waves-light" href="#AddPhotos"><i className="mdi-image-camera-alt" /> Add Photos</a>
                             </li>
-                            <li className="tab col s3"><a className="white-text waves-effect waves-light" href="#CreateAlbum"><i className="mdi-image-photo-album" /> Create Album</a>
+                            <li className="tab col m4 s3 offset-m2"><a className="white-text waves-effect waves-light" href="#CreateAlbum"><i className="mdi-image-photo-album" /> Create Album</a>
                             </li>                      
                           </ul>
                           {/* UpdateStatus*/}
                           <div id="UpdateStatus" className="tab-content col s12  grey lighten-4">
                             <div className="row">
                               <div className="col s2">
-                                <img src=" img/CrodityCircle100x100.png" alt className="circle responsive-img valign profile-image-post" />
+                                <img src={Helpers.get(this.props, 'currentUser.profile.image')} alt className="circle responsive-img valign profile-image-post" />
                               </div>
                               <div className="input-field col s10">
                                 <textarea id="textarea" className="materialize-textarea" />
@@ -235,7 +229,7 @@ class Profile extends Component {
                           <div id="AddPhotos" className="tab-content col s12  grey lighten-4">
                             <div className="row">
                               <div className="col s2">
-                                <img src=" img/CrodityCircle100x100.png" alt className="circle responsive-img valign profile-image-post" />
+                                <img src={Helpers.get(this.props, 'currentUser.profile.image')} alt className="circle responsive-img valign profile-image-post" />
                               </div>
                               <div className="input-field col s10">
                                 <textarea id="textarea"  className="materialize-textarea" defaultValue={""} />
@@ -266,7 +260,7 @@ class Profile extends Component {
                           <div id="CreateAlbum" className="tab-content col s12  grey lighten-4">
                             <div className="row">
                               <div className="col s2">
-                                <img src=" img/CrodityCircle100x100.png" alt className="circle responsive-img valign profile-image-post" />
+                                <img src={Helpers.get(this.props, 'currentUser.profile.image')} alt className="circle responsive-img valign profile-image-post" />
                               </div>
                               <div className="input-field col s10">
                                 <textarea id="textarea"  className="materialize-textarea" defaultValue={""} />
@@ -394,7 +388,7 @@ class Profile extends Component {
                     <div className="collapsible-header red white-text"><i className="mdi-action-stars" />Favorite Associates</div>
                     <div className="collapsible-body favorite-associates">
                       <div className="favorite-associate-list chat-out-list row">
-                        <div className="col s4"><img src=" img/CrodityCircle100x100.png" alt className="circle responsive-img online-user valign profile-image" />
+                        <div className="col s4"><img src={Helpers.get(this.props, 'currentUser.profile.image')} alt className="circle responsive-img online-user valign profile-image" />
                         </div>
                         <div className="col s8">
                           <p>Eileen Sideways</p>
@@ -402,7 +396,7 @@ class Profile extends Component {
                         </div>
                       </div>
                       <div className="favorite-associate-list chat-out-list row">
-                        <div className="col s4"><img src=" img/CrodityCircle100x100.png" alt className="circle responsive-img online-user valign profile-image" />
+                        <div className="col s4"><img src={Helpers.get(this.props, 'currentUser.profile.image')} alt className="circle responsive-img online-user valign profile-image" />
                         </div>
                         <div className="col s8">
                           <p>Zaham Sindil</p>
@@ -410,7 +404,7 @@ class Profile extends Component {
                         </div>
                       </div>
                       <div className="favorite-associate-list chat-out-list row">
-                        <div className="col s4"><img src=" img/CrodityCircle100x100.png" alt className="circle responsive-img offline-user valign profile-image" />
+                        <div className="col s4"><img src={Helpers.get(this.props, 'currentUser.profile.image')} alt className="circle responsive-img offline-user valign profile-image" />
                         </div>
                         <div className="col s8">
                           <p>Renov Leongal</p>
@@ -418,7 +412,7 @@ class Profile extends Component {
                         </div>
                       </div>
                       <div className="favorite-associate-list chat-out-list row">
-                        <div className="col s4"><img src=" img/CrodityCircle100x100.png" alt className="circle responsive-img online-user valign profile-image" />
+                        <div className="col s4"><img src={Helpers.get(this.props, 'currentUser.profile.image')} alt className="circle responsive-img online-user valign profile-image" />
                         </div>
                         <div className="col s8">
                           <p>Weno Carasbong</p>
@@ -426,7 +420,7 @@ class Profile extends Component {
                         </div>
                       </div>
                       <div className="favorite-associate-list chat-out-list row">
-                        <div className="col s4"><img src=" img/CrodityCircle100x100.png" alt className="circle responsive-img offline-user valign profile-image" />
+                        <div className="col s4"><img src={Helpers.get(this.props, 'currentUser.profile.image')} alt className="circle responsive-img offline-user valign profile-image" />
                         </div>
                         <div className="col s8">
                           <p>Nusja Nawancali</p>
