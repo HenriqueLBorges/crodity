@@ -36,15 +36,15 @@ class Comment extends Component {
           <img src={this.props.comment.fromImg} alt="" className="circle" />
           <span className="title"> {this.props.comment.from} </span>
           <p> {this.props.comment.message} <br />
-            <span style={{ cursor: 'pointer' }} className="blue-text"> Curtir <i className="fa fa-thumbs-up grey-text left"></i></span>   &#8226;
-                <span style={{ cursor: 'pointer' }} className="blue-text" onClick={this.handleToggle.bind(this)}>  Responder </span>
+            <span style={{ cursor: 'pointer' }} className="blue-text"> Curtir </span>
+            <span style={{ cursor: 'pointer' }} className="blue-text" onClick={this.handleToggle.bind(this)}>  Responder </span>
             {this.state.open ? <textarea ref="comment" placeholder="Responder" id="comment" className="materialize-textarea"></textarea> : ''}
           </p>
         </li>
       </ul>
 
 
-      
+
     );
   }
 }

@@ -68,7 +68,7 @@ class RegisterConfirmation extends Component {
 
 		if ((!this.props.route.currentUser.registered_emails.length) && (!this.props.route.currentUser.registered_phones.length)) {
 			return (
-				<form onSubmit={this.handleSubmitEmailAndPhone.bind(this)}>
+				<form onSubmit={this.handleSubmitEmailAndPhone.bind(this)} autocomplete="off">
 					<div className="email-field-component">
 						<p>Por favor, realize a confirmação de dados para continuar:</p>
 						{this.EmailField()}
@@ -81,7 +81,7 @@ class RegisterConfirmation extends Component {
 			);
 		} else if (!this.props.route.currentUser.registered_phones.length) {
 			return (
-				<form onSubmit={this.handleSubmitPhone.bind(this)} >
+				<form onSubmit={this.handleSubmitPhone.bind(this)} autocomplete="off">
 					<div className="email-field-component">
 						<p>Por favor, confirme seu telefone para continuar:</p>
 						{this.PhoneField()}
@@ -93,7 +93,7 @@ class RegisterConfirmation extends Component {
 			);
 		} else if (!this.props.route.currentUser.registered_emails.length) {
 			return (
-				<form onSubmit={this.handleSubmitEmail.bind(this)}>
+				<form onSubmit={this.handleSubmitEmail.bind(this)} autocomplete="off">
 					<div className="email-field-component">
 						<p>Por favor, confirme seu e-mail para continuar:</p>
 						{this.EmailField()}

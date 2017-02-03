@@ -53,7 +53,9 @@ class FeedContainer extends Component {
 
 			// Capitalize the service string (Ex: 'facebook' becomes 'Facebook')
 			serviceCapitalized = service.charAt(0).toUpperCase() + service.slice(1);
-
+			let u = Meteor.user();
+			console.log(u);
+			console.log("teste");
 			// Setting the method name that we are going to call from the server, using Meteor.call()
 			let methodName = (this.props.route.feedType == 'profile'? 'get'+serviceCapitalized+'ProfileFeed': 'get'+serviceCapitalized+'Feed');
 

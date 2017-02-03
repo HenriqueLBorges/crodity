@@ -262,7 +262,7 @@ class Helpers {
 	static socialIcon(service, size) {
 		switch (service) {
 			case 'facebook':
-				return <i className={"indigo-text fa fa-facebook-square fa-" + size + "x"} aria-hidden="true"></i>;
+				return <i className={"indigo-text fa fa-facebook-official fa-" + size + "x"} aria-hidden="true"></i>;
 
 			case 'twitter':
 				return <i className={"blue-text fa fa-twitter-square fa-" + size + "x"} aria-hidden="true"></i>;

@@ -11,32 +11,63 @@ $twitterBlue: #46d0fe
 $lightGray: #d3dddf
 $colorCrodity: #ffca43
 
-@media (max-width: 599px)
-    .app-main
-        background: $colorCrodity
-        cursor: 'pointer'
-        color: '#000'
+// =================
+// Styles for global
+// =================
+
+body
+    background: #fff
+
+.app-main
+    background: whitesmoke
+    cursor: 'pointer'
+    color: '#000'
+
+.row-reactions a
+    margin-right: 20px
+    color: gray
+
+.row-reactions 
+    padding: 5px
+
+.card .card-action a
+    color: gray
+    margin-right: 20px
+    -webkit-transition: color .3s ease
+    -moz-transition: color .3s ease
+    -o-transition: color .3s ease
+    -ms-transition: color .3s ease
+    transition: color .3s ease
+    cursor: pointer
+    text-transform: none
+
+.card .card-action a:hover 
+    color: dark orange
+
+.tittle-card-image
+    margin-left: 0
+    height: 9vh
+    width: inherit !important
+
+// .tittle-card
+
+
+.card-total
+    width: 50vw
+
+img.responsive-img, video.responsive-video 
+    max-width: 100%
+    height: inherit
+    width: inherit
+
+
+// @media (max-width: 599px)
+
+//==============
+//Styles for web
+//==============
 
 @media (min-width: 600px)
-
-    body
-        background: #fff
-
-    .app-main
-        background: $colorCrodity
-        cursor: 'pointer'
-        color: '#000'
-
-    .card .card-action a 
-        color: gray
-        margin-right: 20px
-        -webkit-transition: color .3s ease
-        -moz-transition: color .3s ease
-        -o-transition: color .3s ease
-        -ms-transition: color .3s ease
-        transition: color .3s ease
-        cursor: pointer
-        text-transform: none
 
     input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly])
         border-bottom: 1px solid #F0E68C
@@ -51,7 +82,8 @@ $colorCrodity: #ffca43
 
     .card .card-action 
         border-top: 1px solid rgba(160, 160, 160, 0.2)
-        padding: 0px
+        border-bottom: 1px solid rgba(160, 160, 160, 0.2)
+        padding: 5px
 
     .row .col 
         float: left
@@ -65,9 +97,6 @@ $colorCrodity: #ffca43
 
     .mainLoading
       padding: 300px
-
-    .reactionIcon
-        padding-left: 20px
 
     .side-nav .userView .background 
         overflow: hidden
@@ -110,17 +139,13 @@ $colorCrodity: #ffca43
     .icon-drawer
         vertical-align: middle
 
-    img.responsive-img, video.responsive-video 
-        max-width: 100%
-        height: inherit
-
     nav .brand-logo 
         position: absolute
-        height: inherit
+        height: 30px
         color: #fff
         display: inline-block
         font-size: 2.1rem
-        padding: 0
+        padding: 10px
         white-space: nowrap
 
     .side-nav .userView .circle, .side-nav .userView .name, .side-nav .userView .email 
