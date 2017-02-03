@@ -33,60 +33,29 @@ $colorCrodity: #ffca43
 
 @media (min-width: 600px)
 
-// =================
-// Styles for global
-// =================
+    body
+        background: #fff
 
-body
-    background: #fff
+    .app-main
+        background: $colorCrodity
+        cursor: 'pointer'
+        color: '#000'
+        line-height: 42px
 
-.app-main
-    background: whitesmoke
-    cursor: 'pointer'
-    color: '#000'
-
-.row-reactions a
-    margin-right: 20px
-    color: gray
-
-.row-reactions 
-    padding: 5px
-
-.card .card-action a
-    color: gray
-    margin-right: 20px
-    -webkit-transition: color .3s ease
-    -moz-transition: color .3s ease
-    -o-transition: color .3s ease
-    -ms-transition: color .3s ease
-    transition: color .3s ease
-    cursor: pointer
-    text-transform: none
-
-.card .card-action a:hover 
-    color: dark orange
-
-.tittle-card-image
-    margin-left: 0
-    height: 9vh
-    width: inherit !important
-
-// .tittle-card
-
-
-.card-total
-    width: 50vw
-
-img.responsive-img, video.responsive-video 
-    max-width: 100%
-    height: inherit
-    width: inherit
-
-
+    .card .card-action a 
+        color: gray
+        margin-right: 20px
+        -webkit-transition: color .3s ease
+        -moz-transition: color .3s ease
+        -o-transition: color .3s ease
+        -ms-transition: color .3s ease
+        transition: color .3s ease
+        cursor: pointer
+        text-transform: none
 
     input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly])
-        border-bottom: 1px solid #F0E68C
-        box-shadow: 0 1px 0 0 #F0E68C
+        border-bottom: 1px solid yellow
+        box-shadow: 0 1px 0 0 yellow
 
     .waves-effect.waves-crodityColor
         background-color: $colorCrodity
@@ -97,8 +66,7 @@ img.responsive-img, video.responsive-video
 
     .card .card-action 
         border-top: 1px solid rgba(160, 160, 160, 0.2)
-        border-bottom: 1px solid rgba(160, 160, 160, 0.2)
-        padding: 5px
+        padding: 0px
 
     .row .col 
         float: left
@@ -113,9 +81,12 @@ img.responsive-img, video.responsive-video
     .mainLoading
       padding: 300px
 
-    .side-nav .userView .background 
-        overflow: hidden
+    .reactionIcon
+        padding-left: 20px
+
+    .background
         position: absolute
+        overflow: hidden
         top: 0
         right: 0
         bottom: 0
@@ -136,39 +107,6 @@ img.responsive-img, video.responsive-video
         line-height: 48px
         padding: 0 32px
 
-    .side-nav .userView .circle 
-        height: 64px
-        width: 64px
-
-    nav .nav-wrapper 
-        position: fixed
-        width: 100%
-        z-index: 10000
-        height: inherit
-
-    .side-nav.fixed 
-        left: 0
-        position: fixed
-        margin-top: 65px
-
-    .icon-drawer
-        vertical-align: middle
-
-    nav .brand-logo 
-        position: absolute
-        height: 30px
-        color: #fff
-        display: inline-block
-        font-size: 2.1rem
-        padding: 10px
-        white-space: nowrap
-
-    .side-nav .userView .circle, .side-nav .userView .name, .side-nav .userView .email 
-        display: block
-
-    .circle 
-        border-radius: 50%
-
     .side-nav .userView > a
         height: auto
         padding: 0px
@@ -180,11 +118,12 @@ img.responsive-img, video.responsive-video
     .side-nav li
         padding: 0
 
-    .content-logged
+    .main-logged
         padding-left: 245px
 
     .validUser
         color: #64dd17
+        
     
     .invalidUser
         border-bottom: 1px solid #d50000

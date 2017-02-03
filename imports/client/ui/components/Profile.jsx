@@ -15,6 +15,7 @@ class Profile extends Component {
 
 
     render() {
+      formattedDate = moment(Helpers.get(this.props, 'currentUser.profile.birthday')).calendar();
 
         return (
 
@@ -104,7 +105,7 @@ class Profile extends Component {
                         <li className="collection-item">
                           <div className="row">
                             <div className="col s5 grey-text darken-1"><i className="mdi-social-cake" /> Birth date</div>
-                            <div className="col s7 grey-text text-darken-4 right-align">18th June, 1991</div>
+                            <div className="col s7 grey-text text-darken-4 right-align">{formattedDate}</div>
                           </div>
                         </li>
                       </ul>

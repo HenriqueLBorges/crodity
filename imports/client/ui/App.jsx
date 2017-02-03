@@ -29,10 +29,10 @@ class App extends Component {
 
             <Route path='/' component={MainLayout} currentUser={this.props.loading ? false : this.props.currentUser}>
               <IndexRoute component={FeedContainer} feedType='profile' />       
-              <Route path='/profile' component={ProfileContainer} />       
+                    
              {/*<Route path='RegisterConfirmation' component={RegisterConfirmation} currentUser={this.props.loading ? false : this.props.currentUser} />*/}
             </Route>
-              
+              <Route path='/profile' component={ProfileContainer} /> 
           </Router>
         );
       }
