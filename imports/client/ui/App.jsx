@@ -28,11 +28,11 @@ class App extends Component {
           <Router history={browserHistory}>
 
             <Route path='/' component={MainLayout} currentUser={this.props.loading ? false : this.props.currentUser}>
-              <IndexRoute component={FeedContainer} feedType='profile' />       
-                    
-             {/*<Route path='RegisterConfirmation' component={RegisterConfirmation} currentUser={this.props.loading ? false : this.props.currentUser} />*/}
+              <IndexRoute component={FeedContainer} feedType='profile' />               
+             <Route path='RegisterConfirmation' component={RegisterConfirmation} currentUser={this.props.loading ? false : this.props.currentUser} />
             </Route>
-              <Route path='/profile' component={ProfileContainer} /> 
+              <Route path='/profile' component={ProfileContainer}  /> 
+              <Route component={FeedContainer} feedType='profile' />
           </Router>
         );
       }

@@ -38,7 +38,7 @@ class FeedUnit extends Component {
     if (!(typeof data === 'undefined')) {
       return (
         <div className="row">
-          <div className="col s12 m7 card-total">
+          <div className="col s12 m9 card-total">
             <div className="card">
 
               <div className="card-content">
@@ -68,7 +68,7 @@ class FeedUnit extends Component {
                   <i className="fa fa-comments reactionIcon" aria-hidden="true"></i><a>{" " + Helpers.get(data, 'comments.length')}</a>
                   <i className="fa fa-share-square-o reactionIcon" aria-hidden="true"></i><a>{Helpers.get(data, 'shares.data.length')}</a>
                 </div>
-                <div><CommentList comments={data.comments} /></div>
+                <div>{/*<CommentList comments={data.comments} />*/}</div>
                 <form onSubmit={this.toComment.bind(this)} autoComplete="off">
                   <input type="text" ref="comment" placeholder="Comentar" id="comment" />
                 </form>

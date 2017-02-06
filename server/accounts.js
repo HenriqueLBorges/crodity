@@ -205,7 +205,7 @@ let convertFacebookProfileToGlobal = function (profile) {
   globalProfile = {
     service: 'facebook',
     midia: {
-      profile: 'http://graph.facebook.com/' + profile.id + '/picture?type=square&height=80&width=80',
+      profile: 'http://graph.facebook.com/' + profile.id + '/picture?type=square&height=160&width=160',
       cover: profile.cover.source
     },
 

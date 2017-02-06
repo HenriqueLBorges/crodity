@@ -1,10 +1,23 @@
 import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import { Helpers } from '../helpers/Helpers.jsx';
+import FeedContainer from '../containers/FeedContainer.jsx';
 
 class Profile extends Component {
 
     componentDidMount() {
+       $('.dropdown-button').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrainWidth: false, // Does not change width of dropdown to that of the activator
+      hover: true, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: true, // Displays dropdown below the button
+      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+      stopPropagation: false // Stops event propagation
+    }
+  );
+
         $('ul.tabs').tabs({
             swipeable: true,
 
@@ -33,10 +46,10 @@ class Profile extends Component {
                   {/*  headerPage */}
                   <div id="headerPage" className="card headerPage">
                     <div className="card-image waves-effect waves-block waves-light">
-                      <img className="activator" src={Helpers.get(this.props, 'currentUser.profile.cover')} alt="user background" />                    
+                      <img className="activator " src={Helpers.get(this.props, 'currentUser.profile.cover')} alt="user background" />                    
                     </div>
                     <figure className="card-profile-image">
-                      <img src={Helpers.get(this.props, 'currentUser.profile.image')} alt="profile image" className="circle z-depth-2 responsive-img activator" />
+                      <img src={Helpers.get(this.props, 'currentUser.profile.image')} alt="profile image" className="responsive-img circle z-depth-2 imgProfile activator" />
                     </figure>
                     <div className="card-content">
                       <div className="row">                    
@@ -78,7 +91,7 @@ class Profile extends Component {
                       <div className="card light-blue">
                         <div className="card-content white-text">
                           <span className="card-title">About Me!</span>
-                          <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+                          <p>{Helpers.get(this.props, 'currentUser.services.instagram.bio')}</p>
                         </div>                  
                       </div>
                       {/* Profile About  */}
@@ -188,11 +201,11 @@ class Profile extends Component {
                       <div id="profile-page-wall-share" className="row">
                         <div className="col s12">
                           <ul className="tabs tab-profile z-depth-1 light-blue">
-                            <li className="tab col m4 s3 offset-m2"><a className="white-text waves-effect waves-light active" href="#UpdateStatus"><i className="mdi-editor-border-color" /> Update Status</a>
+                            <li className="tab col m3 s2"><a className="white-text waves-effect waves-light active" href="#UpdateStatus"><i className="mdi-editor-border-color" /> Update Status</a>
                             </li>
-                            <li className="tab col m4 s3 offset-m2"><a className="white-text waves-effect waves-light" href="#AddPhotos"><i className="mdi-image-camera-alt" /> Add Photos</a>
+                            <li className="tab col m3 s2"><a className="white-text waves-effect waves-light" href="#AddPhotos"><i className="mdi-image-camera-alt" /> Add Photos</a>
                             </li>
-                            <li className="tab col m4 s3 offset-m2"><a className="white-text waves-effect waves-light" href="#CreateAlbum"><i className="mdi-image-photo-album" /> Create Album</a>
+                            <li className="tab col m3 s2"><a className="white-text waves-effect waves-light" href="#CreateAlbum"><i className="mdi-image-photo-album" /> Create Album</a>
                             </li>                      
                           </ul>
                           {/* UpdateStatus*/}
@@ -213,7 +226,13 @@ class Profile extends Component {
                                 <a href="#"><i className="mdi-hardware-keyboard-alt" /></a>
                                 <a href="#"><i className="mdi-communication-location-on" /></a>
                               </div>
-                              <div className="col s12 m6 right-align">
+                             
+                             
+                             
+                             
+                             
+                             
+                              <div className="col s12 m4 right-align">
                                 {/* Dropdown Trigger */}
                                 <a className="dropdown-button btn" href="#" data-activates="profliePost"><i className="mdi-action-language" /> Public</a>
                                 {/* Dropdown Structure */}
@@ -226,6 +245,8 @@ class Profile extends Component {
                               </div>
                             </div>
                           </div>
+
+
                           {/* AddPhotos */}
                           <div id="AddPhotos" className="tab-content col s12  grey lighten-4">
                             <div className="row">
@@ -244,6 +265,11 @@ class Profile extends Component {
                                 <a href="#"><i className="mdi-hardware-keyboard-alt" /></a>
                                 <a href="#"><i className="mdi-communication-location-on" /></a>
                               </div>
+                              
+                              
+                              
+                              
+                              
                               <div className="col s12 m6 right-align">
                                 {/* Dropdown Trigger */}
                                 <a className="dropdown-button btn" href="#" data-activates="profliePost2"><i className="mdi-action-language" /> Public</a>
@@ -253,10 +279,22 @@ class Profile extends Component {
                                   <li><a href="#!"><i className="mdi-action-face-unlock" /> Friends</a></li>                              
                                   <li><a href="#!"><i className="mdi-action-lock-outline" /> Only Me</a></li>
                                 </ul>
+                               
+                                {/* Dropdown Trigger */}
+                                <a className="dropdown-button btn" href="#" data-activates="socialDropDown"><i className="mdi-action-language" /> Social</a>
+                                {/* Dropdown Structure */}
+                                <ul id="socialDropDown" className="dropdown-content">
+                                  <li><a href="#!"><i className="fa fa-facebook" aria-hidden="true"> </i>Facebook</a></li>
+                                  <li><a href="#!"><i className="fa fa-twitter" aria-hidden="true" > </i>Twitter</a></li>                              
+                                  <li><a href="#!"><i className="fa fa-instagram" aria-hidden="true"> </i>Instagram</a></li>
+                                </ul>
                                 <a className="waves-effect waves-light btn"><i className="mdi-maps-rate-review left" />Post</a>
                               </div>
                             </div>
                           </div>
+
+
+
                           {/* CreateAlbum */}
                           <div id="CreateAlbum" className="tab-content col s12  grey lighten-4">
                             <div className="row">
@@ -275,6 +313,11 @@ class Profile extends Component {
                                 <a href="#"><i className="mdi-hardware-keyboard-alt" /></a>
                                 <a href="#"><i className="mdi-communication-location-on" /></a>
                               </div>
+                            
+                            
+                            
+                            
+                            
                               <div className="col s12 m6 right-align">
                                 {/* Dropdown Trigger */}
                                 <a className="dropdown-button btn" href="#" data-activates="profliePost3"><i className="mdi-action-language" /> Public</a>
@@ -292,7 +335,7 @@ class Profile extends Component {
                       </div>
                       {/*/ profile-page-wall-share */}
                       {/* profile-page-wall-posts */}
-                     
+                      <div><FeedContainer feedType='profile' /></div>
                     </div>
                     {/*/ profile-page-wall */}
                   </div>

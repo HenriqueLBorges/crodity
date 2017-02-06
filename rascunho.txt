@@ -1,1200 +1,179 @@
-<div className="card large">
-                    <div className="card-image userView waves-effect waves-block waves-light">
-                        <img className="background responsive-img" src="img/CrodityLogo.jpg" />
-                    </div>
-                    <div className="card-content">
-                        <div className="row valign-wrapper">
-                            <div className="col s2">
-                                <img src="img/CrodityCircle100x100.png" alt="" className="circle responsive-img" />
-                            </div>
-                            <div className="col s10">
-                                <span className="black-text"> <h4> Crodity Software S.A </h4> </span>
-                            </div>
-                        </div>
-                    </div>
+// ============================
+// SASS Styles for this project
+// ============================
+
+// =========
+// Variables
+// =========
+
+$facebookBlue: #428bb6
+$twitterBlue: #46d0fe
+$lightGray: #d3dddf
+$colorCrodity: #ffca43
+
+// =================
+// Styles for global
+// =================
+
+body
+    background: #fff
+
+.app-main
+    background: whitesmoke
+    cursor: 'pointer'
+    color: '#000'
+
+.row-reactions a
+    margin-right: 20px
+    color: gray
+
+.row-reactions 
+    padding: 5px
+
+.card .card-action a
+    color: gray
+    margin-right: 20px
+    -webkit-transition: color .3s ease
+    -moz-transition: color .3s ease
+    -o-transition: color .3s ease
+    -ms-transition: color .3s ease
+    transition: color .3s ease
+    cursor: pointer
+    text-transform: none
+
+.card .card-action a:hover 
+    color: dark orange
+
+.tittle-card-image
+    margin-left: 0
+    height: 9vh
+    width: inherit !important
+
+// .tittle-card
 
 
+.card-total
+    width: 50vw
+
+img.responsive-img, video.responsive-video 
+    max-width: 100%
+    height: inherit
+    width: inherit
 
 
+// @media (max-width: 599px)
 
-                    var NewComponent = React.createClass({
-  render: function() {
-    return (
-      <div>
-        {/*================================================================================
-	Item Name: Materialize - Material Design Admin Template
-	Version: 3.1
-	Author: GeeksLabs
-	Author URL: http://www.themeforest.net/user/geekslabs
-================================================================================ */}
-        <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. " />
-        <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template," />
-        <title>Profile Page | Materialize - Material Design Admin Template</title>
-        {/* Favicons*/}
-        <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32" />
-        {/* Favicons*/}
-        <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png" />
-        {/* For iPhone */}
-        <meta name="msapplication-TileColor" content="#00bcd4" />
-        <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png" />
-        {/* For Windows Phone */}
-        {/* CORE CSS*/}
-        <link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
-        <link href="css/style.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
-        {/* Custome CSS*/}    
-        <link href="css/custom/custom.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
-        {/* INCLUDED PLUGIN CSS ON THIS PAGE */}
-        <link href="js/plugins/prism/prism.css" type="text/css" rel="stylesheet" media="screen,projection" />
-        <link href="js/plugins/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet" media="screen,projection" />
-        <link href="js/plugins/chartist-js/chartist.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
-        {/* Start Page Loading */}
-        <div id="loader-wrapper">
-          <div id="loader" />        
-          <div className="loader-section section-left" />
-          <div className="loader-section section-right" />
-        </div>
-        {/* End Page Loading */}
-        {/* //////////////////////////////////////////////////////////////////////////// */}
-        {/* START HEADER */}
-        <header id="header" className="page-topbar">
-          {/* start header nav*/}
-          <div className="navbar-fixed">
-            <nav className="navbar-color">
-              <div className="nav-wrapper">
-                <ul className="left">                      
-                  <li><h1 className="logo-wrapper"><a href="index.html" className="brand-logo darken-1"><img src="images/materialize-logo.png" alt="materialize logo" /></a> <span className="logo-text">Materialize</span></h1></li>
-                </ul>
-                <div className="header-search-wrapper hide-on-med-and-down">
-                  <i className="mdi-action-search" />
-                  <input type="text" name="Search" className="header-search-input z-depth-2" placeholder="Explore Materialize" />
-                </div>
-                <ul className="right hide-on-med-and-down">
-                  <li><a href="javascript:void(0);" className="waves-effect waves-block waves-light translation-button" data-activates="translation-dropdown"><img src="images/flag-icons/United-States.png" alt="USA" /></a>
-                  </li>
-                  <li><a href="javascript:void(0);" className="waves-effect waves-block waves-light toggle-fullscreen"><i className="mdi-action-settings-overscan" /></a>
-                  </li>
-                  <li><a href="javascript:void(0);" className="waves-effect waves-block waves-light notification-button" data-activates="notifications-dropdown"><i className="mdi-social-notifications"><small className="notification-badge">5</small></i>
-                    </a>
-                  </li>                        
-                  <li><a href="#" data-activates="chat-out" className="waves-effect waves-block waves-light chat-collapse"><i className="mdi-communication-chat" /></a>
-                  </li>
-                </ul>
-                {/* translation-button */}
-                <ul id="translation-dropdown" className="dropdown-content">
-                  <li>
-                    <a href="#!"><img src="images/flag-icons/United-States.png" alt="English" />  <span className="language-select">English</span></a>
-                  </li>
-                  <li>
-                    <a href="#!"><img src="images/flag-icons/France.png" alt="French" />  <span className="language-select">French</span></a>
-                  </li>
-                  <li>
-                    <a href="#!"><img src="images/flag-icons/China.png" alt="Chinese" />  <span className="language-select">Chinese</span></a>
-                  </li>
-                  <li>
-                    <a href="#!"><img src="images/flag-icons/Germany.png" alt="German" />  <span className="language-select">German</span></a>
-                  </li>
-                </ul>
-                {/* notifications-dropdown */}
-                <ul id="notifications-dropdown" className="dropdown-content">
-                  <li>
-                    <h5>NOTIFICATIONS <span className="new badge">5</span></h5>
-                  </li>
-                  <li className="divider" />
-                  <li>
-                    <a href="#!"><i className="mdi-action-add-shopping-cart" /> A new order has been placed!</a>
-                    <time className="media-meta" dateTime="2015-06-12T20:50:48+08:00">2 hours ago</time>
-                  </li>
-                  <li>
-                    <a href="#!"><i className="mdi-action-stars" /> Completed the task</a>
-                    <time className="media-meta" dateTime="2015-06-12T20:50:48+08:00">3 days ago</time>
-                  </li>
-                  <li>
-                    <a href="#!"><i className="mdi-action-settings" /> Settings updated</a>
-                    <time className="media-meta" dateTime="2015-06-12T20:50:48+08:00">4 days ago</time>
-                  </li>
-                  <li>
-                    <a href="#!"><i className="mdi-editor-insert-invitation" /> Director meeting started</a>
-                    <time className="media-meta" dateTime="2015-06-12T20:50:48+08:00">6 days ago</time>
-                  </li>
-                  <li>
-                    <a href="#!"><i className="mdi-action-trending-up" /> Generate monthly report</a>
-                    <time className="media-meta" dateTime="2015-06-12T20:50:48+08:00">1 week ago</time>
-                  </li>
-                </ul>
-              </div>
-            </nav>
-          </div>
-          {/* end header nav*/}
-        </header>
-        {/* END HEADER */}
-        {/* //////////////////////////////////////////////////////////////////////////// */}
-        {/* START MAIN */}
-        <div id="main">
-          {/* START WRAPPER */}
-          <div className="wrapper">
-            {/* START LEFT SIDEBAR NAV*/}
-            <aside id="left-sidebar-nav">
-              <ul id="slide-out" className="side-nav fixed leftside-navigation">
-                <li className="user-details cyan darken-2">
-                  <div className="row">
-                    <div className="col col s4 m4 l4">
-                      <img src="images/avatar.jpg" alt className="circle responsive-img valign profile-image" />
-                    </div>
-                    <div className="col col s8 m8 l8">
-                      <ul id="profile-dropdown" className="dropdown-content">
-                        <li><a href="#"><i className="mdi-action-face-unlock" /> Profile</a>
-                        </li>
-                        <li><a href="#"><i className="mdi-action-settings" /> Settings</a>
-                        </li>
-                        <li><a href="#"><i className="mdi-communication-live-help" /> Help</a>
-                        </li>
-                        <li className="divider" />
-                        <li><a href="#"><i className="mdi-action-lock-outline" /> Lock</a>
-                        </li>
-                        <li><a href="#"><i className="mdi-hardware-keyboard-tab" /> Logout</a>
-                        </li>
-                      </ul>
-                      <a className="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown">John Doe<i className="mdi-navigation-arrow-drop-down right" /></a>
-                      <p className="user-roal">Administrator</p>
-                    </div>
-                  </div>
-                </li>
-                <li className="bold"><a href="index.html" className="waves-effect waves-cyan"><i className="mdi-action-dashboard" /> Dashboard</a>
-                </li>
-                <li className="no-padding">
-                  <ul className="collapsible collapsible-accordion">
-                    <li className="bold"><a className="collapsible-header waves-effect waves-cyan"><i className="mdi-action-view-carousel" /> Layouts</a>
-                      <div className="collapsible-body">
-                        <ul>
-                          <li><a href="layout-fullscreen.html">Full Screen</a>
-                          </li>
-                          <li><a href="layout-horizontal-menu.html">Horizontal Menu</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-                <li className="bold"><a href="app-email.html" className="waves-effect waves-cyan"><i className="mdi-communication-email" /> Mailbox <span className="new badge">4</span></a>
-                </li>
-                <li className="bold"><a href="app-calendar.html" className="waves-effect waves-cyan"><i className="mdi-editor-insert-invitation" /> Calender</a>
-                </li>
-                <li className="no-padding">
-                  <ul className="collapsible collapsible-accordion">
-                    <li className="bold"><a className="collapsible-header waves-effect waves-cyan"><i className="mdi-action-invert-colors" /> CSS</a>
-                      <div className="collapsible-body">
-                        <ul>
-                          <li><a href="css-typography.html">Typography</a>
-                          </li>
-                          <li><a href="css-icons.html">Icons</a>
-                          </li>
-                          <li><a href="css-animations.html">Animations</a>
-                          </li>
-                          <li><a href="css-shadow.html">Shadow</a>
-                          </li>
-                          <li><a href="css-media.html">Media</a>
-                          </li>
-                          <li><a href="css-sass.html">Sass</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li className="bold"><a className="collapsible-header  waves-effect waves-cyan"><i className="mdi-image-palette" /> UI Elements</a>
-                      <div className="collapsible-body">
-                        <ul>
-                          <li><a href="ui-alerts.html">Alerts</a>
-                          </li>
-                          <li><a href="ui-buttons.html">Buttons</a>
-                          </li>
-                          <li><a href="ui-badges.html">Badges</a>
-                          </li>
-                          <li><a href="ui-breadcrumbs.html">Breadcrumbs</a>
-                          </li>
-                          <li><a href="ui-collections.html">Collections</a>
-                          </li>
-                          <li><a href="ui-collapsibles.html">Collapsibles</a>
-                          </li>
-                          <li><a href="ui-tabs.html">Tabs</a>
-                          </li>
-                          <li><a href="ui-navbar.html">Navbar</a>
-                          </li>
-                          <li><a href="ui-pagination.html">Pagination</a>
-                          </li>
-                          <li><a href="ui-preloader.html">Preloader</a>
-                          </li>
-                          <li><a href="ui-toasts.html">Toasts</a>
-                          </li>
-                          <li><a href="ui-tooltip.html">Tooltip</a>
-                          </li>
-                          <li><a href="ui-waves.html">Waves</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li className="bold"><a className="collapsible-header waves-effect waves-cyan"><i className="mdi-av-queue" /> Advanced UI <span className="new badge" /></a>
-                      <div className="collapsible-body">
-                        <ul>
-                          <li><a href="advanced-ui-chips.html">Chips</a>
-                          </li>
-                          <li><a href="advanced-ui-cards.html">Cards</a>
-                          </li>
-                          <li><a href="advanced-ui-modals.html">Modals</a>
-                          </li>
-                          <li><a href="advanced-ui-media.html">Media</a>
-                          </li>
-                          <li><a href="advanced-ui-range-slider.html">Range Slider</a>
-                          </li>
-                          <li><a href="advanced-ui-sweetalert.html">SweetAlert</a>
-                          </li>
-                          <li><a href="advanced-ui-nestable.html">Shortable &amp; Nestable</a>
-                          </li>
-                          <li><a href="advanced-ui-translation.html">Language Translation</a>
-                          </li>
-                          <li><a href="advanced-ui-highlight.html">Highlight</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li className="bold"><a href="app-widget.html" className="waves-effect waves-cyan"><i className="mdi-device-now-widgets" /> Widgets</a>
-                    </li>
-                    <li className="bold"><a className="collapsible-header  waves-effect waves-cyan"><i className="mdi-editor-border-all" /> Tables</a>
-                      <div className="collapsible-body">
-                        <ul>
-                          <li><a href="table-basic.html">Basic Tables</a>
-                          </li>
-                          <li><a href="table-data.html">Data Tables</a>
-                          </li>
-                          <li><a href="table-jsgrid.html">jsGrid</a>
-                          </li>
-                          <li><a href="table-editable.html">Editable Table</a>
-                          </li>
-                          <li><a href="table-floatThead.html">floatThead</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li className="bold"><a className="collapsible-header  waves-effect waves-cyan"><i className="mdi-editor-insert-comment" /> Forms <span className="new badge" /></a>
-                      <div className="collapsible-body">
-                        <ul>
-                          <li><a href="form-elements.html">Form Elements</a>
-                          </li>
-                          <li><a href="form-layouts.html">Form Layouts</a>
-                          </li>
-                          <li><a href="form-validation.html">Form Validations</a>
-                          </li>
-                          <li><a href="form-masks.html">Form Masks</a>
-                          </li>
-                          <li><a href="form-file-uploads.html">File Uploads</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li className="bold"><a className="collapsible-header  waves-effect waves-cyan"><i className="mdi-social-pages" /> Pages</a>
-                      <div className="collapsible-body">
-                        <ul>                                        
-                          <li><a href="page-contact.html">Contact Page</a>
-                          </li>
-                          <li><a href="page-todo.html">ToDos</a>
-                          </li>
-                          <li><a href="page-blog-1.html">Blog Type 1</a>
-                          </li>
-                          <li><a href="page-blog-2.html">Blog Type 2</a>
-                          </li>
-                          <li><a href="page-404.html">404</a>
-                          </li>
-                          <li><a href="page-500.html">500</a>
-                          </li>
-                          <li><a href="page-blank.html">Blank</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li className="bold"><a className="collapsible-header  waves-effect waves-cyan"><i className="mdi-action-shopping-cart" /> eCommers</a>
-                      <div className="collapsible-body">
-                        <ul>
-                          <li><a href="eCommerce-products-page.html">Products Page</a>
-                          </li>                                        
-                          <li><a href="eCommerce-pricing.html">Pricing Table</a>
-                          </li>
-                          <li><a href="eCommerce-invoice.html">Invoice</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li className="bold"><a className="collapsible-header  waves-effect waves-cyan"><i className="mdi-image-image" /> Medias</a>
-                      <div className="collapsible-body">
-                        <ul>                                        
-                          <li><a href="media-gallary-page.html">Gallery Page</a>
-                          </li>
-                          <li><a href="media-hover-effects.html">Image Hover Effects</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li className="bold"><a className="collapsible-header  waves-effect waves-cyan active"><i className="mdi-action-account-circle" /> User</a>
-                      <div className="collapsible-body">
-                        <ul>     
-                          <li className="active"><a href="user-profile-page.html">User Profile</a>
-                          </li>                                   
-                          <li><a href="user-login.html">Login</a>
-                          </li>                                        
-                          <li><a href="user-register.html">Register</a>
-                          </li>
-                          <li><a href="user-forgot-password.html">Forgot Password</a>
-                          </li>
-                          <li><a href="user-lock-screen.html">Lock Screen</a>
-                          </li>                                        
-                        </ul>
-                      </div>
-                    </li>
-                    <li className="bold"><a className="collapsible-header waves-effect waves-cyan"><i className="mdi-editor-insert-chart" /> Charts</a>
-                      <div className="collapsible-body">
-                        <ul>
-                          <li><a href="charts-chartjs.html">Chart JS</a>
-                          </li>
-                          <li><a href="charts-chartist.html">Chartist</a>
-                          </li>
-                          <li><a href="charts-morris.html">Morris Charts</a>
-                          </li>
-                          <li><a href="charts-xcharts.html">xCharts</a>
-                          </li>
-                          <li><a href="charts-flotcharts.html">Flot Charts</a>
-                          </li>
-                          <li><a href="charts-sparklines.html">Sparkline Charts</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-                <li className="li-hover"><div className="divider" /></li>
-                <li className="li-hover"><p className="ultra-small margin more-text">MORE</p></li>
-                <li><a href="angular-ui.html"><i className="mdi-action-verified-user" /> Angular UI  <span className="new badge" /></a>
-                </li>
-                <li><a href="css-grid.html"><i className="mdi-image-grid-on" /> Grid</a>
-                </li>
-                <li><a href="css-color.html"><i className="mdi-editor-format-color-fill" /> Color</a>
-                </li>
-                <li><a href="css-helpers.html"><i className="mdi-communication-live-help" /> Helpers</a>
-                </li>
-                <li><a href="changelogs.html"><i className="mdi-action-swap-vert-circle" /> Changelogs</a>
-                </li>                    
-                <li className="li-hover"><div className="divider" /></li>
-                <li className="li-hover"><p className="ultra-small margin more-text">Daily Sales</p></li>
-                <li className="li-hover">
-                  <div className="row">
-                    <div className="col s12 m12 l12">
-                      <div className="sample-chart-wrapper">                            
-                        <div className="ct-chart ct-golden-section" id="ct2-chart" />
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              <a href="#" data-activates="slide-out" className="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only cyan"><i className="mdi-navigation-menu" /></a>
-            </aside>
-            {/* END LEFT SIDEBAR NAV*/}
-            {/* //////////////////////////////////////////////////////////////////////////// */}
-            {/* START CONTENT */}
-            <section id="content">        
-              {/*start container*/}
-              <div className="container">
-                <div id="profile-page" className="section">
-                  {/* profile-page-header */}
-                  <div id="profile-page-header" className="card">
-                    <div className="card-image waves-effect waves-block waves-light">
-                      <img className="activator" src="images/user-profile-bg.jpg" alt="user background" />                    
-                    </div>
-                    <figure className="card-profile-image">
-                      <img src="images/avatar.jpg" alt="profile image" className="circle z-depth-2 responsive-img activator" />
-                    </figure>
-                    <div className="card-content">
-                      <div className="row">                    
-                        <div className="col s3 offset-s2">                        
-                          <h4 className="card-title grey-text text-darken-4">Roger Waters</h4>
-                          <p className="medium-small grey-text">Project Manager</p>                        
-                        </div>
-                        <div className="col s2 center-align">
-                          <h4 className="card-title grey-text text-darken-4">10+</h4>
-                          <p className="medium-small grey-text">Work Experience</p>                        
-                        </div>
-                        <div className="col s2 center-align">
-                          <h4 className="card-title grey-text text-darken-4">6</h4>
-                          <p className="medium-small grey-text">Completed Projects</p>                        
-                        </div>                    
-                        <div className="col s2 center-align">
-                          <h4 className="card-title grey-text text-darken-4">$ 1,253,000</h4>
-                          <p className="medium-small grey-text">Busness Profit</p>                        
-                        </div>                    
-                        <div className="col s1 right-align">
-                          <a className="btn-floating activator waves-effect waves-light darken-2 right">
-                            <i className="mdi-action-perm-identity" />
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="card-reveal">
-                      <p>
-                        <span className="card-title grey-text text-darken-4">Roger Waters <i className="mdi-navigation-close right" /></span>
-                        <span><i className="mdi-action-perm-identity cyan-text text-darken-2" /> Project Manager</span>
-                      </p>
-                      <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-                      <p><i className="mdi-action-perm-phone-msg cyan-text text-darken-2" /> +1 (612) 222 8989</p>
-                      <p><i className="mdi-communication-email cyan-text text-darken-2" /> mail@domain.com</p>
-                      <p><i className="mdi-social-cake cyan-text text-darken-2" /> 18th June 1990</p>
-                      <p><i className="mdi-device-airplanemode-on cyan-text text-darken-2" /> BAR - AUS</p>
-                    </div>
-                  </div>
-                  {/*/ profile-page-header */}
-                  {/* profile-page-content */}
-                  <div id="profile-page-content" className="row">
-                    {/* profile-page-sidebar*/}
-                    <div id="profile-page-sidebar" className="col s12 m4">
-                      {/* Profile About  */}
-                      <div className="card light-blue">
-                        <div className="card-content white-text">
-                          <span className="card-title">About Me!</span>
-                          <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-                        </div>                  
-                      </div>
-                      {/* Profile About  */}
-                      {/* Profile About Details  */}
-                      <ul id="profile-page-about-details" className="collection z-depth-1">
-                        <li className="collection-item">
-                          <div className="row">
-                            <div className="col s5 grey-text darken-1"><i className="mdi-action-wallet-travel" /> Project</div>
-                            <div className="col s7 grey-text text-darken-4 right-align">ABC Name</div>
-                          </div>
-                        </li>
-                        <li className="collection-item">
-                          <div className="row">
-                            <div className="col s5 grey-text darken-1"><i className="mdi-social-poll" /> Skills</div>
-                            <div className="col s7 grey-text text-darken-4 right-align">HTML, CSS</div>
-                          </div>
-                        </li>
-                        <li className="collection-item">
-                          <div className="row">
-                            <div className="col s5 grey-text darken-1"><i className="mdi-social-domain" /> Lives in</div>
-                            <div className="col s7 grey-text text-darken-4 right-align">NY, USA</div>
-                          </div>
-                        </li>
-                        <li className="collection-item">
-                          <div className="row">
-                            <div className="col s5 grey-text darken-1"><i className="mdi-social-cake" /> Birth date</div>
-                            <div className="col s7 grey-text text-darken-4 right-align">18th June, 1991</div>
-                          </div>
-                        </li>
-                      </ul>
-                      {/*/ Profile About Details  */}
-                      {/* Profile About  */}
-                      <div className="card amber darken-2">
-                        <div className="card-content white-text center-align">
-                          <p className="card-title"><i className="mdi-social-group-add" /> 3685</p>
-                          <p>Followers</p>
-                        </div>                  
-                      </div>
-                      {/* Profile About  */}
-                      {/* Profile feed  */}
-                      <ul id="profile-page-about-feed" className="collection z-depth-1">
-                        <li className="collection-item avatar">
-                          <img src="images/avatar.jpg" alt className="circle" />
-                          <span className="title">Project Title</span>
-                          <p>Task assigned to new changes.
-                            <br /> <span className="ultra-small">Second Line</span>
-                          </p>
-                          <a href="#!" className="secondary-content"><i className="mdi-action-grade" /></a>
-                        </li>
-                        <li className="collection-item avatar">
-                          <i className="mdi-file-folder circle" />
-                          <span className="title">New Project</span>
-                          <p>First Line of Project Work 
-                            <br /> <span className="ultra-small">Second Line</span>
-                          </p>
-                          <a href="#!" className="secondary-content"><i className="mdi-social-domain" /></a>
-                        </li>
-                        <li className="collection-item avatar">
-                          <i className="mdi-action-assessment circle green" />
-                          <span className="title">New Payment</span>
-                          <p>Last UK Project Payment
-                            <br /> <span className="ultra-small">$ 3,684.00</span>
-                          </p>
-                          <a href="#!" className="secondary-content"><i className="mdi-editor-attach-money" /></a>
-                        </li>
-                        <li className="collection-item avatar">
-                          <i className="mdi-av-play-arrow circle red" />
-                          <span className="title">Latest News</span>
-                          <p>company management news
-                            <br /> <span className="ultra-small">Second Line</span>
-                          </p>
-                          <a href="#!" className="secondary-content"><i className="mdi-action-track-changes" /></a>
-                        </li>
-                      </ul>
-                      {/* Profile feed  */}
-                      {/* task-card */}
-                      <ul id="task-card" className="collection with-header">
-                        <li className="collection-header cyan">
-                          <h4 className="task-card-title">My Task</h4>
-                          <p className="task-card-date">March 26, 2015</p>
-                        </li>
-                        <li className="collection-item dismissable">
-                          <input type="checkbox" id="task1" />
-                          <label htmlFor="task1">Create Mobile App UI. <a href="#" className="secondary-content"><span className="ultra-small">Today</span></a>
-                          </label>
-                          <span className="task-cat teal">Mobile App</span>
-                        </li>
-                        <li className="collection-item dismissable">
-                          <input type="checkbox" id="task2" />
-                          <label htmlFor="task2">Check the new API standerds. <a href="#" className="secondary-content"><span className="ultra-small">Monday</span></a>
-                          </label>
-                          <span className="task-cat purple">Web API</span>
-                        </li>
-                        <li className="collection-item dismissable">
-                          <input type="checkbox" id="task3" defaultChecked="checked" />
-                          <label htmlFor="task3">Check the new Mockup of ABC. <a href="#" className="secondary-content"><span className="ultra-small">Wednesday</span></a>
-                          </label>
-                          <span className="task-cat pink">Mockup</span>
-                        </li>
-                        <li className="collection-item dismissable">
-                          <input type="checkbox" id="task4" defaultChecked="checked" disabled="disabled" />
-                          <label htmlFor="task4">I did it !</label>
-                          <span className="task-cat cyan">Mobile App</span>
-                        </li>
-                      </ul>
-                      {/* task-card */}
-                      {/* Profile Total sell */}
-                      <div className="card center-align">
-                        <div className="card-content purple white-text">
-                          <p className="card-stats-title"><i className="mdi-editor-attach-money" />Your Profit</p>
-                          <h4 className="card-stats-number">$8990.63</h4>
-                          <p className="card-stats-compare"><i className="mdi-hardware-keyboard-arrow-up" /> 70% <span className="purple-text text-lighten-5">last month</span>
-                          </p>
-                        </div>
-                        <div className="card-action purple darken-2">
-                          <div id="sales-compositebar" />
-                        </div>
-                      </div>
-                      {/* flight-card */}
-                      <div id="flight-card" className="card">
-                        <div className="card-header amber darken-2">
-                          <div className="card-title">
-                            <h4 className="flight-card-title">Your Next Flight</h4>
-                            <p className="flight-card-date">June 18, Thu 04:50</p>
-                          </div>
-                        </div>
-                        <div className="card-content-bg white-text">
-                          <div className="card-content">
-                            <div className="row flight-state-wrapper">
-                              <div className="col s5 m5 l5 center-align">
-                                <div className="flight-state">
-                                  <h4 className="margin">LDN</h4>
-                                  <p className="ultra-small">London</p>
-                                </div>
-                              </div>
-                              <div className="col s2 m2 l2 center-align">
-                                <i className="mdi-device-airplanemode-on flight-icon" />
-                              </div>
-                              <div className="col s5 m5 l5 center-align">
-                                <div className="flight-state">
-                                  <h4 className="margin">SFO</h4>
-                                  <p className="ultra-small">San Francisco</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col s6 m6 l6 center-align">
-                                <div className="flight-info">
-                                  <p className="small"><span className="grey-text text-lighten-4">Depart:</span> 04.50</p>
-                                  <p className="small"><span className="grey-text text-lighten-4">Flight:</span> IB 5786</p>
-                                  <p className="small"><span className="grey-text text-lighten-4">Terminal:</span> B</p>
-                                </div>
-                              </div>
-                              <div className="col s6 m6 l6 center-align flight-state-two">
-                                <div className="flight-info">
-                                  <p className="small"><span className="grey-text text-lighten-4">Arrive:</span> 08.50</p>
-                                  <p className="small"><span className="grey-text text-lighten-4">Flight:</span> IB 5786</p>
-                                  <p className="small"><span className="grey-text text-lighten-4">Terminal:</span> C</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      {/* flight-card */}
-                      {/* Map Card */}
-                      <div className="map-card">
-                        <div className="card">
-                          <div className="card-image waves-effect waves-block waves-light">
-                            <div id="map-canvas" data-lat="40.747688" data-lng="-74.004142" />
-                          </div>
-                          <div className="card-content">                    
-                            <a className="btn-floating activator btn-move-up waves-effect waves-light darken-2 right">
-                              <i className="mdi-maps-pin-drop" />
-                            </a>
-                            <h4 className="card-title grey-text text-darken-4"><a href="#" className="grey-text text-darken-4">Company Name LLC</a>
-                            </h4>
-                            <p className="blog-post-content">Some more information about this company.</p>
-                          </div>
-                          <div className="card-reveal">
-                            <span className="card-title grey-text text-darken-4">Company Name LLC <i className="mdi-navigation-close right" /></span>                   
-                            <p>Here is some more information about this company. As a creative studio we believe no client is too big nor too small to work with us to obtain good advantage.By combining the creativity of artists with the precision of engineers we develop custom solutions that achieve results.Some more information about this company.</p>
-                            <p><i className="mdi-action-perm-identity cyan-text text-darken-2" /> Manager Name</p>
-                            <p><i className="mdi-communication-business cyan-text text-darken-2" /> 125, ABC Street, New Yourk, USA</p>
-                            <p><i className="mdi-action-perm-phone-msg cyan-text text-darken-2" /> +1 (612) 222 8989</p>
-                            <p><i className="mdi-communication-email cyan-text text-darken-2" /> support@geekslabs.com</p>                    
-                          </div>
-                        </div>
-                      </div>
-                      {/* Map Card */}
-                    </div>
-                    {/* profile-page-sidebar*/}
-                    {/* profile-page-wall */}
-                    <div id="profile-page-wall" className="col s12 m8">
-                      {/* profile-page-wall-share */}
-                      <div id="profile-page-wall-share" className="row">
-                        <div className="col s12">
-                          <ul className="tabs tab-profile z-depth-1 light-blue">
-                            <li className="tab col s3"><a className="white-text waves-effect waves-light active" href="#UpdateStatus"><i className="mdi-editor-border-color" /> Update Status</a>
-                            </li>
-                            <li className="tab col s3"><a className="white-text waves-effect waves-light" href="#AddPhotos"><i className="mdi-image-camera-alt" /> Add Photos</a>
-                            </li>
-                            <li className="tab col s3"><a className="white-text waves-effect waves-light" href="#CreateAlbum"><i className="mdi-image-photo-album" /> Create Album</a>
-                            </li>                      
-                          </ul>
-                          {/* UpdateStatus*/}
-                          <div id="UpdateStatus" className="tab-content col s12  grey lighten-4">
-                            <div className="row">
-                              <div className="col s2">
-                                <img src="images/avatar.jpg" alt className="circle responsive-img valign profile-image-post" />
-                              </div>
-                              <div className="input-field col s10">
-                                <textarea id="textarea" row={2} className="materialize-textarea" defaultValue={""} />
-                                <label htmlFor="textarea" className>What's on your mind?</label>
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col s12 m6 share-icons">
-                                <a href="#"><i className="mdi-image-camera-alt" /></a>
-                                <a href="#"><i className="mdi-action-account-circle" /></a>
-                                <a href="#"><i className="mdi-hardware-keyboard-alt" /></a>
-                                <a href="#"><i className="mdi-communication-location-on" /></a>
-                              </div>
-                              <div className="col s12 m6 right-align">
-                                {/* Dropdown Trigger */}
-                                <a className="dropdown-button btn" href="#" data-activates="profliePost"><i className="mdi-action-language" /> Public</a>
-                                {/* Dropdown Structure */}
-                                <ul id="profliePost" className="dropdown-content">
-                                  <li><a href="#!"><i className="mdi-action-language" /> Public</a></li>
-                                  <li><a href="#!"><i className="mdi-action-face-unlock" /> Friends</a></li>                              
-                                  <li><a href="#!"><i className="mdi-action-lock-outline" /> Only Me</a></li>
-                                </ul>
-                                <a className="waves-effect waves-light btn"><i className="mdi-maps-rate-review left" />Post</a>
-                              </div>
-                            </div>
-                          </div>
-                          {/* AddPhotos */}
-                          <div id="AddPhotos" className="tab-content col s12  grey lighten-4">
-                            <div className="row">
-                              <div className="col s2">
-                                <img src="images/avatar.jpg" alt className="circle responsive-img valign profile-image-post" />
-                              </div>
-                              <div className="input-field col s10">
-                                <textarea id="textarea" row={2} className="materialize-textarea" defaultValue={""} />
-                                <label htmlFor="textarea" className>Share your favorites photos!</label>
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col s12 m6 share-icons">
-                                <a href="#"><i className="mdi-image-camera-alt" /></a>
-                                <a href="#"><i className="mdi-action-account-circle" /></a>
-                                <a href="#"><i className="mdi-hardware-keyboard-alt" /></a>
-                                <a href="#"><i className="mdi-communication-location-on" /></a>
-                              </div>
-                              <div className="col s12 m6 right-align">
-                                {/* Dropdown Trigger */}
-                                <a className="dropdown-button btn" href="#" data-activates="profliePost2"><i className="mdi-action-language" /> Public</a>
-                                {/* Dropdown Structure */}
-                                <ul id="profliePost2" className="dropdown-content">
-                                  <li><a href="#!"><i className="mdi-action-language" /> Public</a></li>
-                                  <li><a href="#!"><i className="mdi-action-face-unlock" /> Friends</a></li>                              
-                                  <li><a href="#!"><i className="mdi-action-lock-outline" /> Only Me</a></li>
-                                </ul>
-                                <a className="waves-effect waves-light btn"><i className="mdi-maps-rate-review left" />Post</a>
-                              </div>
-                            </div>
-                          </div>
-                          {/* CreateAlbum */}
-                          <div id="CreateAlbum" className="tab-content col s12  grey lighten-4">
-                            <div className="row">
-                              <div className="col s2">
-                                <img src="images/avatar.jpg" alt className="circle responsive-img valign profile-image-post" />
-                              </div>
-                              <div className="input-field col s10">
-                                <textarea id="textarea" row={2} className="materialize-textarea" defaultValue={""} />
-                                <label htmlFor="textarea" className>Create awesome album.</label>
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col s12 m6 share-icons">
-                                <a href="#"><i className="mdi-image-camera-alt" /></a>
-                                <a href="#"><i className="mdi-action-account-circle" /></a>
-                                <a href="#"><i className="mdi-hardware-keyboard-alt" /></a>
-                                <a href="#"><i className="mdi-communication-location-on" /></a>
-                              </div>
-                              <div className="col s12 m6 right-align">
-                                {/* Dropdown Trigger */}
-                                <a className="dropdown-button btn" href="#" data-activates="profliePost3"><i className="mdi-action-language" /> Public</a>
-                                {/* Dropdown Structure */}
-                                <ul id="profliePost3" className="dropdown-content">
-                                  <li><a href="#!"><i className="mdi-action-language" /> Public</a></li>
-                                  <li><a href="#!"><i className="mdi-action-face-unlock" /> Friends</a></li>                              
-                                  <li><a href="#!"><i className="mdi-action-lock-outline" /> Only Me</a></li>
-                                </ul>
-                                <a className="waves-effect waves-light btn"><i className="mdi-maps-rate-review left" />Post</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      {/*/ profile-page-wall-share */}
-                      {/* profile-page-wall-posts */}
-                      <div id="profile-page-wall-posts" className="row">
-                        <div className="col s12">
-                          {/* medium */}
-                          <div id="profile-page-wall-post" className="card">
-                            <div className="card-profile-title">
-                              <div className="row">
-                                <div className="col s1">
-                                  <img src="images/avatar.jpg" alt className="circle responsive-img valign profile-post-uer-image" />                        
-                                </div>
-                                <div className="col s10">
-                                  <p className="grey-text text-darken-4 margin">John Doe</p>
-                                  <span className="grey-text text-darken-1 ultra-small">Shared publicly  -  26 Jun 2015</span>
-                                </div>
-                                <div className="col s1 right-align">
-                                  <i className="mdi-navigation-expand-more" />
-                                </div>
-                              </div>
-                              <div className="row">
-                                <div className="col s12">
-                                  <p>I am a very simple wall post. I am good at containing <a href="#">#small</a> bits of <a href="#">#information</a>.  I require little more information to use effectively.</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="card-image profile-medium">                          
-                              <img src="images/gallary/2.jpg" alt="sample" className="responsive-img profile-post-image profile-medium" />                        
-                              <span className="card-title">Card Title</span>
-                            </div>
-                            <div className="card-content">
-                              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-                            </div>
-                            <div className="card-action row">
-                              <div className="col s4 card-action-share">
-                                <a href="#">Like</a>                          
-                                <a href="#">Share</a>
-                              </div>
-                              <div className="input-field col s8 margin">
-                                <input id="profile-comments" type="text" className="validate margin" />
-                                <label htmlFor="profile-comments" className>Comments</label>
-                              </div>                        
-                            </div>                        
-                          </div>
-                          {/* medium video */}
-                          <div id="profile-page-wall-post" className="card">
-                            <div className="card-profile-title">
-                              <div className="row">
-                                <div className="col s1">
-                                  <img src="images/avatar.jpg" alt className="circle responsive-img valign profile-post-uer-image" />                        
-                                </div>
-                                <div className="col s10">
-                                  <p className="grey-text text-darken-4 margin">John Doe</p>
-                                  <span className="grey-text text-darken-1 ultra-small">Shared publicly  -  26 Jun 2015</span>
-                                </div>
-                                <div className="col s1 right-align">
-                                  <i className="mdi-navigation-expand-more" />
-                                </div>
-                              </div>
-                              <div className="row">
-                                <div className="col s12">
-                                  <p>I am a very simple wall post. I am good at containing <a href="#">#small</a> bits of <a href="#">#information</a>.  I require little more information to use effectively.</p>
- profile-page-header  
- card-profile-image                              </div>
-                              </div>
-                            </div>
-                            <div className="card-image profile-medium">
-                              <div className="video-container no-controls">
-                                <iframe width={640} height={360} src="https://www.youtube.com/embed/10r9ozshGVE" frameBorder={0} allowFullScreen />
-                              </div>                          
-                              <span className="card-title">Card Title</span>
-                            </div>
-                            <div className="card-content">
-                              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-                            </div>
-                            <div className="card-action row">
-                              <div className="col s4 card-action-share">
-                                <a href="#">Like</a>                          
-                                <a href="#">Share</a>
-                              </div>
-                              <div className="input-field col s8 margin">
-                                <input id="profile-comments" type="text" className="validate margin" />
-                                <label htmlFor="profile-comments" className>Comments</label>
-                              </div>                        
-                            </div>                        
-                          </div>                      
-                          {/* small */}
-                          <div id="profile-page-wall-post" className="card">
-                            <div className="card-profile-title">
-                              <div className="row">
-                                <div className="col s1">
-                                  <img src="images/avatar.jpg" alt className="circle responsive-img valign profile-post-uer-image" />                        
-                                </div>
-                                <div className="col s10">
-                                  <p className="grey-text text-darken-4 margin">John Doe</p>
-                                  <span className="grey-text text-darken-1 ultra-small">Shared publicly  -  26 Jun 2015</span>
-                                </div>
-                                <div className="col s1 right-align">
-                                  <i className="mdi-navigation-expand-more" />
-                                </div>
-                              </div>
-                              <div className="row">
-                                <div className="col s12">
-                                  <p>I am a very simple wall post. I am good at containing <a href="#">#small</a> bits of <a href="#">#information</a>.  I require little more information to use effectively.</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="card-image profile-small">
-                              <img src="images/gallary/1.jpg" alt="sample" className="responsive-img profile-post-image" />                        
-                              <span className="card-title">Card Title</span>
-                            </div>
-                            <div className="card-content">
-                              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-                            </div>
-                            <div className="card-action row">
-                              <div className="col s4 card-action-share">
-                                <a href="#">Like</a>                          
-                                <a href="#">Share</a>
-                              </div>
-                              <div className="input-field col s8 margin">
-                                <input id="profile-comments" type="text" className="validate" />
-                                <label htmlFor="profile-comments" className>Comments</label>
-                              </div>                        
-                            </div>                        
-                          </div>
-                          {/* small */}
-                          <div id="profile-page-wall-post" className="card">
-                            <div className="card-profile-title">
-                              <div className="row">
-                                <div className="col s1">
-                                  <img src="images/avatar.jpg" alt className="circle responsive-img valign profile-post-uer-image" />                        
-                                </div>
-                                <div className="col s10">
-                                  <p className="grey-text text-darken-4 margin">John Doe</p>
-                                  <span className="grey-text text-darken-1 ultra-small">Shared publicly  -  26 Jun 2015</span>
-                                </div>
-                                <div className="col s1 right-align">
-                                  <i className="mdi-navigation-expand-more" />
-                                </div>
-                              </div>
-                              <div className="row">
-                                <div className="col s12">
-                                  <p>I am a very simple wall post. I am good at containing <a href="#">#small</a> bits of <a href="#">#information</a>.  I require little more information to use effectively.</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="card-image profile-large">
-                              <img src="images/gallary/3.jpg" alt="sample" className="responsive-img profile-post-image" />                        
-                              <span className="card-title">Card Title</span>
-                            </div>
-                            <div className="card-content">
-                              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-                            </div>
-                            <div className="card-action row">
-                              <div className="col s4 card-action-share">
-                                <a href="#">Like</a>                          
-                                <a href="#">Share</a>
-                              </div>
-                              <div className="input-field col s8 margin">
-                                <input id="profile-comments" type="text" className="validate" />
-                                <label htmlFor="profile-comments" className>Comments</label>
-                              </div>                        
-                            </div>                        
-                          </div>
-                        </div>                  
-                      </div>
-                      {/*/ profile-page-wall-posts */}
-                    </div>
-                    {/*/ profile-page-wall */}
-                  </div>
-                </div>
-              </div>
-            </section></div>
-          {/*end container*/}
-          {/* END CONTENT */}
-          {/* //////////////////////////////////////////////////////////////////////////// */}
-          {/* START RIGHT SIDEBAR NAV*/}
-          <aside id="right-sidebar-nav">
-            <ul id="chat-out" className="side-nav rightside-navigation">
-              <li className="li-hover">
-                <a href="#" data-activates="chat-out" className="chat-close-collapse right"><i className="mdi-navigation-close" /></a>
-                <div id="right-search" className="row">
-                  <form className="col s12">
-                    <div className="input-field">
-                      <i className="mdi-action-search prefix" />
-                      <input id="icon_prefix" type="text" className="validate" />
-                      <label htmlFor="icon_prefix">Search</label>
-                    </div>
-                  </form>
-                </div>
-              </li>
-              <li className="li-hover">
-                <ul className="chat-collapsible" data-collapsible="expandable">
-                  <li>
-                    <div className="collapsible-header teal white-text active"><i className="mdi-social-whatshot" />Recent Activity</div>
-                    <div className="collapsible-body recent-activity">
-                      <div className="recent-activity-list chat-out-list row">
-                        <div className="col s3 recent-activity-list-icon"><i className="mdi-action-add-shopping-cart" />
-                        </div>
-                        <div className="col s9 recent-activity-list-text">
-                          <a href="#">just now</a>
-                          <p>Jim Doe Purchased new equipments for zonal office.</p>
-                        </div>
-                      </div>
-                      <div className="recent-activity-list chat-out-list row">
-                        <div className="col s3 recent-activity-list-icon"><i className="mdi-device-airplanemode-on" />
-                        </div>
-                        <div className="col s9 recent-activity-list-text">
-                          <a href="#">Yesterday</a>
-                          <p>Your Next flight for USA will be on 15th August 2015.</p>
-                        </div>
-                      </div>
-                      <div className="recent-activity-list chat-out-list row">
-                        <div className="col s3 recent-activity-list-icon"><i className="mdi-action-settings-voice" />
-                        </div>
-                        <div className="col s9 recent-activity-list-text">
-                          <a href="#">5 Days Ago</a>
-                          <p>Natalya Parker Send you a voice mail for next conference.</p>
-                        </div>
-                      </div>
-                      <div className="recent-activity-list chat-out-list row">
-                        <div className="col s3 recent-activity-list-icon"><i className="mdi-action-store" />
-                        </div>
-                        <div className="col s9 recent-activity-list-text">
-                          <a href="#">Last Week</a>
-                          <p>Jessy Jay open a new store at S.G Road.</p>
-                        </div>
-                      </div>
-                      <div className="recent-activity-list chat-out-list row">
-                        <div className="col s3 recent-activity-list-icon"><i className="mdi-action-settings-voice" />
-                        </div>
-                        <div className="col s9 recent-activity-list-text">
-                          <a href="#">5 Days Ago</a>
-                          <p>Natalya Parker Send you a voice mail for next conference.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="collapsible-header light-blue white-text active"><i className="mdi-editor-attach-money" />Sales Repoart</div>
-                    <div className="collapsible-body sales-repoart">
-                      <div className="sales-repoart-list  chat-out-list row">
-                        <div className="col s8">Target Salse</div>
-                        <div className="col s4"><span id="sales-line-1" />
-                        </div>
-                      </div>
-                      <div className="sales-repoart-list chat-out-list row">
-                        <div className="col s8">Payment Due</div>
-                        <div className="col s4"><span id="sales-bar-1" />
-                        </div>
-                      </div>
-                      <div className="sales-repoart-list chat-out-list row">
-                        <div className="col s8">Total Delivery</div>
-                        <div className="col s4"><span id="sales-line-2" />
-                        </div>
-                      </div>
-                      <div className="sales-repoart-list chat-out-list row">
-                        <div className="col s8">Total Progress</div>
-                        <div className="col s4"><span id="sales-bar-2" />
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="collapsible-header red white-text"><i className="mdi-action-stars" />Favorite Associates</div>
-                    <div className="collapsible-body favorite-associates">
-                      <div className="favorite-associate-list chat-out-list row">
-                        <div className="col s4"><img src="images/avatar.jpg" alt className="circle responsive-img online-user valign profile-image" />
-                        </div>
-                        <div className="col s8">
-                          <p>Eileen Sideways</p>
-                          <p className="place">Los Angeles, CA</p>
-                        </div>
-                      </div>
-                      <div className="favorite-associate-list chat-out-list row">
-                        <div className="col s4"><img src="images/avatar.jpg" alt className="circle responsive-img online-user valign profile-image" />
-                        </div>
-                        <div className="col s8">
-                          <p>Zaham Sindil</p>
-                          <p className="place">San Francisco, CA</p>
-                        </div>
-                      </div>
-                      <div className="favorite-associate-list chat-out-list row">
-                        <div className="col s4"><img src="images/avatar.jpg" alt className="circle responsive-img offline-user valign profile-image" />
-                        </div>
-                        <div className="col s8">
-                          <p>Renov Leongal</p>
-                          <p className="place">Cebu City, Philippines</p>
-                        </div>
-                      </div>
-                      <div className="favorite-associate-list chat-out-list row">
-                        <div className="col s4"><img src="images/avatar.jpg" alt className="circle responsive-img online-user valign profile-image" />
-                        </div>
-                        <div className="col s8">
-                          <p>Weno Carasbong</p>
-                          <p>Tokyo, Japan</p>
-                        </div>
-                      </div>
-                      <div className="favorite-associate-list chat-out-list row">
-                        <div className="col s4"><img src="images/avatar.jpg" alt className="circle responsive-img offline-user valign profile-image" />
-                        </div>
-                        <div className="col s8">
-                          <p>Nusja Nawancali</p>
-                          <p className="place">Bangkok, Thailand</p>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </aside>
-          {/* LEFT RIGHT SIDEBAR NAV*/}
-        </div>
-        {/* END WRAPPER */}
-        {/* END MAIN */}
-        {/* //////////////////////////////////////////////////////////////////////////// */}
-        {/* START FOOTER */}
-        <footer className="page-footer">
-          <div className="footer-copyright">
-            <div className="container">
-              <span>Copyright © 2015 <a className="grey-text text-lighten-4" href="http://themeforest.net/user/geekslabs/portfolio?ref=geekslabs" target="_blank">GeeksLabs</a> All rights reserved.</span>
-              <span className="right"> Design and Developed by <a className="grey-text text-lighten-4" href="http://geekslabs.com/">GeeksLabs</a></span>
-            </div>
-          </div>
-        </footer>
-        {/* END FOOTER */}
-        {/* ================================================
-    Scripts
-    ================================================ */}
-        {/* jQuery Library */}
-        {/*materialize js*/}
-        {/*prism*/}
-        {/*scrollbar*/}
-        {/* chartist */}
-        {/* sparkline */}
-        {/* google map api */}
-        {/*google map*/}
-        {/*plugins.js - Some Specific JS codes for Plugin Settings*/}
-        {/*custom-script.js - Add your own theme custom JS*/}
-        {/* Toast Notification */}
-      </div>
-    );
-  }
-});
+//==============
+//Styles for web
+//==============
 
+@media (min-width: 600px)
 
+    input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly])
+        border-bottom: 1px solid #F0E68C
+        box-shadow: 0 1px 0 0 #F0E68C
 
+    .waves-effect.waves-crodityColor
+        background-color: $colorCrodity
 
+    .card .card-content 
+        padding: 12px
+        border-radius: 0 0 2px 2px
 
-  <div>
-                <div className="container">
-                    <div id="profile-page" className="section">
-                        <div id="profile-page-header" className="card">
-                            <div className="card-image waves-effect waves-block waves-light">
-                                <img className="activator" src="img/testeImg.jpg" alt="user background" />
-                            </div>
-                            <figure className="card-profile-image">
-                                <img src="img/CrodityCircle100x100.png" alt="profile image" className="circle z-depth-2 responsive-img activator" />
-                            </figure>
-                            <div className="card-content">
-                                <div className="row">
-                                    <div className="col s3 offset-s2">
-                                        <h4 className="card-title grey-text text-darken-4">Roger Waters</h4>
-                                        <p className="medium-small grey-text">Project Manager</p>
-                                    </div>
-                                    <div className="col s2 center-align">
-                                        <h4 className="card-title grey-text text-darken-4">10+</h4>
-                                        <p className="medium-small grey-text">Work Experience</p>
-                                    </div>
-                                    <div className="col s2 center-align">
-                                        <h4 className="card-title grey-text text-darken-4">6</h4>
-                                        <p className="medium-small grey-text">Completed Projects</p>
-                                    </div>
-                                    <div className="col s2 center-align">
-                                        <h4 className="card-title grey-text text-darken-4">$ 1,253,000</h4>
-                                        <p className="medium-small grey-text">Busness Profit</p>
-                                    </div>
-                                    <div className="col s1 right-align">
-                                        <a className="btn-floating activator waves-effect waves-light darken-2 right">
-                                            <i className="mdi-action-perm-identity"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card-reveal">
-                                <p>
-                                    <span className="card-title grey-text text-darken-4">Crodity Software S.A <i className="mdi-navigation-close right"></i></span>
-                                    <span><i className="mdi-action-perm-identity cyan-text text-darken-2"></i> Project Manager</span>
-                                </p>
+    .card .card-action 
+        border-top: 1px solid rgba(160, 160, 160, 0.2)
+        border-bottom: 1px solid rgba(160, 160, 160, 0.2)
+        padding: 5px
 
-                                <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+    .row .col 
+        float: left
+        -webkit-box-sizing: border-box
+        -moz-box-sizing: border-box
+        box-sizing: border-box
+        padding: 0 0.2rem
 
-                                <p><i className="mdi-action-perm-phone-msg cyan-text text-darken-2"></i> +1 (612) 222 8989</p>
-                                <p><i className="mdi-communication-email cyan-text text-darken-2"></i> mail@domain.com</p>
-                                <p><i className="mdi-social-cake cyan-text text-darken-2"></i> 18th June 1990</p>
-                                <p><i className="mdi-device-airplanemode-on cyan-text text-darken-2"></i> BAR - AUS</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="profile-page-content" className="row">
+    .email-field-component
+        padding-left: 20px
 
-                        <div id="profile-page-sidebar" className="col s12 m4">
+    .mainLoading
+      padding: 300px
 
-                            <div className="card light-blue">
-                                <div className="card-content white-text">
-                                    <span className="card-title">About Me!</span>
-                                    <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-                                </div>
-                            </div>
-                        </div>
+    .side-nav .userView .background 
+        overflow: hidden
+        position: absolute
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+        z-index: -1
 
-                        <div className="col s12">
-                            <ul className="tabs tab-profile z-depth-1 light-blue">
-                                <li className="tab col s3"><a className="white-text waves-effect waves-light active" href="#UpdateStatus">
-                                    <i className="mdi-editor-border-color"></i> Update Status</a>
-                                </li>
-                                <li className="tab col s3"><a className="white-text waves-effect waves-light" href="#AddPhotos">
-                                    <i className="mdi-image-camera-alt"></i> Add Photos</a>
-                                </li>
-                                <li className="tab col s3"><a className="white-text waves-effect waves-light" href="#CreateAlbum">
-                                    <i className="mdi-image-photo-album"></i> Create Album </a>
-                                </li>
-                            </ul>
-                            <div id="UpdateStatus" className="tab-content col s12  grey lighten-4">
-                                <div className="row">
-                                    <div className="col s2">
-                                        <img src="img/CrodityCircle100x100.png" alt=""
-                                            className="circle responsive-img valign profile-image-post" />
-                                    </div>
-                                    <div className="input-field col s10">
-                                        <textarea id="textarea" row="2" className="materialize-textarea"></textarea>
-                                        <label htmlFor="textarea" className="">What's on your mind?</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    .side-nav .userView
+        position: relative
+        padding: 32px 32px 0
+        margin-bottom: 8px
+
+    .side-nav a
+        color: rgba(0,0,0,0.87)
+        display: block
+        font-size: 14px
+        font-weight: 500
+        height: 48px
+        line-height: 48px
+        padding: 0 32px
+
+    .side-nav .userView .circle 
+        height: 64px
+        width: 64px
+
+    nav .nav-wrapper 
+        position: fixed
+        width: 100%
+        z-index: 10000
+        height: inherit
+
+    .side-nav.fixed 
+        left: 0
+        position: fixed
+        margin-top: 65px
+
+    .icon-drawer
+        vertical-align: middle
+
+    nav .brand-logo 
+        position: absolute
+        height: 30px
+        color: #fff
+        display: inline-block
+        font-size: 2.1rem
+        padding: 10px
+        white-space: nowrap
+
+    .side-nav .userView .circle, .side-nav .userView .name, .side-nav .userView .email 
+        display: block
+
+    .circle 
+        border-radius: 50%
+
+    .side-nav .userView > a
+        height: auto
+        padding: 0px
+
+    .side-nav li:hover, .side-nav li.active
+        background-color: #FFFFFF
+        opacity:.9
+
+    .side-nav li
+        padding: 0
+
+    .content-logged
+        padding-left: 245px
+
+    .validUser
+        color: #64dd17
+    
+    .invalidUser
+        border-bottom: 1px solid #d50000
+        box-shadow: 0 1px 0 0 #d50000
+
+    .btTwitter
+        background-color: #1da1f2

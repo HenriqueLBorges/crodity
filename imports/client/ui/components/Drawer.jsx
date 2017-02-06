@@ -39,8 +39,8 @@ class Drawer extends Component {
                         <img className="responsive-img" src={Helpers.get(this.props, 'currentUser.profile.cover')} />
                     </div>
                     <Link to="/profile">
-                        <a href="#!user"><img className="circle" src={Helpers.get(this.props, 'currentUser.profile.image')} /></a>
-                        <a href="#!name"><span className="white-text name">{Helpers.get(this.props, 'currentUser.profile.name')}</span></a>
+                        <a href="#!user" className="imgDrawer"><img className="circle responsive-img" src={Helpers.get(this.props, 'currentUser.profile.image')} /></a>
+                        <a href="#!name" className="nameDrawer"><span className="white-text name ">{Helpers.get(this.props, 'currentUser.profile.name')}</span></a>
                     </Link>
                 </div>
                 </li>
