@@ -9,7 +9,7 @@ Meteor.methods({
   // =======================
   // Social Networks Methods
   // =======================
-  'getTwitterFeed': function () {
+  'getTwitterHomeFeed': function () {
     let future = new Future();
 
     // Setting the user
@@ -26,11 +26,13 @@ Meteor.methods({
     });
 
     // Getting the user timeline that will be returned
-    Twitter.get('statuses/home_timeline', {}, function (err, data, response) {
-      if (err) {
+    Twitter.get('statuses/user_timeline', {}, function (err, data, response) {
+      if (err) {       
         console.log(err);
+
       }
-      else {
+      else { 
+        console.log(data);
         future["return"](convertTwitterFeedToGlobal(data));
       }
     });
@@ -49,12 +51,15 @@ Meteor.methods({
       access_token: user.services.twitter.accessToken,
       access_token_secret: user.services.twitter.accessTokenSecret
     });
-
+    //home_timeline
     Twitter.get('statuses/user_timeline', {}, function (err, data, response) {
       if (err) {
         console.log(err);
       }
       else {
+        console.log('USER: +++++++++++++++++++++++++++++++++++$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$+');
+        //console.log(data); 
+        console.log('USER: +++++++++++++++++++++++++++++++++++$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$+');
         future["return"](convertTwitterFeedToGlobal(data));
       }
     });
@@ -106,7 +111,7 @@ Meteor.methods({
 
     // Checks if the user has the facebook accessToken
     if (user.services.instagram.accessToken) {
-      console.log(user.services.instagram);
+      
       // Facebook Graph API Call
       HTTP.get(
         'https://api.instagram.com/v1/users/self/media/recent/?access_token=' + user.services.instagram.accessToken,
@@ -119,7 +124,6 @@ Meteor.methods({
         function (error, response) {
           console.log(error);
           if (!error) {
-            console.log('OI CONVERTI OS DADOS =)');
             //console.log(response.data.data.type);
             future["return"](convertInstagramFeedToGlobal(response.data.data));
 
@@ -157,7 +161,12 @@ let convertTwitterFeedToGlobal = function (feed) {
     if (typeof feed[i].quoted_status === 'undefined')
       feed[i].quoted_status = { favorite_count: 0 }
 
+    if (typeof feed[i].entities.media.media_url === 'undefined')
+        feed[i].entities.media.media_url = false; 
+
     // Created the globalFeed[i] object
+    console.log(feed[i].entities.media.media_url_https); 
+
     globalFeed[i] = {
       title: feed[i].user.name + ' @' + feed[i].user.screen_name,
       service: 'twitter',
@@ -168,6 +177,8 @@ let convertTwitterFeedToGlobal = function (feed) {
       comments: false,
       media: false,
       location: feed[i].geo,
+      //attachments: feed[i].entities.media.media_url_https,
+      post_image: feed[i].entities.media.media_url,
       user: {
         name: feed[i].user.name,
         screen_name: feed[i].user.screen_name,

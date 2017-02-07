@@ -24,7 +24,7 @@ $colorCrodity: #ffca43
 
     .headerPage .card-image
         height: 250px
-     
+
     .btnFollowProfile
         margin: 30px 0
 
@@ -62,19 +62,19 @@ body
     border-bottom: 1px solid rgba(160, 160, 160, 0.2)
     padding: 5px
 
+.row .col
+    float: left
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+    padding: 0 0.75rem
+
 .card .card-content 
     padding: 12px
     border-radius: 0 0 2px 2px
 
 .waves-effect.waves-crodityColor
     background-color: $colorCrodity
-
-.row .col 
-    float: left
-    -webkit-box-sizing: border-box
-    -moz-box-sizing: border-box
-    box-sizing: border-box
-    padding: 0 0.2rem
 
 .email-field-component
     padding-left: 20px
@@ -152,7 +152,7 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
 
 .validUser
     color: #64dd17
-    
+
 .invalidUser
     border-bottom: 1px solid #d50000
     box-shadow: 0 1px 0 0 #d50000
@@ -160,107 +160,7 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
 .btTwitter
     background-color: #1da1f2
 
-
 @media (min-width: 600px)
-
-    body
-        background: #fff
-
-    .app-main
-        background: $colorCrodity
-        cursor: 'pointer'
-        color: '#000'
-        line-height: 42px
-
-    .card .card-action a 
-        color: gray
-        margin-right: 20px
-        -webkit-transition: color .3s ease
-        -moz-transition: color .3s ease
-        -o-transition: color .3s ease
-        -ms-transition: color .3s ease
-        transition: color .3s ease
-        cursor: pointer
-        text-transform: none
-
-    input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly])
-        border-bottom: 1px solid yellow
-        box-shadow: 0 1px 0 0 yellow
-
-    .waves-effect.waves-crodityColor
-        background-color: $colorCrodity
-
-    .card .card-content 
-        padding: 12px
-        border-radius: 0 0 2px 2px
-
-    .card .card-action 
-        border-top: 1px solid rgba(160, 160, 160, 0.2)
-        padding: 0px
-    
-    .row .col
-        float: left
-        -webkit-box-sizing: border-box
-        -moz-box-sizing: border-box
-        box-sizing: border-box
-        padding: 0 0.75rem
-
-    .email-field-component
-        padding-left: 20px
-
-    .mainLoading
-      padding: 300px
-
-    .reactionIcon
-        padding-left: 20px
-
-    .background
-        position: absolute
-        overflow: hidden
-        top: 0
-        right: 0
-        bottom: 0
-        left: 0
-        z-index: -1
-
-    .side-nav .userView
-        position: relative
-        padding: 32px 32px 0
-        margin-bottom: 8px
-
-    .side-nav a
-        color: rgba(0,0,0,0.87)
-        display: block
-        font-size: 14px
-        font-weight: 500
-        height: 48px
-        line-height: 48px
-        padding: 0 32px
-
-    .side-nav .userView > a
-        height: auto
-        padding: 0px
-
-    .side-nav li:hover, .side-nav li.active
-        background-color: #FFFFFF
-        opacity:.9
-
-    .side-nav li
-        padding: 0
-
-    .main-logged
-        padding-left: 245px
-
-    .validUser
-        color: #64dd17
-        
-    
-    .invalidUser
-        border-bottom: 1px solid #d50000
-        box-shadow: 0 1px 0 0 #d50000
-
-    .btTwitter
-        background-color: #1da1f2
 
     .backgroundCard
         position: absolute
@@ -270,7 +170,9 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
         bottom: 0
         left: 0
         z-index: -1
+
     
+
     .headerPage .card-profile-image 
         width: 110px 
         position: absolute 
@@ -282,7 +184,7 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
 
     .headerPage .card-image
         height: 250px
-    
+
     .tabs
         display: -webkit-box
         display: -moz-box
@@ -310,10 +212,9 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
         -o-transition: color 0.28s ease
         -ms-transition: color 0.28s ease
         transition: color 0.28s ease
-    
+
     .profile-page-wall .tab-content
         padding: 10px
-
 
     .btnFollowProfile
         margin: 30px 0
@@ -321,7 +222,7 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
     .nameDrawer 
         margin-top: 12px
         text-align: center
-    
+
     .imgDrawer
         text-align: center
 
