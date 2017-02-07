@@ -5,64 +5,64 @@ import FeedContainer from '../containers/FeedContainer.jsx';
 
 class Profile extends Component {
 
-    componentDidMount() {
-       $('.dropdown-button').dropdown({
+  componentDidMount() {
+    $('.dropdown-button').dropdown({
       inDuration: 300,
       outDuration: 225,
-      constrainWidth: false, // Does not change width of dropdown to that of the activator
+      constrainWidth: true, // Does not change width of dropdown to that of the activator
       hover: true, // Activate on hover
       gutter: 0, // Spacing from edge
       belowOrigin: true, // Displays dropdown below the button
       alignment: 'left', // Displays dropdown with edge aligned to the left of button
       stopPropagation: false // Stops event propagation
     }
-  );
+    );
 
-        $('ul.tabs').tabs({
-            swipeable: true,
+    $('ul.tabs').tabs({
+      swipeable: true,
 
-        });
-    }
-
-
+    });
+  }
 
 
-    render() {
-      formattedDate = moment(Helpers.get(this.props, 'currentUser.profile.birthday')).calendar();
 
-        return (
 
-            <div> 
+  render() {
+    formattedDate = moment(Helpers.get(this.props, 'currentUser.profile.birthday')).calendar();
 
-             <div id="main">
+    return (
+
+      <div>
+
+        <div id="main">
           {/* START WRAPPER */}
           <div className="wrapper">
-            
+
             {/* START CONTENT */}
-            <section id="content">        
+            <section id="content">
               {/*start container*/}
               <div className="container">
                 <div id="profile-page" className="section">
                   {/*  headerPage */}
                   <div id="headerPage" className="card headerPage">
                     <div className="card-image waves-effect waves-block waves-light">
-                      <img className="activator " src={Helpers.get(this.props, 'currentUser.profile.cover')} alt="user background" />                    
+                      <img className="activator " src={Helpers.get(this.props, 'currentUser.profile.cover')} alt="user background" />
                     </div>
                     <figure className="card-profile-image">
                       <img src={Helpers.get(this.props, 'currentUser.profile.image')} alt="profile image" className="responsive-img circle z-depth-2 imgProfile activator" />
                     </figure>
                     <div className="card-content">
-                      <div className="row">                    
-                        <div className="col  m3 s12 offset-m2 center-align">                        
+                      <div className="row">
+                        <div className="col  m3 s12 offset-m2 center-align">
                           <h4 className="card-title grey-text text-darken-4">{Helpers.get(this.props, 'currentUser.profile.name')}</h4>
                         </div>
                         <div className="col m3 s6 center-align">
                           <h4 className="card-title grey-text text-darken-4">10k</h4>
-                          <p className="medium-small grey-text">Followers</p>                        
+                          <p className="medium-small grey-text">Followers</p>
                         </div>
                         <div className="col m3 s6 center-align">
-                          <a className=" btnFollowProfile waves-effect waves-light btn-flat">Follow</a>                        
-                        </div>                                      
+                          <a className=" btnFollowProfile waves-effect waves-light btn-flat">Follow</a>
+                        </div>
                         <div className="col m3 s12 center-align">
                           <a className="btn-floating activator waves-effect waves-light darken-2 right">
                             <i className="mdi-action-perm-identity" />
@@ -92,7 +92,7 @@ class Profile extends Component {
                         <div className="card-content white-text">
                           <span className="card-title">About Me!</span>
                           <p>{Helpers.get(this.props, 'currentUser.services.instagram.bio')}</p>
-                        </div>                  
+                        </div>
                       </div>
                       {/* Profile About  */}
                       {/* Profile About Details  */}
@@ -128,71 +128,8 @@ class Profile extends Component {
                         <div className="card-content white-text center-align">
                           <p className="card-title"><i className="mdi-social-group-add" /> 3685</p>
                           <p>Followers</p>
-                        </div>                  
-                      </div>
-                      {/* Profile About  */}
-                      {/* Profile feed  */}
-                      <ul id="profile-page-about-feed" className="collection z-depth-1">
-                        <li className="collection-item avatar">
-                          <img src={Helpers.get(this.props, 'currentUser.profile.image')} alt className="circle" />
-                          <span className="title">Project Title</span>
-                          <p>Task assigned to new changes.
-                            <br /> <span className="ultra-small">Second Line</span>
-                          </p>
-                          <a href="#!" className="secondary-content"><i className="mdi-action-grade" /></a>
-                        </li>
-                        <li className="collection-item avatar">
-                          <i className="mdi-file-folder circle" />
-                          <span className="title">New Project</span>
-                          <p>First Line of Project Work 
-                            <br /> <span className="ultra-small">Second Line</span>
-                          </p>
-                          <a href="#!" className="secondary-content"><i className="mdi-social-domain" /></a>
-                        </li>
-                        <li className="collection-item avatar">
-                          <i className="mdi-action-assessment circle green" />
-                          <span className="title">New Payment</span>
-                          <p>Last UK Project Payment
-                            <br /> <span className="ultra-small">$ 3,684.00</span>
-                          </p>
-                          <a href="#!" className="secondary-content"><i className="mdi-editor-attach-money" /></a>
-                        </li>
-                        <li className="collection-item avatar">
-                          <i className="mdi-av-play-arrow circle red" />
-                          <span className="title">Latest News</span>
-                          <p>company management news
-                            <br /> <span className="ultra-small">Second Line</span>
-                          </p>
-                          <a href="#!" className="secondary-content"><i className="mdi-action-track-changes" /></a>
-                        </li>
-                      </ul>
-                      {/* Profile feed  */}
-                     
-                      {/* Map Card */}
-                      <div className="map-card">
-                        <div className="card">
-                          <div className="card-image waves-effect waves-block waves-light">
-                            <div id="map-canvas" data-lat="40.747688" data-lng="-74.004142" />
-                          </div>
-                          <div className="card-content">                    
-                            <a className="btn-floating activator btn-move-up waves-effect waves-light darken-2 right">
-                              <i className="mdi-maps-pin-drop" />
-                            </a>
-                            <h4 className="card-title grey-text text-darken-4"><a href="#" className="grey-text text-darken-4">Company Name LLC</a>
-                            </h4>
-                            <p className="blog-post-content">Some more information about this company.</p>
-                          </div>
-                          <div className="card-reveal">
-                            <span className="card-title grey-text text-darken-4">Company Name LLC <i className="mdi-navigation-close right" /></span>                   
-                            <p>Here is some more information about this company. As a creative studio we believe no client is too big nor too small to work with us to obtain good advantage.By combining the creativity of artists with the precision of engineers we develop custom solutions that achieve results.Some more information about this company.</p>
-                            <p><i className="mdi-action-perm-identity cyan-text text-darken-2" /> Manager Name</p>
-                            <p><i className="mdi-communication-business cyan-text text-darken-2" /> 125, ABC Street, New Yourk, USA</p>
-                            <p><i className="mdi-action-perm-phone-msg cyan-text text-darken-2" /> +1 (612) 222 8989</p>
-                            <p><i className="mdi-communication-email cyan-text text-darken-2" /> support@geekslabs.com</p>                    
-                          </div>
                         </div>
                       </div>
-                      {/* Map Card */}
                     </div>
                     {/* profile-page-sidebar*/}
                     {/* profile-page-wall */}
@@ -206,7 +143,7 @@ class Profile extends Component {
                             <li className="tab col m3 s2"><a className="white-text waves-effect waves-light" href="#AddPhotos"><i className="mdi-image-camera-alt" /> Add Photos</a>
                             </li>
                             <li className="tab col m3 s2"><a className="white-text waves-effect waves-light" href="#CreateAlbum"><i className="mdi-image-photo-album" /> Create Album</a>
-                            </li>                      
+                            </li>
                           </ul>
                           {/* UpdateStatus*/}
                           <div id="UpdateStatus" className="tab-content col s12  grey lighten-4">
@@ -226,24 +163,45 @@ class Profile extends Component {
                                 <a href="#"><i className="mdi-hardware-keyboard-alt" /></a>
                                 <a href="#"><i className="mdi-communication-location-on" /></a>
                               </div>
-                             
-                             
-                             
-                             
-                             
-                             
-                              <div className="col s12 m4 right-align">
-                                {/* Dropdown Trigger */}
-                                <a className="dropdown-button btn" href="#" data-activates="profliePost"><i className="mdi-action-language" /> Public</a>
-                                {/* Dropdown Structure */}
-                                <ul id="profliePost" className="dropdown-content">
-                                  <li><a href="#!"><i className="mdi-action-language" /> Public</a></li>
-                                  <li><a href="#!"><i className="mdi-action-face-unlock" /> Friends</a></li>                              
-                                  <li><a href="#!"><i className="mdi-action-lock-outline" /> Only Me</a></li>
-                                </ul>
-                                <a className="waves-effect waves-light btn"><i className="mdi-maps-rate-review left" />Post</a>
+
+
+
+
+
+                              <div className="row">
+                                <div className="col s12 m12">
+                                  {/* Dropdown Trigger */}
+
+                                  <div className="col s4">
+                                    <a className="dropdown-button btn" href="#" data-activates="postStatus"><i className="mdi-action-language left" /> Public</a>
+                                    {/* Dropdown Structure */}
+                                    <ul id="postStatus" className="dropdown-content">
+                                      <li><a href="#!"><i className="mdi-action-language" /> Public</a></li>
+                                      <li><a href="#!"><i className="mdi-action-face-unlock" /> Friends</a></li>
+                                      <li><a href="#!"><i className="mdi-action-lock-outline" /> Only Me</a></li>
+                                    </ul>
+                                  </div>
+                                  <div className="col s4">
+                                    <span className="dropdown-button btn" href="#" data-activates="socialDropDownStatus"><i className="mdi-action-language" /> Social</span>
+                                    {/* Dropdown Structure */}
+                                  </div>
+                                  <div className="col s4">
+                                    <ul id="socialDropDownStatus" className="dropdown-content col s12 m6">
+                                      <li><a href="#!"><i className="fa fa-facebook" aria-hidden="true"> </i> Facebook</a></li>
+                                      <li><a href="#!"><i className="fa fa-twitter" aria-hidden="true" > </i> Twitter</a></li>
+                                      <li><a href="#!"><i className="fa fa-instagram" aria-hidden="true"> </i> Instagram</a></li>
+                                    </ul>
+                                    <a className="waves-effect waves-light btn "><i className="mdi-maps-rate-review left" />Post</a>
+                                  </div>
+                                </div>
+
                               </div>
+
+
+
                             </div>
+                            {/* Dropdown Trigger */}
+
                           </div>
 
 
@@ -254,7 +212,7 @@ class Profile extends Component {
                                 <img src={Helpers.get(this.props, 'currentUser.profile.image')} alt className="circle responsive-img valign profile-image-post" />
                               </div>
                               <div className="input-field col s10">
-                                <textarea id="textarea"  className="materialize-textarea" defaultValue={""} />
+                                <textarea id="textarea" className="materialize-textarea" defaultValue={""} />
                                 <label htmlFor="textarea" className>Share your favorites photos!</label>
                               </div>
                             </div>
@@ -265,28 +223,28 @@ class Profile extends Component {
                                 <a href="#"><i className="mdi-hardware-keyboard-alt" /></a>
                                 <a href="#"><i className="mdi-communication-location-on" /></a>
                               </div>
-                              
-                              
-                              
-                              
-                              
+
+
+
+
+
                               <div className="col s12 m6 right-align">
                                 {/* Dropdown Trigger */}
-                                <a className="dropdown-button btn" href="#" data-activates="profliePost2"><i className="mdi-action-language" /> Public</a>
+                                <a className="dropdown-button btn" href="#" data-activates="postPhotos"><i className="mdi-action-language" /> Public</a>
                                 {/* Dropdown Structure */}
-                                <ul id="profliePost2" className="dropdown-content">
+                                <ul id="postPhotos" className="dropdown-content">
                                   <li><a href="#!"><i className="mdi-action-language" /> Public</a></li>
-                                  <li><a href="#!"><i className="mdi-action-face-unlock" /> Friends</a></li>                              
+                                  <li><a href="#!"><i className="mdi-action-face-unlock" /> Friends</a></li>
                                   <li><a href="#!"><i className="mdi-action-lock-outline" /> Only Me</a></li>
                                 </ul>
-                               
+
                                 {/* Dropdown Trigger */}
-                                <a className="dropdown-button btn" href="#" data-activates="socialDropDown"><i className="mdi-action-language" /> Social</a>
+                                <a className="dropdown-button btn" href="#" data-activates="socialDropDownPhotos"><i className="mdi-action-language" /> Social</a>
                                 {/* Dropdown Structure */}
-                                <ul id="socialDropDown" className="dropdown-content">
-                                  <li><a href="#!"><i className="fa fa-facebook" aria-hidden="true"> </i>Facebook</a></li>
-                                  <li><a href="#!"><i className="fa fa-twitter" aria-hidden="true" > </i>Twitter</a></li>                              
-                                  <li><a href="#!"><i className="fa fa-instagram" aria-hidden="true"> </i>Instagram</a></li>
+                                <ul id="socialDropDownPhotos" className="dropdown-content">
+                                  <li><a href="#!"><i className="fa fa-facebook" aria-hidden="true"> </i> Facebook</a></li>
+                                  <li><a href="#!"><i className="fa fa-twitter" aria-hidden="true" > </i> Twitter</a></li>
+                                  <li><a href="#!"><i className="fa fa-instagram" aria-hidden="true"> </i> Instagram</a></li>
                                 </ul>
                                 <a className="waves-effect waves-light btn"><i className="mdi-maps-rate-review left" />Post</a>
                               </div>
@@ -302,7 +260,7 @@ class Profile extends Component {
                                 <img src={Helpers.get(this.props, 'currentUser.profile.image')} alt className="circle responsive-img valign profile-image-post" />
                               </div>
                               <div className="input-field col s10">
-                                <textarea id="textarea"  className="materialize-textarea" defaultValue={""} />
+                                <textarea id="textarea" className="materialize-textarea" defaultValue={""} />
                                 <label htmlFor="textarea" className>Create awesome album.</label>
                               </div>
                             </div>
@@ -313,18 +271,18 @@ class Profile extends Component {
                                 <a href="#"><i className="mdi-hardware-keyboard-alt" /></a>
                                 <a href="#"><i className="mdi-communication-location-on" /></a>
                               </div>
-                            
-                            
-                            
-                            
-                            
+
+
+
+
+
                               <div className="col s12 m6 right-align">
                                 {/* Dropdown Trigger */}
                                 <a className="dropdown-button btn" href="#" data-activates="profliePost3"><i className="mdi-action-language" /> Public</a>
                                 {/* Dropdown Structure */}
                                 <ul id="profliePost3" className="dropdown-content">
                                   <li><a href="#!"><i className="mdi-action-language" /> Public</a></li>
-                                  <li><a href="#!"><i className="mdi-action-face-unlock" /> Friends</a></li>                              
+                                  <li><a href="#!"><i className="mdi-action-face-unlock" /> Friends</a></li>
                                   <li><a href="#!"><i className="mdi-action-lock-outline" /> Only Me</a></li>
                                 </ul>
                                 <a className="waves-effect waves-light btn"><i className="mdi-maps-rate-review left" />Post</a>
@@ -343,145 +301,11 @@ class Profile extends Component {
               </div>
             </section></div>
           {/*end container*/}
-          {/* END CONTENT */}
-          {/* //////////////////////////////////////////////////////////////////////////// */}
-          {/* START RIGHT SIDEBAR NAV*/}
-          <aside id="right-sidebar-nav">
-            <ul id="chat-out" className="side-nav rightside-navigation">
-              <li className="li-hover">
-                <a href="#" data-activates="chat-out" className="chat-close-collapse right"><i className="mdi-navigation-close" /></a>
-                <div id="right-search" className="row">
-                  <form className="col s12">
-                    <div className="input-field">
-                      <i className="mdi-action-search prefix" />
-                      <input id="icon_prefix" type="text" className="validate" />
-                      <label htmlFor="icon_prefix">Search</label>
-                    </div>
-                  </form>
-                </div>
-              </li>
-              <li className="li-hover">
-                <ul className="chat-collapsible" data-collapsible="expandable">
-                  <li>
-                    <div className="collapsible-header teal white-text active"><i className="mdi-social-whatshot" />Recent Activity</div>
-                    <div className="collapsible-body recent-activity">
-                      <div className="recent-activity-list chat-out-list row">
-                        <div className="col s3 recent-activity-list-icon"><i className="mdi-action-add-shopping-cart" />
-                        </div>
-                        <div className="col s9 recent-activity-list-text">
-                          <a href="#">just now</a>
-                          <p>Jim Doe Purchased new equipments for zonal office.</p>
-                        </div>
-                      </div>
-                      <div className="recent-activity-list chat-out-list row">
-                        <div className="col s3 recent-activity-list-icon"><i className="mdi-device-airplanemode-on" />
-                        </div>
-                      </div>
-                      <div className="recent-activity-list chat-out-list row">
-                        <div className="col s3 recent-activity-list-icon"><i className="mdi-action-settings-voice" />
-                        </div>
-                        <div className="col s9 recent-activity-list-text">
-                          <a href="#">5 Days Ago</a>
-                          <p>Natalya Parker Send you a voice mail for next conference.</p>
-                        </div>
-                      </div>
-                      <div className="recent-activity-list chat-out-list row">
-                        <div className="col s3 recent-activity-list-icon"><i className="mdi-action-store" />
-                        </div>
-                        <div className="col s9 recent-activity-list-text">
-                          <a href="#">Last Week</a>
-                          <p>Jessy Jay open a new store at S.G Road.</p>
-                        </div>
-                      </div>
-                      <div className="recent-activity-list chat-out-list row">
-                        <div className="col s3 recent-activity-list-icon"><i className="mdi-action-settings-voice" />
-                        </div>
-                        <div className="col s9 recent-activity-list-text">
-                          <a href="#">5 Days Ago</a>
-                          <p>Natalya Parker Send you a voice mail for next conference.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="collapsible-header light-blue white-text active"><i className="mdi-editor-attach-money" />Sales Repoart</div>
-                    <div className="collapsible-body sales-repoart">
-                      <div className="sales-repoart-list  chat-out-list row">
-                        <div className="col s8">Target Salse</div>
-                        <div className="col s4"><span id="sales-line-1" />
-                        </div>
-                      </div>
-                      <div className="sales-repoart-list chat-out-list row">
-                        <div className="col s8">Payment Due</div>
-                        <div className="col s4"><span id="sales-bar-1" />
-                        </div>
-                      </div>
-                      <div className="sales-repoart-list chat-out-list row">
-                        <div className="col s8">Total Delivery</div>
-                        <div className="col s4"><span id="sales-line-2" />
-                        </div>
-                      </div>
-                      <div className="sales-repoart-list chat-out-list row">
-                        <div className="col s8">Total Progress</div>
-                        <div className="col s4"><span id="sales-bar-2" />
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="collapsible-header red white-text"><i className="mdi-action-stars" />Favorite Associates</div>
-                    <div className="collapsible-body favorite-associates">
-                      <div className="favorite-associate-list chat-out-list row">
-                        <div className="col s4"><img src={Helpers.get(this.props, 'currentUser.profile.image')} alt className="circle responsive-img online-user valign profile-image" />
-                        </div>
-                        <div className="col s8">
-                          <p>Eileen Sideways</p>
-                          <p className="place">Los Angeles, CA</p>
-                        </div>
-                      </div>
-                      <div className="favorite-associate-list chat-out-list row">
-                        <div className="col s4"><img src={Helpers.get(this.props, 'currentUser.profile.image')} alt className="circle responsive-img online-user valign profile-image" />
-                        </div>
-                        <div className="col s8">
-                          <p>Zaham Sindil</p>
-                          <p className="place">San Francisco, CA</p>
-                        </div>
-                      </div>
-                      <div className="favorite-associate-list chat-out-list row">
-                        <div className="col s4"><img src={Helpers.get(this.props, 'currentUser.profile.image')} alt className="circle responsive-img offline-user valign profile-image" />
-                        </div>
-                        <div className="col s8">
-                          <p>Renov Leongal</p>
-                          <p className="place">Cebu City, Philippines</p>
-                        </div>
-                      </div>
-                      <div className="favorite-associate-list chat-out-list row">
-                        <div className="col s4"><img src={Helpers.get(this.props, 'currentUser.profile.image')} alt className="circle responsive-img online-user valign profile-image" />
-                        </div>
-                        <div className="col s8">
-                          <p>Weno Carasbong</p>
-                          <p>Tokyo, Japan</p>
-                        </div>
-                      </div>
-                      <div className="favorite-associate-list chat-out-list row">
-                        <div className="col s4"><img src={Helpers.get(this.props, 'currentUser.profile.image')} alt className="circle responsive-img offline-user valign profile-image" />
-                        </div>
-                        <div className="col s8">
-                          <p>Nusja Nawancali</p>
-                          <p className="place">Bangkok, Thailand</p>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </aside>
         </div>
       </div>
-        
-        );
-    }
+
+    );
+  }
 }
 
 export default Profile;
