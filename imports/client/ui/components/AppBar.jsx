@@ -8,9 +8,9 @@ import React from 'react';
 //Creating a component react
 class AppBar extends React.Component {
     render() {
-        return <nav>
-            <div className="nav-wrapper app-main">
-                <a href="#" className="brand-logo left"><img className="responsive-img z-depth-2" src="http://www.crodity.com/img/crodity-logo.jpg"/></a>
+        return <nav className="app-main">
+            <div className="nav-wrapper">
+                <a href="#" className="brand-logo left"><img className="responsive-img z-depth-2 logoweb" src="http://www.crodity.com/img/crodity-logo.jpg"/></a>
                 <ul id="nav-mobile" className="right hide-on-med-and-down ">
                     <li><a href="sass.html" className="black-text" >Loja Virtual</a></li>
                     <li><a href="badges.html"  className="black-text">Parceiros</a></li>

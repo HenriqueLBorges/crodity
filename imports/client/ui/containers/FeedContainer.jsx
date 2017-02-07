@@ -56,8 +56,6 @@ class FeedContainer extends Component {
 			// Capitalize the service string (Ex: 'facebook' becomes 'Facebook')
 			serviceCapitalized = service.charAt(0).toUpperCase() + service.slice(1);
 			let u = Meteor.user();
-			console.log(u);
-			console.log("teste");
 			let methodName;
 
 			console.log(Helpers.get(this.props, 'route.feedType'));
@@ -72,8 +70,6 @@ class FeedContainer extends Component {
 				// Setting the method name that we are going to call from the server, using Meteor.call()
 				methodName = (this.props.route.feedType == 'profile' ? 'get' + serviceCapitalized + 'ProfileFeed' : 'get' + serviceCapitalized + 'Feed');
 			}
-
-
 
 			// Async calling the method whose name was set above
 			Meteor.call(methodName, function (error, result) {
@@ -103,9 +99,8 @@ class FeedContainer extends Component {
 		this.getFeed('instagram');
 
 		let self = this;
-		let timeout = (Meteor.user() ? 60000 : 500);
-		setTimeout(self.getAllFeeds.bind(self), timeout);
-
+		let timeout = (Meteor.user()?60000:500);
+		setTimeout(self.getAllFeeds.bind(self),timeout);
 	}
 
 	// ===================
@@ -128,7 +123,7 @@ class FeedContainer extends Component {
 	// render()
 	// ========
 	render() {
-		if (this.state.facebookFeed.length > 0 || this.state.twitterFeed.length > 0) {
+		if (this.state.facebookFeed.length > 0 || this.state.twitterFeed.length > 0 || this.state.instagramFeed.length > 0) {
 			return (
 				<FeedSorter facebookFeed={this.state.facebookFeed}
 					twitterFeed={this.state.twitterFeed}
