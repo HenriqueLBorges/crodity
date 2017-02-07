@@ -29,8 +29,10 @@ class MainLayout extends Component {
   render() {
     return (
       <div>
+        <div className="div-AppBar-DrawerContainer">
         <AppBar />
         <DrawerContainer />
+        </div>
         <div className="content content-logged">{this.props.children}</div>
       </div>
 

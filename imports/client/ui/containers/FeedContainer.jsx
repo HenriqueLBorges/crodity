@@ -55,7 +55,6 @@ class FeedContainer extends Component {
 			serviceCapitalized = service.charAt(0).toUpperCase() + service.slice(1);
 			let u = Meteor.user();
 			console.log(u);
-			console.log("teste");
 			// Setting the method name that we are going to call from the server, using Meteor.call()
 			let methodName = (this.props.route.feedType == 'profile'? 'get'+serviceCapitalized+'ProfileFeed': 'get'+serviceCapitalized+'Feed');
 
@@ -89,7 +88,6 @@ class FeedContainer extends Component {
 		let self = this;
 		let timeout = (Meteor.user()?60000:500);
 		setTimeout(self.getAllFeeds.bind(self),timeout);
-
 	}
 
 	// ===================
@@ -112,6 +110,8 @@ class FeedContainer extends Component {
 	// render()
 	// ========
 	render() {
+		console.log(Meteor.users.findOne(this.userId));
+		console.log("Teste");
 		if(this.state.facebookFeed.length > 0 || this.state.twitterFeed.length > 0) {
 			return(
 				<FeedSorter facebookFeed={this.state.facebookFeed} 
