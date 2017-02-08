@@ -9,7 +9,12 @@ class FeedUnit extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { open: true };
+    this.state = {
+        open: true,
+        emojiStyle:{
+          display: 'none'
+        }  
+      };
   }
 
   toComment(event) {
@@ -29,12 +34,23 @@ class FeedUnit extends Component {
     });
   }
 
-  render() {
+handleEmoji(){
 
+  this.state.emojiStyle.display = 'block';
+    console.log(this.state.emojiStyle);
+}
+
+test(){
+    var output = emojione.shortnameToUnicode(':smile:');
+    // document.getElementById('outputText').innerHTML = output;
+		return output;
+}
+
+  render() {
     //Setting and formatting the date
+    console.log(this.state.emojiStyle);
     let data = this.props.data;
     formattedDate = moment(data.created).calendar();
-
     if (!(typeof data === 'undefined')) {
       return (
         <div className="row">
@@ -56,8 +72,12 @@ class FeedUnit extends Component {
                   <img src={Helpers.get(data, 'post_image')} />
                 </div>
                 <div className="card-action">
-                  <i className="fa fa-thumbs-o-up grey-text" aria-hidden="true"></i>
-                  <a onClick={this.toLike.bind(this, data.id)}> Like</a>
+
+                  <div className="emojis" style={this.state.emojiStyle}>{emojione.shortnameToUnicode(':smile:')}</div>
+                  <div className="like" onClick={this.toLike.bind(this, data.id)} onMouseOver={this.handleEmoji.bind(this)}>
+                  <i className="fa fa-thumbs-o-up" aria-hidden="true"></i> Like
+                  </div>
+
                   <i className="fa fa-comments-o grey-text" aria-hidden="true"></i>
                   <a > Comment</a>
                   <i className="fa fa-share grey-text" aria-hidden="true"></i>

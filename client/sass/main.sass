@@ -35,6 +35,9 @@ body
     background: whitesmoke
     cursor: 'pointer'
     color: '#000'
+    position: fixed
+    height: 40px
+    z-index: 1
 
 .row-reactions a
     margin-right: 20px
@@ -53,6 +56,7 @@ body
     transition: color .3s ease
     cursor: pointer
     text-transform: none
+    z-index: -1
 
 .card .card-action a:hover 
     color: dark orange
@@ -117,6 +121,19 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
     background-color: #FFFFFF
     opacity:.9
 
+.like
+    color: gray
+    margin-right: 20px
+    -webkit-transition: color .3s ease
+    -moz-transition: color .3s ease
+    -o-transition: color .3s ease
+    -ms-transition: color .3s ease
+    transition: color .3s ease
+    cursor: pointer
+    text-transform: none
+    z-index: -1
+    display: -webkit-inline-box
+
 .side-nav .userView .circle 
     height: 64px
     width: 64px
@@ -137,7 +154,8 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
     font-size: 40px
 
 .drawer-menu-icon
-    font-size: 30px!important
+    font-size: 35px!important
+    padding-left: 10px
 
 .side-nav li
     padding: 0
@@ -146,9 +164,10 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
     position: relative
 
 .drawer-mobile
-    position: absolute
+    position: fixed
     top: 0
     left: 0
+    z-index: 100
 
 .validUser
     color: #64dd17
@@ -160,107 +179,25 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
 .btTwitter
     background-color: #1da1f2
 
+.content-logged
+    padding-top: 40px
 
+#sidenav-overlay 
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    height: 120vh
+    background-color: rgba(0, 0, 0, 0.5)
+    z-index: 97
+    will-change: opacity
+
+.emojis
+    top: 329px
+    left: 468px
+
+//==== WEB =====
 @media (min-width: 600px)
-
-    body
-        background: #fff
-
-    .app-main
-        background: $colorCrodity
-        cursor: 'pointer'
-        color: '#000'
-        line-height: 42px
-
-    .card .card-action a 
-        color: gray
-        margin-right: 20px
-        -webkit-transition: color .3s ease
-        -moz-transition: color .3s ease
-        -o-transition: color .3s ease
-        -ms-transition: color .3s ease
-        transition: color .3s ease
-        cursor: pointer
-        text-transform: none
-
-    input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly])
-        border-bottom: 1px solid yellow
-        box-shadow: 0 1px 0 0 yellow
-
-    .waves-effect.waves-crodityColor
-        background-color: $colorCrodity
-
-    .card .card-content 
-        padding: 12px
-        border-radius: 0 0 2px 2px
-
-    .card .card-action 
-        border-top: 1px solid rgba(160, 160, 160, 0.2)
-        padding: 0px
-    
-    .row .col
-        float: left
-        -webkit-box-sizing: border-box
-        -moz-box-sizing: border-box
-        box-sizing: border-box
-        padding: 0 0.75rem
-
-    .email-field-component
-        padding-left: 20px
-
-    .mainLoading
-      padding: 300px
-
-    .reactionIcon
-        padding-left: 20px
-
-    .background
-        position: absolute
-        overflow: hidden
-        top: 0
-        right: 0
-        bottom: 0
-        left: 0
-        z-index: -1
-
-    .side-nav .userView
-        position: relative
-        padding: 32px 32px 0
-        margin-bottom: 8px
-
-    .side-nav a
-        color: rgba(0,0,0,0.87)
-        display: block
-        font-size: 14px
-        font-weight: 500
-        height: 48px
-        line-height: 48px
-        padding: 0 32px
-
-    .side-nav .userView > a
-        height: auto
-        padding: 0px
-
-    .side-nav li:hover, .side-nav li.active
-        background-color: #FFFFFF
-        opacity:.9
-
-    .side-nav li
-        padding: 0
-
-    .main-logged
-        padding-left: 245px
-
-    .validUser
-        color: #64dd17
-        
-    
-    .invalidUser
-        border-bottom: 1px solid #d50000
-        box-shadow: 0 1px 0 0 #d50000
-
-    .btTwitter
-        background-color: #1da1f2
 
     .backgroundCard
         position: absolute
@@ -341,10 +278,14 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
         z-index: 2
         height: inherit
 
+    nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i 
+        height: 64px
+        line-height: 40px
+
     .side-nav.fixed 
         left: 0
         position: fixed
-        margin-top: 65px
+        margin-top: 45px
 
     nav .brand-logo 
         position: absolute
@@ -352,7 +293,9 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
         color: #fff
         display: inline-block
         font-size: 2.1rem
-        padding: 10px
+        padding: 0px
+        padding-left: 10px
+        padding-top: 5px
         white-space: nowrap
 
     .circle 
@@ -360,3 +303,4 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
 
     .content-logged
         padding-left: 245px
+        padding-top: 40px
