@@ -10,11 +10,11 @@ class FeedUnit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        open: true,
-        emojiStyle:{
-          display: 'none'
-        }  
-      };
+      open: true,
+      emojiStyle: {
+        display: 'none'
+      }
+    };
   }
 
   toComment(event) {
@@ -34,21 +34,25 @@ class FeedUnit extends Component {
     });
   }
 
-handleEmoji(){
+  mouseOnEmoji() {
+      this.state.emojiStyle.display = 'block';
+    this.forceUpdate();
+  }
 
-  this.state.emojiStyle.display = 'block';
-    console.log(this.state.emojiStyle);
-}
+  mouseOffEmoji(){
+      this.state.emojiStyle.display = 'none';
+      this.forceUpdate();
+  }
 
-test(){
+  test() {
     var output = emojione.shortnameToUnicode(':smile:');
     // document.getElementById('outputText').innerHTML = output;
-		return output;
-}
+    return output;
+  }
 
   render() {
     //Setting and formatting the date
-    console.log(this.state.emojiStyle);
+    console.log(this.state.emojiStyle.display);
     let data = this.props.data;
     formattedDate = moment(data.created).calendar();
     if (!(typeof data === 'undefined')) {
@@ -70,12 +74,17 @@ test(){
                 <p>{data.content}</p>
                 <div className="card-image">
                   <img src={Helpers.get(data, 'post_image')} />
+                  <div className="emojis" style={this.state.emojiStyle}>
+                  {emojione.shortnameToUnicode(':thumbsup:')}
+                  {emojione.shortnameToUnicode(':heart:')}
+                  {emojione.shortnameToUnicode(':laughing:')}
+                  {emojione.shortnameToUnicode(':sob:')}
+                  {emojione.shortnameToUnicode(':hushed:')}
+                  </div>
                 </div>
                 <div className="card-action">
-
-                  <div className="emojis" style={this.state.emojiStyle}>{emojione.shortnameToUnicode(':smile:')}</div>
-                  <div className="like" onClick={this.toLike.bind(this, data.id)} onMouseOver={this.handleEmoji.bind(this)}>
-                  <i className="fa fa-thumbs-o-up" aria-hidden="true"></i> Like
+                  <div className="like" onClick={this.toLike.bind(this, data.id)} onMouseOver={this.mouseOnEmoji.bind(this)} onMouseLeave={this.mouseOffEmoji.bind(this)}>
+                    <i className="fa fa-thumbs-o-up" aria-hidden="true"></i> Like
                   </div>
 
                   <i className="fa fa-comments-o grey-text" aria-hidden="true"></i>

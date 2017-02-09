@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AppBar from '../components/AppBar.jsx';
 import DrawerContainer from '../containers/DrawerContainer.jsx';
 import { withRouter } from 'react-router';
+import NewPost from '../components/NewPost.jsx';
 
 class MainLayout extends Component {
 
@@ -33,7 +34,10 @@ class MainLayout extends Component {
         <AppBar />
         <DrawerContainer />
         </div>
+        <div className='div-feed-post'>
+        <NewPost currentUser={this.props.route.currentUser}/>
         <div className="content content-logged">{this.props.children}</div>
+        </div>
       </div>
 
     );

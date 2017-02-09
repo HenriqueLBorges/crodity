@@ -29,7 +29,40 @@ $colorCrodity: #ffca43
         margin: 30px 0
 
 body
-    background: #fff
+    background: lightsteelblue
+
+.bt-select-social-newtwork
+    text-decoration: none
+    color: #fff
+    height: auto
+    background-color: #7DB2AD
+    text-align: left
+    letter-spacing: .5px
+    -webkit-transition: .2s ease-out
+    -moz-transition: .2s ease-out
+    -o-transition: .2s ease-out
+    -ms-transition: .2s ease-out
+    transition: .2s ease-out
+    cursor: pointer
+    border: none
+    border-radius: 2px
+    display: inline-block
+    line-height: 36px
+    padding: 0 2rem
+    vertical-align: middle
+    -webkit-tap-highlight-color: transparent
+    text-transform: none
+
+.bt-select-social-newtwork:hover
+    background-color: #60A49D
+
+.NewPost
+    padding: 10px
+    background-color: white
+    border-radius: 0 0 2px 2px
+
+.col-avatar-NewPost
+    padding-top: 2rem!important
 
 .app-main
     background: whitesmoke
@@ -88,7 +121,6 @@ body
 
 .card-total
     width: 100%!important
-    max-width: 584px
 
 .side-nav .userView .background 
     overflow: hidden
@@ -179,9 +211,6 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
 .btTwitter
     background-color: #1da1f2
 
-.content-logged
-    padding-top: 40px
-
 #sidenav-overlay 
     position: fixed
     top: 0
@@ -193,8 +222,26 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
     will-change: opacity
 
 .emojis
-    top: 329px
-    left: 468px
+    left: 0
+    bottom: 0
+    background: white
+    position: absolute
+    width: auto
+    border-radius: 20px
+    padding-left: 5px
+    padding-right: 5px
+    font-size: 40px
+
+.share-icons
+    font-size: 30px
+    padding-left: 30px
+
+.icon-share
+    padding: 5px
+    margin: 5px
+
+.div-feed-post
+    padding-top: 45px
 
 //==== WEB =====
 @media (min-width: 600px)
@@ -207,6 +254,10 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
         bottom: 0
         left: 0
         z-index: -1
+
+    .div-feed-post
+        width: 45%
+        margin-left: 245px
     
     .headerPage .card-profile-image 
         width: 110px 
@@ -300,7 +351,3 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
 
     .circle 
         border-radius: 50%
-
-    .content-logged
-        padding-left: 245px
-        padding-top: 40px

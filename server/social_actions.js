@@ -31,6 +31,26 @@ Meteor.methods({
 
     },
 
+    'postFacebook': function (comment) {
+        let user = Meteor.users.findOne(this.userID);
+
+        HTTP.post(
+            'https://graph.facebook.com/feed/?message=' + comment,
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + user.services.facebook.accessToken
+                }
+            },
+            function (error, response) {
+                if (error) {
+                    console.log(error);
+                }
+                console.log(response);
+            }
+        );
+
+    },
+
     'likeCrodity': function (postId, name, type) {
         let reaction = {
             name: name,
