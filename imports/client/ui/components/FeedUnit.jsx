@@ -9,7 +9,9 @@ class FeedUnit extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { open: true };
+    this.state = {
+      content: ''
+    };
   }
 
   toComment(event) {
@@ -29,13 +31,56 @@ class FeedUnit extends Component {
     });
   }
 
+  componentDidMount() {
+    $('.video').parent().click(function () {
+      if ($(this).children(".video").get(0).paused) {
+        $(this).children(".video").get(0).play();
+        $(this).children(".playpause").fadeOut();
+      } else {
+        $(this).children(".video").get(0).pause();
+        $(this).children(".playpause").fadeIn();
+      }
+    });
+  }
+
+  mediaRender() {
+    let data = this.props.data;
+    let self = this;
+
+    let media;
+    console.log(this.props.data);
+    console.log(Helpers.get(data, 'media.post_image'));
+
+    if (!(typeof data === 'undefined'))
+      console.log(data);
+
+    if (Helpers.get(data, 'media.type') == 'video') {
+      return <video loop preload="auto" className="video" src={Helpers.get(data, 'media.post_video')} controls> </video>;
+    }
+
+    console.log('HELPERS', Helpers.get(data, 'media.type'));
+
+    if (Helpers.get(data, 'media.type') == 'photo') {
+      return <div>
+        <p> {Helpers.get(data, 'media.description')} </p>
+        <img src={Helpers.get(data, 'media.post_image')} /> </div>;
+    }
+
+    // if (Helpers.get(data, 'type') == 'gif') {
+    //   return <video className="responsive-video" controls> <source src={Helpers.get(data, 'media.post_video')} type="video/mp4" /></video>;
+    // }
+
+  }
+
   render() {
 
     //Setting and formatting the date
     let data = this.props.data;
     formattedDate = moment(data.created).calendar();
-
+    console.log(this.mediaRender());
     if (!(typeof data === 'undefined')) {
+      media = this.mediaRender();
+      console.log(media);
       return (
         <div className="row">
           <div className="col s12 m9 card-total">
@@ -53,7 +98,7 @@ class FeedUnit extends Component {
                 </div>
                 <p>{data.content}</p>
                 <div className="card-image">
-                  <img src={Helpers.get(data, 'post_image')} />
+                  {media}
                 </div>
                 <div className="card-action">
                   <i className="fa fa-thumbs-o-up grey-text" aria-hidden="true"></i>
