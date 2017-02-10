@@ -48,11 +48,11 @@ class FeedUnit extends Component {
     let self = this;
 
     let media;
-    console.log(this.props.data);
-    console.log(Helpers.get(data, 'media.post_image'));
+    // console.log(this.props.data);
+    // console.log(Helpers.get(data, 'media.type'));
 
     if (!(typeof data === 'undefined'))
-      console.log(data);
+      // console.log(data);
 
     if (Helpers.get(data, 'media.type') == 'video') {
       return <video loop preload="auto" className="video" src={Helpers.get(data, 'media.post_video')} controls> </video>;
@@ -66,9 +66,13 @@ class FeedUnit extends Component {
         <img src={Helpers.get(data, 'media.post_image')} /> </div>;
     }
 
-    // if (Helpers.get(data, 'type') == 'gif') {
-    //   return <video className="responsive-video" controls> <source src={Helpers.get(data, 'media.post_video')} type="video/mp4" /></video>;
-    // }
+    if (Helpers.get(data, 'media.type') == 'checkin') {
+      return <figure>  
+        <figcaption>{Helpers.get(data, 'location.name_location')}</figcaption>
+        <figcaption>{Helpers.get(data, 'media.description')}</figcaption>
+        <img src={Helpers.get(data, 'media.post_image')}/>
+      </figure>  ;
+    }
 
   }
 
@@ -76,6 +80,7 @@ class FeedUnit extends Component {
 
     //Setting and formatting the date
     let data = this.props.data;
+    
     formattedDate = moment(data.created).calendar();
     console.log(this.mediaRender());
     if (!(typeof data === 'undefined')) {
@@ -91,7 +96,7 @@ class FeedUnit extends Component {
 
                   <div className="col s1 tittle-card-image "><img src={data.user.image} className="responsive-img" width="50" /></div>
                   <div className="feedUnitTittle col s10 tittle-card">
-                    <div>{data.title} {Helpers.get(data, 'location') ? <p><i className="fa fa-map-marker" aria-hidden="true"> </i>{Helpers.get(data, 'location.name')}</p> : ""}</div>
+                    <div>{data.title}</div>
                     <p className="feedUnitDate">{formattedDate}</p>
                   </div>
                   <div className="feedUnitService col s1 tittle-card-image">{Helpers.socialIcon(data.service, 2)}</div>

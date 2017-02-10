@@ -57,9 +57,9 @@ Meteor.methods({
         console.log(err);
       }
       else {
-        console.log('USER: +++++++++++++++++++++++++++++++++++$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$+');
-        //console.log(data); 
-        console.log('USER: +++++++++++++++++++++++++++++++++++$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$+');
+        // console.log('USER: +++++++++++++++++++++++++++++++++++$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$+');
+        // //console.log(data); 
+        // console.log('USER: +++++++++++++++++++++++++++++++++++$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$+');
         future["return"](convertTwitterFeedToGlobal(data));
       }
     });
@@ -78,7 +78,7 @@ Meteor.methods({
 
       // Facebook Graph API Call
       HTTP.get(
-        'https://graph.facebook.com/v2.8/me?fields=id,name,cover,feed.limit(8){id,story,message,message_tags,place,shares,source,to,link,comments,attachments,created_time,description,likes,sharedposts,name,from,reactions}',
+        'https://graph.facebook.com/v2.8/me?fields=id,name,cover,feed.limit(10){id,story,message,message_tags,place,shares,source,to,link,comments,attachments,created_time,description,likes,sharedposts,name,from,reactions}',
         {
 
           headers: {
@@ -196,7 +196,7 @@ let convertTwitterFeedToGlobal = function (feed) {
     }
 
     catch (e) {
-      console.log(e);
+      // console.log(e);
       //console.log(video);
       ///console.log(media);
 
@@ -205,13 +205,13 @@ let convertTwitterFeedToGlobal = function (feed) {
     // Created the globalFeed[i] object
 
 
-    console.log('----------------------------------------------------------------------------');
-    console.log(type);
-    console.log('----------------------------------------------------------------------------');
-    console.log(video);
-    console.log('----------------------------------------------------------------------------');
-    console.log(image);
-    console.log('----------------------------------------------------------------------------');
+    // console.log('----------------------------------------------------------------------------');
+    // console.log(type);
+    // console.log('----------------------------------------------------------------------------');
+    // console.log(video);
+    // console.log('----------------------------------------------------------------------------');
+    // console.log(image);
+    // console.log('----------------------------------------------------------------------------');
 
 
     //console.log(media.type); 
@@ -244,8 +244,8 @@ let convertTwitterFeedToGlobal = function (feed) {
     //   Posts.insert(globalFeed[i]);
     //   console.log("false");
     // }
-    console.log('ARQUIVO:');
-    console.log(type);
+    // console.log('ARQUIVO:');
+    // console.log(type);
   }
 
   return globalFeed;
@@ -262,66 +262,80 @@ let convertFacebookFeedToGlobal = function (feed) {
   let image;
   let description;
   let feed_unit_image;
-  let likespost; 
+  let likespost;
   let name;
   let link;
+  let name_location;
+  let id_location;
+  let geo;
 
   for (let i = 0; i < feed.length; i++) {
+    type= '';
 
     //Defining the image of each post
     try {
       likespost = feed[i].reactions.data.length;
 
       console.log('FACEBOOK');
-      console.log(feed[i].attachments.data[0].type);
+      console.log('----------------------------------------------------------------------------');
+      console.log(feed[i].place);
+
 
       if ((typeof feed[i].source !== 'undefined') || feed[i].type == "video") {
         type = 'video';
         description = feed[i].attachments.data[0].description;
-        post_image =  feed[i].attachments.data[0].media.image.src;
+        post_image = feed[i].attachments.data[0].media.image.src;
         post_video = feed[i].source;
+        console.log('VIDEO');
       }
 
 
-    if ((typeof feed[i].attachments.data[0].media.image.src !== 'undefined') 
-          && typeof feed[i].source === 'undefined') {
+      if (typeof feed[i].attachments.data[0].media.image.src !== 'undefined' && typeof feed[i].source === 'undefined') {
         type = 'photo'
         description = feed[i].attachments.data[0].description;
-        post_image =  feed[i].attachments.data[0].media.image.src;
+        post_image = feed[i].attachments.data[0].media.image.src;
+        console.log('PHOTO');
       }
 
-      if(!(typeof feed[i].attachments.data[0].description === 'undefined')){
-          description = feed[i].attachments.data[0].description;
-      }
+      // if (!(typeof feed[i].attachments.data[0].description === 'undefined')) {
+      //   description = feed[i].attachments.data[0].description;
+      // }
 
-      if(( feed[i].type === "link")){
-          name = feed[i].name; 
-          description = feed[i].description; 
-          link = feed[i].link
-      }
+      // if ((feed[i].type === "link")) {
+      //   name = feed[i].name;
+      //   description = feed[i].description;
+      //   link = feed[i].link
+      // }
 
-      if ((feed[i].type === 'status')){
+     
+
+      if ((feed[i].type === 'status')) {
         type = 'status'
         description = feed[i].message;
       }
 
     }
-    catch (err) {
+    catch (e) {
+      console.log(e);
       //console.log('undefined');
       feed_unit_image = '';
       likespost = '';
     }
 
-   
+     if (typeof (feed[i].place) !== 'undefined') {
+        type = 'checkin';
+        post_image = feed[i].attachments.data[0].media.image.src;
+        name_location = feed[i].place.name;
+        id_location = feed[i].place.id;
+        geo = feed[i].place.location
 
-    console.log('----------------------------------------------------------------------------');
-    console.log(type);
-    console.log('----------------------------------------------------------------------------');
-    console.log(post_video);
-    console.log((feed[i].message ? feed[i].message : feed[i].description)); 
-    console.log('----------------------------------------------------------------------------');
-    console.log(post_image);
-    console.log('----------------------------------------------------------------------------');
+        if (typeof feed[i].attachments.data[0].description === 'undefined') {
+          description = '';
+        } else description = feed[i].attachments.data[0].description;
+        console.log('CHECKIN');
+      }
+
+
 
     let comments = [];
     if (typeof feed[i].comments !== 'undefined' && typeof feed[i].comments !== 'undefined') {
@@ -338,7 +352,7 @@ let convertFacebookFeedToGlobal = function (feed) {
       });
     }
 
-     
+
 
     // Created the globalFeed[i] object
 
@@ -354,32 +368,29 @@ let convertFacebookFeedToGlobal = function (feed) {
       media: {
         name: name,
         link: link,
-        description: description, 
+        description: description,
         type: type,
         post_video: post_video,
         post_image: post_image,
-        
       },
       user: {
         name: feed[i].from.name,
         screen_name: false,
         service_id: feed[i].from.id,
         image: 'http://graph.facebook.com/v2.8/' + feed[i].from.id + '/picture?width=100&height=100',
+      },
+      location: {
+        id_location: id_location,
+        name_location: name_location,
+        geo: geo
       }
     }
 
-    // Checks if the facebook place object is defined before setting the global location object
-    if (typeof (feed[i].place) !== 'undefined') {
-      globalFeed[i].location = {
-        facebook_id: feed[i].place.id,
-        name: feed[i].place.name,
-        geo: feed[i].place.location
-      };
-    }
+
 
     //Creating a global feed on Database
     if (Posts.findOne({ id: globalFeed[i].id })) {
-      console.log("true");
+      // console.log("true");
 
     } else {
       Posts.insert({
@@ -403,7 +414,7 @@ let convertFacebookFeedToGlobal = function (feed) {
           image: 'http://graph.facebook.com/v2.8/' + feed[i].from.id + '/picture?width=100&height=100',
         }
       });
-      console.log("false");
+      // console.log("false");
     }
   }
   return globalFeed;
