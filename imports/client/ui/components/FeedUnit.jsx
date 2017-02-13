@@ -48,15 +48,15 @@ class FeedUnit extends Component {
     let self = this;
 
     let media;
-    // console.log(this.props.data);
+    console.log(this.props.data);
     // console.log(Helpers.get(data, 'media.type'));
 
     if (!(typeof data === 'undefined'))
       // console.log(data);
 
-    if (Helpers.get(data, 'media.type') == 'video') {
-      return <video loop preload="auto" className="video" src={Helpers.get(data, 'media.post_video')} controls> </video>;
-    }
+      if (Helpers.get(data, 'media.type') == 'video') {
+        return <video loop preload="auto" className="video" src={Helpers.get(data, 'media.post_video')} controls> </video>;
+      }
 
     console.log('HELPERS', Helpers.get(data, 'media.type'));
 
@@ -67,11 +67,15 @@ class FeedUnit extends Component {
     }
 
     if (Helpers.get(data, 'media.type') == 'checkin') {
-      return <figure>  
+      return <figure>
         <figcaption>{Helpers.get(data, 'location.name_location')}</figcaption>
         <figcaption>{Helpers.get(data, 'media.description')}</figcaption>
-        <img src={Helpers.get(data, 'media.post_image')}/>
-      </figure>  ;
+        <img src={Helpers.get(data, 'media.post_image')} />
+      </figure>;
+    }
+
+    if (Helpers.get(data, 'media.type') == 'gif') {
+      return <video loop preload="auto"  className="video" src={Helpers.get(data, 'media.post_video')} autoPlay> </video>;
     }
 
   }
@@ -80,7 +84,7 @@ class FeedUnit extends Component {
 
     //Setting and formatting the date
     let data = this.props.data;
-    
+
     formattedDate = moment(data.created).calendar();
     console.log(this.mediaRender());
     if (!(typeof data === 'undefined')) {
