@@ -211,13 +211,19 @@ let convertTwitterFeedToGlobal = function (feed) {
       if ((typeof feed[i].extended_entities.media[0].video_info === 'undefined')) {
 
         description = feed[i].text;
-        // if (feed[i].extended_entities.media.length > 1) {
-        //   type = 'album';
-        //   post_image
-        // } else {
-        type = 'photo';
-        post_image = feed[i].extended_entities.media[0].media_url;
-        //}
+
+        if (feed[i].extended_entities.media.length > 1) {
+          type = 'album';
+          post_image = []
+
+          for (let j = 0; j < feed[i].extended_entities.media.length; j++) {
+            post_image[j] = feed[i].extended_entities.media[j].media_url;
+          }
+
+        } else {
+          type = 'photo';
+          post_image = feed[i].extended_entities.media[0].media_url;
+        }
       }
 
       // if (feed[i].extended_entities.media[0].type == 'video' &&
@@ -249,7 +255,7 @@ let convertTwitterFeedToGlobal = function (feed) {
 
     console.log('----------------------------------------------------------------------------');
     console.log(type, description);
-    
+
     // console.log('----------------------------------------------------------------------------');
     // console.log(video);
     // console.log('----------------------------------------------------------------------------');
@@ -389,6 +395,7 @@ let convertFacebookFeedToGlobal = function (feed) {
 
     let comments = [];
     if (typeof feed[i].comments !== 'undefined' && typeof feed[i].comments !== 'undefined') {
+      
       comments = feed[i].comments.data.map((comment, i) => {
         return ({
           id: comment.id,
@@ -475,7 +482,7 @@ let convertFacebookFeedToGlobal = function (feed) {
 
 let convertInstagramFeedToGlobal = function (feed) {
 
- let post_image;
+  let post_image;
   let post_video;
   let type;
   let image;
@@ -497,21 +504,21 @@ let convertInstagramFeedToGlobal = function (feed) {
 
     type = '';
 
-    
+
     try {
       //console.log(data.attachments.data[0].media.image.src);
       textDescription = feed[i].caption.text + ' - ' + feed[i].caption.from.username;
 
-      if (feed[i].type === 'video'){
-        post_image = feed[i].images.standard_resolution.url; 
-        post_video = feed[i].videos.standard_resolution.url; 
-        type = 'video'; 
+      if (feed[i].type === 'video') {
+        post_image = feed[i].images.standard_resolution.url;
+        post_video = feed[i].videos.standard_resolution.url;
+        type = 'video';
       }
 
-      if (feed[i].type === 'image'){
-         post_image = feed[i].images.standard_resolution.url;  
-         post_video = ''; 
-         type = 'photo'; 
+      if (feed[i].type === 'image') {
+        post_image = feed[i].images.standard_resolution.url;
+        post_video = '';
+        type = 'photo';
       }
 
     }
@@ -533,7 +540,7 @@ let convertInstagramFeedToGlobal = function (feed) {
       type: feed[i].type,
       tags: feed[i].tags,
       location: feed[i].location,
-       media: {
+      media: {
         name: name,
         link: link,
         description: description,

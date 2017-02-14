@@ -32,15 +32,11 @@ class FeedUnit extends Component {
   }
 
   componentDidMount() {
-    $('.video').parent().click(function () {
-      if ($(this).children(".video").get(0).paused) {
-        $(this).children(".video").get(0).play();
-        $(this).children(".playpause").fadeOut();
-      } else {
-        $(this).children(".video").get(0).pause();
-        $(this).children(".playpause").fadeIn();
-      }
-    });
+    event.preventDefault();
+    $('.carousel').carousel();
+
+
+    //console.log($('.myCarousel'))
   }
 
   mediaRender() {
@@ -75,7 +71,23 @@ class FeedUnit extends Component {
     }
 
     if (Helpers.get(data, 'media.type') == 'gif') {
-      return <video loop preload="auto"  className="video" src={Helpers.get(data, 'media.post_video')} autoPlay> </video>;
+      return <video loop preload="auto" className="video" src={Helpers.get(data, 'media.post_video')} autoPlay> </video>;
+    }
+
+    if (Helpers.get(data, 'media.type') == 'album') {
+      let album = [];
+      let post_image = [];
+      post_image = Helpers.get(data, 'media.post_image');
+      //console.log(post_image);
+      let i=0; 
+      return (<div className="carousel" key={i++}>
+      
+        {post_image.map((img_src, i, album) => {
+          return (
+            <p className="carousel-item"  ><img src={img_src}/></p>
+          );
+        })}
+      </div>);
     }
 
   }
