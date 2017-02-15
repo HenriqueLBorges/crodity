@@ -29,12 +29,61 @@ $colorCrodity: #ffca43
         margin: 30px 0
 
 body
-    background: #fff
+    background: #FFFCF4
+
+.bt-select-social-newtwork
+    text-decoration: none
+    color: #fff
+    height: auto
+    background-color: #7DB2AD
+    text-align: left
+    letter-spacing: .5px
+    -webkit-transition: .2s ease-out
+    -moz-transition: .2s ease-out
+    -o-transition: .2s ease-out
+    -ms-transition: .2s ease-out
+    transition: .2s ease-out
+    cursor: pointer
+    border: none
+    border-radius: 2px
+    display: inline-block
+    line-height: 25px
+    padding: 0 1rem
+    vertical-align: middle
+    -webkit-tap-highlight-color: transparent
+    text-transform: none
+    z-index: 0
+
+.bt-select-social-newtwork:hover
+    background-color: #60A49D
+
+.new-post
+    padding: 5px
+    background-color: white
+    border-radius: 0 0 2px 2px
+    border-style: groove
+    margin: 0px
+
+.row-card-total
+    margin-bottom: 0px!important
+
+.user-view
+    margin-bottom: 8px!important
+
+.col-avatar-new-post
+    padding-top: 2rem!important
+    padding: 0 0.2rem!important
+    margin-top: 2rem
+    border-radius: 100%
 
 .app-main
-    background: whitesmoke
+    background: #FFCA43
     cursor: 'pointer'
-    color: '#000'
+    color: '#FFFFF'!important
+    position: fixed
+    height: 40px
+    z-index: 1
+    font-weight: bold
 
 .row-reactions a
     margin-right: 20px
@@ -43,8 +92,11 @@ body
 .row-reactions 
     padding: 5px
 
-.card .card-action a
-    color: gray
+.feed-unit
+    border-style: groove
+
+.feed-unit .feed-unit-action a, .feed-unit-action div
+    color: gray!important
     margin-right: 20px
     -webkit-transition: color .3s ease
     -moz-transition: color .3s ease
@@ -52,12 +104,13 @@ body
     -ms-transition: color .3s ease
     transition: color .3s ease
     cursor: pointer
-    text-transform: none
+    text-transform: none!important
+    z-index: -1
 
-.card .card-action a:hover 
+.feed-unit .feed-unit-action a:hover 
     color: dark orange
 
-.card .card-action 
+.feed-unit .feed-unit-action 
     border-top: 1px solid rgba(160, 160, 160, 0.2)
     border-bottom: 1px solid rgba(160, 160, 160, 0.2)
     padding: 5px
@@ -69,12 +122,24 @@ body
     box-sizing: border-box
     padding: 0 0.75rem
 
-.card .card-content 
+.feed-unit .feed-unit-content
     padding: 12px
     border-radius: 0 0 2px 2px
 
 .waves-effect.waves-crodityColor
     background-color: $colorCrodity
+    
+.tittle-card-image
+    padding: 0rem!important
+    border-radius: 100%
+
+.tittle-card
+    margin-left: 0!important
+
+.row-new-post
+    margin-left: auto
+    margin-right: auto
+    margin-bottom: 0px
 
 .email-field-component
     padding-left: 20px
@@ -84,7 +149,7 @@ body
 
 .card-total
     width: 100%!important
-    max-width: 584px
+    padding: 0px!important
 
 .side-nav .userView .background 
     overflow: hidden
@@ -111,11 +176,27 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
     font-weight: 500
     height: 48px
     line-height: 48px
-    //padding: 0 32px
 
 .side-nav li:hover, .side-nav li.active
     background-color: #FFFFFF
     opacity:.9
+
+.feed-unit-user-img
+    border-radius: 100%
+
+.feed-unit-action
+    color: gray!important
+    margin-right: 20px
+    -webkit-transition: color .3s ease
+    -moz-transition: color .3s ease
+    -o-transition: color .3s ease
+    -ms-transition: color .3s ease
+    transition: color .3s ease
+    cursor: pointer
+    text-transform: none!important
+    z-index: -1
+    display: -webkit-inline-box
+    width: 100%
 
 .side-nav .userView .circle 
     height: 64px
@@ -137,7 +218,8 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
     font-size: 40px
 
 .drawer-menu-icon
-    font-size: 30px!important
+    font-size: 35px!important
+    padding-left: 10px
 
 .side-nav li
     padding: 0
@@ -146,9 +228,10 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
     position: relative
 
 .drawer-mobile
-    position: absolute
+    position: fixed
     top: 0
     left: 0
+    z-index: 100
 
 .validUser
     color: #64dd17
@@ -160,118 +243,164 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
 .btTwitter
     background-color: #1da1f2
 
+#sidenav-overlay 
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    height: 120vh
+    background-color: rgba(0, 0, 0, 0.5)
+    z-index: 97
+    will-change: opacity
+
+.emojis
+    left: 0
+    bottom: 0
+    background: white
+    position: absolute
+    width: auto
+    border-radius: 20px
+    padding-left: 5px
+    padding-right: 5px
+    font-size: 40px
+
+.feed-unit-date
+    font-size: 12px
+    color: gray!important
+
+.share-icons
+    font-size: 20px
+    padding-left: 15px
+
+.bt-send-new-post
+    padding: 0!important
+
+.new-post-select-social-networks
+    font-size: 16px!important
+
+.new-post-reveal
+    padding: 10px!important
+    z-index: 0!important
+
+.icon-share
+    padding: 5px
+    margin: 5px
+
+.div-feed-post
+    padding-top: 45px
+
+.logoweb
+    border-radius: 100%
+    height: inherit!important
+
+.logo-crodity
+    height: inherit!important
+
+//==== WEB =====
 @media (min-width: 600px)
 
-    .backgroundCard
-        position: absolute
-        overflow: hidden
-        top: 0
-        right: 0
-        bottom: 0
-        left: 0
-        z-index: -1
+  .backgroundCard
+      position: absolute
+      overflow: hidden
+      top: 0
+      right: 0
+      bottom: 0
+      left: 0
+      z-index: -1
 
+  .div-feed-post
+      width: 45%
+      margin-left: 245px
     
+  .headerPage .card-profile-image 
+      width: 110px 
+      position: absolute 
+      top: 190px 
+      z-index: 1 
+      left: 40px 
+      cursor: pointer 
+      margin: 0 
 
-    .headerPage .card-profile-image 
-        width: 110px 
-        position: absolute 
-        top: 190px 
-        z-index: 1 
-        left: 40px 
-        cursor: pointer 
-        margin: 0 
+  .headerPage .card-image
+      height: 250px
 
-    .headerPage .card-image
-        height: 250px
+  .tabs
+      display: -webkit-box
+      display: -moz-box
+      display: -ms-flexbox
+      display: -webkit-flex
+      display: flex
+      position: relative
+      overflow-x: hidden
+      overflow-y: hidden
+      height: 48px
+      background-color: #fff
+      margin: 0 auto
+      width: 100%
+      white-space: nowrap
 
-    .tabs
-        display: -webkit-box
-        display: -moz-box
-        display: -ms-flexbox
-        display: -webkit-flex
-        display: flex
-        position: relative
-        overflow-x: hidden
-        overflow-y: hidden
-        height: 48px
-        background-color: #fff
-        margin: 0 auto
-        width: 100%
-        white-space: nowrap
+  .tabs .tab a 
+      color: #00bcd4
+      display: block
+      width: 100%
+      height: 100%
+      text-overflow: ellipsis
+      overflow: hidden
+      -webkit-transition: color 0.28s ease
+      -moz-transition: color 0.28s ease
+      -o-transition: color 0.28s ease
+      -ms-transition: color 0.28s ease
+      transition: color 0.28s ease
 
-    .tabs .tab a 
-        color: #00bcd4
-        display: block
-        width: 100%
-        height: 100%
-        text-overflow: ellipsis
-        overflow: hidden
-        -webkit-transition: color 0.28s ease
-        -moz-transition: color 0.28s ease
-        -o-transition: color 0.28s ease
-        -ms-transition: color 0.28s ease
-        transition: color 0.28s ease
+  .profile-page-wall .tab-content
+      padding: 10px
 
-    .profile-page-wall .tab-content
-        padding: 10px
+  .btnFollowProfile
+      margin: 30px 0
 
-    .btnFollowProfile
-        margin: 30px 0
+  .nameDrawer 
+      margin-top: 12px
+      text-align: center
 
-    .nameDrawer 
-        margin-top: 12px
-        text-align: center
+  .imgDrawer
+      text-align: center
 
-    .imgDrawer
-        text-align: center
+  .imgDrawer img
+      height: 90px
 
-    .imgDrawer img
-        height: 90px
+  .imgProfile
+      height: 100px
 
-    .imgProfile
-        height: 100px
-    .logoweb
-        max-width: 100%
-        height: inherit!important
-        width: inherit!important
+  .logoweb
+      height: inherit!important
+      width: inherit!important
+      border-radius: 100%
 
-    nav .nav-wrapper 
-        position: fixed
-        width: 100%
-        z-index: 2
-        height: inherit
+  nav .nav-wrapper 
+      position: fixed
+      width: 100%
+      z-index: 2
+      height: inherit
 
-    .side-nav.fixed 
-        left: 0
-        position: fixed
-        margin-top: 65px
+  nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i 
+      height: 64px
+      line-height: 40px
 
-    nav .brand-logo 
-        position: absolute
-        height: 30px
-        color: #fff
-        display: inline-block
-        font-size: 2.1rem
-        padding: 10px
-        white-space: nowrap
+  .side-nav.fixed 
+      left: 0
+      position: fixed
+      margin-top: 45px
 
-    .circle 
-        border-radius: 50%
+  nav .brand-logo 
+      position: absolute
+      height: 30px
+      color: #fff
+      display: inline-block
+      font-size: 2.1rem
+      padding: 0px
+      padding-left: 10px
+      padding-top: 5px
+      white-space: nowrap
 
-    .content-logged
-        padding-left: 245px
-    
-    .playpause 
-        background-image:url(http://png-4.findicons.com/files/icons/2315/default_icon/256/media_play_pause_resume.png)
-        background-repeat: no-repeat
-        width: 50%
-        height: 50%
-        position: absolute
-        left: 0%
-        right: 0%
-        top: 0%
-        bottom: 0%
-        margin: auto
-        background-size: contain
-        background-position: center
+  .circle 
+      border-radius: 50%

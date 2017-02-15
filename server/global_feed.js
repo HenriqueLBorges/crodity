@@ -253,8 +253,8 @@ let convertTwitterFeedToGlobal = function (feed) {
     // Created the globalFeed[i] object
 
 
-    console.log('----------------------------------------------------------------------------');
-    console.log(type, description);
+    //console.log('----------------------------------------------------------------------------');
+    //console.log(type, description);
 
     // console.log('----------------------------------------------------------------------------');
     // console.log(video);
@@ -289,20 +289,33 @@ let convertTwitterFeedToGlobal = function (feed) {
         post_image: post_image,
       },
     }
+    
+    //Saving twitter posts on database 
 
-
-    //Saving Twitter feed on data base
     // if (Posts.findOne({ id: globalFeed[i].id })) {
-    //   console.log("true");
+    //   //console.log("true");
 
     // } else {
-    //   Posts.insert(globalFeed[i]);
-    //   console.log("false");
-    // }
-    // console.log('ARQUIVO:');
-    // console.log(type);
+    //   Posts.insert({
+    //     external_id: feed[i].id,
+    //     title: feed[i].user.name + ' @' + feed[i].user.screen_name,
+    //   service: 'twitter',
+    //   created: new Date(feed[i].created_at),
+    //   content: feed[i].text,
+    //   likes: Math.max(feed[i].retweeted_status.favorite_count, feed[i].quoted_status.favorite_count, feed[i].favorite_count),
+    //   shares: feed[i].retweet_count,
+    //   comments: false,
+    //   media: false,
+    //   location: feed[i].geo,
+    //   user: {
+    //     name: feed[i].user.name,
+    //     screen_name: feed[i].user.screen_name,
+    //     image: feed[i].user.profile_image_url
+    //   }
+    //   });
+    //   //console.log("false");
+    // }    
   }
-
   return globalFeed;
 }
 
@@ -332,25 +345,17 @@ let convertFacebookFeedToGlobal = function (feed) {
     try {
       likespost = feed[i].reactions.data.length;
 
-      // console.log('FACEBOOK');
-      // console.log('----------------------------------------------------------------------------');
-      // console.log(feed[i]);
-
-
       if ((typeof feed[i].source !== 'undefined') || feed[i].type == "video") {
         type = 'video';
         description = feed[i].attachments.data[0].description;
         post_image = feed[i].attachments.data[0].media.image.src;
         post_video = feed[i].source;
-        // console.log('VIDEO');
       }
-
 
       if (typeof feed[i].attachments.data[0].media.image.src !== 'undefined' && typeof feed[i].source === 'undefined') {
         type = 'photo'
         description = feed[i].attachments.data[0].description;
         post_image = feed[i].attachments.data[0].media.image.src;
-        // console.log('PHOTO');
       }
 
       // if (!(typeof feed[i].attachments.data[0].description === 'undefined')) {
@@ -363,8 +368,6 @@ let convertFacebookFeedToGlobal = function (feed) {
       //   link = feed[i].link
       // }
 
-
-
       if ((feed[i].type === 'status')) {
         type = 'status'
         description = feed[i].message;
@@ -373,7 +376,6 @@ let convertFacebookFeedToGlobal = function (feed) {
     }
     catch (e) {
       console.log(e);
-      //console.log('undefined');
       feed_unit_image = '';
       likespost = '';
     }
@@ -391,8 +393,6 @@ let convertFacebookFeedToGlobal = function (feed) {
       console.log('CHECKIN');
     }
 
-
-
     let comments = [];
     if (typeof feed[i].comments !== 'undefined' && typeof feed[i].comments !== 'undefined') {
       
@@ -408,8 +408,6 @@ let convertFacebookFeedToGlobal = function (feed) {
         });
       });
     }
-
-
 
     // Created the globalFeed[i] object
 
@@ -454,8 +452,7 @@ let convertFacebookFeedToGlobal = function (feed) {
 
     } else {
       Posts.insert({
-        //_id: ObjectId(feed[i].id),
-        id: feed[i].id,
+        external_id: feed[i].id,
         title: (feed[i].story ? feed[i].story : feed[i].from.name),
         service: 'facebook',
         created: new Date(feed[i].created_time),
@@ -499,14 +496,9 @@ let convertInstagramFeedToGlobal = function (feed) {
   globalFeed = new Array();
 
   let textDescription;
-  //  console.log(feed.type);
   for (let i = 0; i < feed.length; i++) {
-
     type = '';
-
-
     try {
-      //console.log(data.attachments.data[0].media.image.src);
       textDescription = feed[i].caption.text + ' - ' + feed[i].caption.from.username;
 
       if (feed[i].type === 'video') {
@@ -523,7 +515,6 @@ let convertInstagramFeedToGlobal = function (feed) {
 
     }
     catch (err) {
-      //console.log('undefined');
       textDescription = feed[i].user.username;
     }
 
@@ -552,14 +543,6 @@ let convertInstagramFeedToGlobal = function (feed) {
         image: feed[i].user.profile_picture,
       }
     }
-
-
   }
-
-  //console.log('ESSE AQUI TA NO GLOBALFEED')
-  //console.log(globalFeed); 
-
   return globalFeed;
-
-
 }

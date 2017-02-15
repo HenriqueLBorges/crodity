@@ -44,8 +44,8 @@ class Drawer extends Component {
               <img className="responsive-img" src={Helpers.get(this.props, 'currentUser.profile.cover')} />
             </div>
             <Link to='/profile'>
-              <a href="#"><img className="circle" src={Helpers.get(this.props, 'currentUser.profile.image')} /></a>
-              <a href="#"><span className="white-text name">{Helpers.get(this.props, 'currentUser.profile.name')}</span></a>
+              <div href="#"><img className="circle" src={Helpers.get(this.props, 'currentUser.profile.image')} /></div>
+              <div href="#"><span className="white-text name">{Helpers.get(this.props, 'currentUser.profile.name')}</span></div>
             </Link>
           </div>
           </li>
@@ -74,7 +74,7 @@ class Drawer extends Component {
       return (
         <div className="drawer-mobile">
           <ul id="slide-out" className="side-nav">
-            <li><div className="userView">
+            <li><div className="userView user-view">
               <div className="background">
                 <img className="responsive-img" src={Helpers.get(this.props, 'currentUser.profile.cover')} />
               </div>

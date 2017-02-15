@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 //components
 import MainLayout from './layouts/MainLayout.jsx';
 import FeedContainer from './containers/FeedContainer.jsx';
 import ProfileContainer from './containers/ProfileContainer.jsx';
 
-import Register from './components/Register.jsx'
+import Register from './components/Register.jsx';
 import RegisterConfirmation from './components/RegisterConfirmation';
 import AccountsLogin from './components/AccountsLogin.jsx';
-import Profile from './components/Profile.jsx'; 
+import Profile from './components/Profile.jsx';
 
 class App extends Component {
 
@@ -20,7 +20,7 @@ class App extends Component {
     - Using </> we can return the result of the variable (or const) used
     */
     if (this.props.loading) {
-      return <div className="mainLoading"><i className="fa fa-spinner fa-pulse fa-5x fa-fw"></i></div>
+      return <div className="main-loading"><i className="fa fa-spinner fa-pulse fa-5x fa-fw"></i></div>
     } else {
       if (this.props.currentUser != null) {
 
@@ -28,11 +28,10 @@ class App extends Component {
           <Router history={browserHistory}>
 
             <Route path='/' component={MainLayout} currentUser={this.props.loading ? false : this.props.currentUser}>
-              <IndexRoute component={FeedContainer} feedType='profile' />               
-             <Route path='RegisterConfirmation' component={RegisterConfirmation} currentUser={this.props.loading ? false : this.props.currentUser} />
+              <IndexRoute component={FeedContainer} feedType='profile' />
+              <Route path='RegisterConfirmation' component={RegisterConfirmation} currentUser={this.props.loading ? false : this.props.currentUser} />
             </Route>
-              <Route path='/profile' component={ProfileContainer}  /> 
-              <Route component={FeedContainer} feedType='profile' />
+            <Route path='/profile' component={ProfileContainer} />
           </Router>
         );
       }

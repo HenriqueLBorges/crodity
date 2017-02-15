@@ -58,8 +58,6 @@ class FeedContainer extends Component {
 			let u = Meteor.user();
 			let methodName;
 
-
-
 			if (typeof Helpers.get(this.props, 'route.feedType') === 'undefined') {
 				methodName = (this.props.feedType == 'profile' ? 'get' + serviceCapitalized + 'ProfileFeed' : 'get' + serviceCapitalized + 'Feed'); 
 			}

@@ -10,11 +10,11 @@ class AppBar extends React.Component {
     render() {
         return <nav className="app-main">
             <div className="nav-wrapper">
-                <a href="#" className="brand-logo left"><img className="responsive-img z-depth-2 logoweb" src="http://www.crodity.com/img/crodity-logo.jpg"/></a>
+                <a href="#" className="brand-logo left logo-crodity"><img className="responsive-img z-depth-2 logoweb" src="img/CrodityCircle300x300.png"/></a>
                 <ul id="nav-mobile" className="right hide-on-med-and-down ">
-                    <li><a href="sass.html" className="black-text" >Loja Virtual</a></li>
-                    <li><a href="badges.html"  className="black-text">Parceiros</a></li>
-                    <li><a href="collapsible.html"  className="black-text">Contato</a></li>
+                    <li><a href="sass.html" className="white-text" >Loja Virtual</a></li>
+                    <li><a href="badges.html"  className="white-text">Parceiros</a></li>
+                    <li><a href="collapsible.html"  className="white-text">Contato</a></li>
                 </ul>
             </div>
         </nav>
