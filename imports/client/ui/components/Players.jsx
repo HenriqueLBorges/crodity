@@ -13,7 +13,6 @@ searchVideoYoutube(){
 
     return (
       <div className="player">
-       Teste
       </div>
     );
 

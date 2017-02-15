@@ -9,7 +9,7 @@ Meteor.methods({
   // =======================
   // Social Networks Methods
   // =======================
-  'getTwitterFeed': function () {
+  'getTwitterHomeFeed': function () {
     let future = new Future();
 
     // Setting the user
@@ -26,11 +26,13 @@ Meteor.methods({
     });
 
     // Getting the user timeline that will be returned
-    Twitter.get('statuses/home_timeline', {}, function (err, data, response) {
+    Twitter.get('statuses/user_timeline', {}, function (err, data, response) {
       if (err) {
         console.log(err);
+
       }
       else {
+        console.log(data);
         future["return"](convertTwitterFeedToGlobal(data));
       }
     });
@@ -49,12 +51,15 @@ Meteor.methods({
       access_token: user.services.twitter.accessToken,
       access_token_secret: user.services.twitter.accessTokenSecret
     });
-
+    //home_timeline
     Twitter.get('statuses/user_timeline', {}, function (err, data, response) {
       if (err) {
         console.log(err);
       }
       else {
+        // console.log('USER: +++++++++++++++++++++++++++++++++++$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$+');
+        // //console.log(data); 
+        // console.log('USER: +++++++++++++++++++++++++++++++++++$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$+');
         future["return"](convertTwitterFeedToGlobal(data));
       }
     });
@@ -73,7 +78,7 @@ Meteor.methods({
 
       // Facebook Graph API Call
       HTTP.get(
-        'https://graph.facebook.com/v2.8/me?fields=id,name,cover,feed.limit(2){id,story,message,message_tags,place,shares,source,to,link,comments,attachments,created_time,description,likes,sharedposts,name,from,reactions}',
+        'https://graph.facebook.com/v2.8/me?fields=id,name,cover,feed.limit(15){id,story,message,message_tags,place,shares,source,to,link,comments,attachments,created_time,description,likes,sharedposts,name,from,reactions}',
         {
 
           headers: {
@@ -106,7 +111,7 @@ Meteor.methods({
 
     // Checks if the user has the facebook accessToken
     if (user.services.instagram.accessToken) {
-      console.log(user.services.instagram);
+
       // Facebook Graph API Call
       HTTP.get(
         'https://api.instagram.com/v1/users/self/media/recent/?access_token=' + user.services.instagram.accessToken,
@@ -119,7 +124,6 @@ Meteor.methods({
         function (error, response) {
           console.log(error);
           if (!error) {
-            console.log('OI CONVERTI OS DADOS =)');
             //console.log(response.data.data.type);
             future["return"](convertInstagramFeedToGlobal(response.data.data));
 
@@ -136,7 +140,7 @@ Meteor.methods({
     }
   },
 
- 
+
 
 });
 
@@ -145,10 +149,26 @@ Meteor.methods({
 // ============================
 let convertTwitterFeedToGlobal = function (feed) {
 
+  let post_image;
+  let post_video;
+  let type;
+  let image;
+  let description;
+  let feed_unit_image;
+  let likespost;
+  let name = '';
+  let link = '';
+  let name_location;
+  let id_location;
+  let geo;
+
   // Creates the global feed array
   globalFeed = new Array();
 
   for (let i = 0; i < feed.length; i++) {
+
+    type = '';
+
 
     // Set some properties in case they are undefined
     if (typeof feed[i].retweeted_status === 'undefined')
@@ -157,7 +177,94 @@ let convertTwitterFeedToGlobal = function (feed) {
     if (typeof feed[i].quoted_status === 'undefined')
       feed[i].quoted_status = { favorite_count: 0 }
 
+    // if (typeof feed[i].entities.media.media_url === 'undefined')
+    //feed[i].entities.media.media_url = false; 
+
+
+
+    try {
+
+
+      if (typeof feed[i].extended_entities === 'undefined') {
+        type = 'text';
+        post_image = '';
+        post_video = '';
+        description = feed[i].text;
+      }
+
+      if ((typeof feed[i].extended_entities.media[0].video_info !== 'undefined')) {
+
+        if (feed[i].extended_entities.media[0].video_info.variants.length > 1) {
+          post_video = feed[i].extended_entities.media[0].video_info.variants[1].url;
+        } else post_video = feed[i].extended_entities.media[0].video_info.variants[0].url;
+
+
+        if (feed[i].extended_entities.media[0].type === 'animated_gif') {
+          type = 'gif';
+        } else type = 'video';
+
+        post_image = feed[i].extended_entities.media[0].media_url;
+        description = feed[i].text;
+
+      }
+
+      if ((typeof feed[i].extended_entities.media[0].video_info === 'undefined')) {
+
+        description = feed[i].text;
+
+        if (feed[i].extended_entities.media.length > 1) {
+          type = 'album';
+          post_image = []
+
+          for (let j = 0; j < feed[i].extended_entities.media.length; j++) {
+            post_image[j] = feed[i].extended_entities.media[j].media_url;
+          }
+
+        } else {
+          type = 'photo';
+          post_image = feed[i].extended_entities.media[0].media_url;
+        }
+      }
+
+      // if (feed[i].extended_entities.media[0].type == 'video' &&
+      //   !(typeof feed[i].extended_entities.media[0].type === 'undefined')) {
+      //   type = 'video';
+      //   post_video = feed[i].extended_entities.media[0].video_info.variants[1].url;
+      // }
+
+      // else if (feed[i].extend.media[0].type == 'photo' &&
+      //   !(typeof feed[i].extend.media[0].type === 'undefined')) {
+      //   type = 'photo'
+      //   post_image = feed[i].extend.media[0].media_url_https;
+      // }
+
+      // else type = 'text'
+
+
+    }
+
+    catch (e) {
+      // console.log(e);
+      //console.log(video);
+      ///console.log(media);
+
+    }
+
     // Created the globalFeed[i] object
+
+
+    //console.log('----------------------------------------------------------------------------');
+    //console.log(type, description);
+
+    // console.log('----------------------------------------------------------------------------');
+    // console.log(video);
+    // console.log('----------------------------------------------------------------------------');
+    // console.log(image);
+    // console.log('----------------------------------------------------------------------------');
+
+
+    //console.log(media.type); 
+
     globalFeed[i] = {
       title: feed[i].user.name + ' @' + feed[i].user.screen_name,
       service: 'twitter',
@@ -166,18 +273,27 @@ let convertTwitterFeedToGlobal = function (feed) {
       likes: Math.max(feed[i].retweeted_status.favorite_count, feed[i].quoted_status.favorite_count, feed[i].favorite_count),
       shares: feed[i].retweet_count,
       comments: false,
-      media: false,
       location: feed[i].geo,
+      //attachments: feed[i].entities.media.media_url_https,
       user: {
         name: feed[i].user.name,
         screen_name: feed[i].user.screen_name,
         image: feed[i].user.profile_image_url
-      }
+      },
+      media: {
+        name: name,
+        link: link,
+        description: description,
+        type: type,
+        post_video: post_video,
+        post_image: post_image,
+      },
     }
     
     //Saving twitter posts on database 
+
     // if (Posts.findOne({ id: globalFeed[i].id })) {
-    //   console.log("true");
+    //   //console.log("true");
 
     // } else {
     //   Posts.insert({
@@ -197,37 +313,89 @@ let convertTwitterFeedToGlobal = function (feed) {
     //     image: feed[i].user.profile_image_url
     //   }
     //   });
-    //   console.log("false");
+    //   //console.log("false");
     // }    
   }
-
   return globalFeed;
 }
+
 
 let convertFacebookFeedToGlobal = function (feed) {
 
   // Creates the global feed array
   globalFeed = [];
-
+  feed = feed.feed.data;
+  let post_image;
+  let post_video;
+  let type;
+  let image;
+  let description;
   let feed_unit_image;
   let likespost;
-  feed = feed.feed.data;
+  let name;
+  let link;
+  let name_location;
+  let id_location;
+  let geo;
 
   for (let i = 0; i < feed.length; i++) {
+    type = '';
 
     //Defining the image of each post
     try {
       likespost = feed[i].reactions.data.length;
-      feed_unit_image = feed[i].attachments.data[0].media.image.src;
+
+      if ((typeof feed[i].source !== 'undefined') || feed[i].type == "video") {
+        type = 'video';
+        description = feed[i].attachments.data[0].description;
+        post_image = feed[i].attachments.data[0].media.image.src;
+        post_video = feed[i].source;
+      }
+
+      if (typeof feed[i].attachments.data[0].media.image.src !== 'undefined' && typeof feed[i].source === 'undefined') {
+        type = 'photo'
+        description = feed[i].attachments.data[0].description;
+        post_image = feed[i].attachments.data[0].media.image.src;
+      }
+
+      // if (!(typeof feed[i].attachments.data[0].description === 'undefined')) {
+      //   description = feed[i].attachments.data[0].description;
+      // }
+
+      // if ((feed[i].type === "link")) {
+      //   name = feed[i].name;
+      //   description = feed[i].description;
+      //   link = feed[i].link
+      // }
+
+      if ((feed[i].type === 'status')) {
+        type = 'status'
+        description = feed[i].message;
+      }
+
     }
-    catch (err) {
-      //console.log('undefined');
+    catch (e) {
+      console.log(e);
       feed_unit_image = '';
-      likespost='';
+      likespost = '';
+    }
+
+    if (typeof (feed[i].place) !== 'undefined') {
+      type = 'checkin';
+      post_image = feed[i].attachments.data[0].media.image.src;
+      name_location = feed[i].place.name;
+      id_location = feed[i].place.id;
+      geo = feed[i].place.location
+
+      if (typeof feed[i].attachments.data[0].description === 'undefined') {
+        description = '';
+      } else description = feed[i].attachments.data[0].description;
+      console.log('CHECKIN');
     }
 
     let comments = [];
     if (typeof feed[i].comments !== 'undefined' && typeof feed[i].comments !== 'undefined') {
+      
       comments = feed[i].comments.data.map((comment, i) => {
         return ({
           id: comment.id,
@@ -242,6 +410,7 @@ let convertFacebookFeedToGlobal = function (feed) {
     }
 
     // Created the globalFeed[i] object
+
     globalFeed[i] = {
       id: feed[i].id,
       title: (feed[i].story ? feed[i].story : feed[i].from.name),
@@ -251,40 +420,45 @@ let convertFacebookFeedToGlobal = function (feed) {
       likes: likespost,
       shares: feed[i].shares,
       comments: comments,
-      media: false,
-      post_image: feed_unit_image,
-      attachments: feed[i].attachments,
+
+      media: {
+        name: name,
+        link: link,
+        description: description,
+        type: type,
+        post_video: post_video,
+        post_image: post_image,
+      },
+
       user: {
         name: feed[i].from.name,
         screen_name: false,
         service_id: feed[i].from.id,
         image: 'http://graph.facebook.com/v2.8/' + feed[i].from.id + '/picture?width=100&height=100',
+      },
+
+      location: {
+        id_location: id_location,
+        name_location: name_location,
+        geo: geo
       }
     }
 
-    // Checks if the facebook place object is defined before setting the global location object
-    if (typeof (feed[i].place) !== 'undefined') {
-      globalFeed[i].location = {
-        facebook_id: feed[i].place.id,
-        name: feed[i].place.name,
-        geo: feed[i].place.location
-      };
-    }
+
 
     //Creating a global feed on Database
     if (Posts.findOne({ id: globalFeed[i].id })) {
-      console.log("true");
+      // console.log("true");
 
     } else {
       Posts.insert({
-        //_id: ObjectId(feed[i].id),
         external_id: feed[i].id,
         title: (feed[i].story ? feed[i].story : feed[i].from.name),
         service: 'facebook',
         created: new Date(feed[i].created_time),
         content: (feed[i].message ? feed[i].message : feed[i].description),
         likes: feed[i].likes,
-        crodity_reactions:[],
+        crodity_reactions: [],
         shares: feed[i].shares,
         comments: comments,
         media: false,
@@ -297,7 +471,7 @@ let convertFacebookFeedToGlobal = function (feed) {
           image: 'http://graph.facebook.com/v2.8/' + feed[i].from.id + '/picture?width=100&height=100',
         }
       });
-      console.log("false");
+      // console.log("false");
     }
   }
   return globalFeed;
@@ -305,21 +479,42 @@ let convertFacebookFeedToGlobal = function (feed) {
 
 let convertInstagramFeedToGlobal = function (feed) {
 
+  let post_image;
+  let post_video;
+  let type;
+  let image;
+  let description = '';
+  let feed_unit_image;
+  let likespost;
+  let name = '';
+  let link = '';
+  let name_location;
+  let id_location;
+  let geo;
 
   // Creates the global feed array
   globalFeed = new Array();
 
   let textDescription;
-  //  console.log(feed.type);
   for (let i = 0; i < feed.length; i++) {
-
-
+    type = '';
     try {
-      //console.log(data.attachments.data[0].media.image.src);
       textDescription = feed[i].caption.text + ' - ' + feed[i].caption.from.username;
+
+      if (feed[i].type === 'video') {
+        post_image = feed[i].images.standard_resolution.url;
+        post_video = feed[i].videos.standard_resolution.url;
+        type = 'video';
+      }
+
+      if (feed[i].type === 'image') {
+        post_image = feed[i].images.standard_resolution.url;
+        post_video = '';
+        type = 'photo';
+      }
+
     }
     catch (err) {
-      //console.log('undefined');
       textDescription = feed[i].user.username;
     }
 
@@ -329,27 +524,25 @@ let convertInstagramFeedToGlobal = function (feed) {
       content: textDescription,
       service: 'instagram',
       created: new Date(feed[i].created_time * 1000),
-      post_image: feed[i].images.standard_resolution.url,
       likes: feed[i].likes.count,
       comments: feed[i].comments,
-      media: false,
       filter: feed[i].filter,
       id: feed[i].id,
       type: feed[i].type,
       tags: feed[i].tags,
       location: feed[i].location,
+      media: {
+        name: name,
+        link: link,
+        description: description,
+        type: type,
+        post_video: post_video,
+        post_image: post_image,
+      },
       user: {
         image: feed[i].user.profile_picture,
       }
     }
-
-   
   }
-
-  //console.log('ESSE AQUI TA NO GLOBALFEED')
-  //console.log(globalFeed); 
-
   return globalFeed;
-
-
 }

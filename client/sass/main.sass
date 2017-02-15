@@ -24,7 +24,7 @@ $colorCrodity: #ffca43
 
     .headerPage .card-image
         height: 250px
-     
+
     .btnFollowProfile
         margin: 30px 0
 
@@ -95,8 +95,8 @@ body
 .feed-unit
     border-style: groove
 
-.feed-unit .feed-unit-action a
-    color: gray
+.feed-unit .feed-unit-action a, .feed-unit-action div
+    color: gray!important
     margin-right: 20px
     -webkit-transition: color .3s ease
     -moz-transition: color .3s ease
@@ -104,7 +104,7 @@ body
     -ms-transition: color .3s ease
     transition: color .3s ease
     cursor: pointer
-    text-transform: none
+    text-transform: none!important
     z-index: -1
 
 .feed-unit .feed-unit-action a:hover 
@@ -114,6 +114,13 @@ body
     border-top: 1px solid rgba(160, 160, 160, 0.2)
     border-bottom: 1px solid rgba(160, 160, 160, 0.2)
     padding: 5px
+
+.row .col
+    float: left
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+    padding: 0 0.75rem
 
 .feed-unit .feed-unit-content
     padding: 12px
@@ -125,6 +132,9 @@ body
 .tittle-card-image
     padding: 0rem!important
     border-radius: 100%
+
+.tittle-card
+    margin-left: 0!important
 
 .row-new-post
     margin-left: auto
@@ -166,14 +176,16 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
     font-weight: 500
     height: 48px
     line-height: 48px
-    //padding: 0 32px
 
 .side-nav li:hover, .side-nav li.active
     background-color: #FFFFFF
     opacity:.9
 
-.like
-    color: gray
+.feed-unit-user-img
+    border-radius: 100%
+
+.feed-unit-action
+    color: gray!important
     margin-right: 20px
     -webkit-transition: color .3s ease
     -moz-transition: color .3s ease
@@ -181,9 +193,10 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
     -ms-transition: color .3s ease
     transition: color .3s ease
     cursor: pointer
-    text-transform: none
+    text-transform: none!important
     z-index: -1
     display: -webkit-inline-box
+    width: 100%
 
 .side-nav .userView .circle 
     height: 64px
@@ -222,7 +235,7 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
 
 .validUser
     color: #64dd17
-    
+
 .invalidUser
     border-bottom: 1px solid #d50000
     box-shadow: 0 1px 0 0 #d50000
@@ -286,109 +299,108 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
 //==== WEB =====
 @media (min-width: 600px)
 
-    .backgroundCard
-        position: absolute
-        overflow: hidden
-        top: 0
-        right: 0
-        bottom: 0
-        left: 0
-        z-index: -1
+  .backgroundCard
+      position: absolute
+      overflow: hidden
+      top: 0
+      right: 0
+      bottom: 0
+      left: 0
+      z-index: -1
 
-    .div-feed-post
-        width: 45%
-        margin-left: 245px
+  .div-feed-post
+      width: 45%
+      margin-left: 245px
     
-    .headerPage .card-profile-image 
-        width: 110px 
-        position: absolute 
-        top: 190px 
-        z-index: 1 
-        left: 40px 
-        cursor: pointer 
-        margin: 0 
+  .headerPage .card-profile-image 
+      width: 110px 
+      position: absolute 
+      top: 190px 
+      z-index: 1 
+      left: 40px 
+      cursor: pointer 
+      margin: 0 
 
-    .headerPage .card-image
-        height: 250px
-    
-    .tabs
-        display: -webkit-box
-        display: -moz-box
-        display: -ms-flexbox
-        display: -webkit-flex
-        display: flex
-        position: relative
-        overflow-x: hidden
-        overflow-y: hidden
-        height: 48px
-        background-color: #fff
-        margin: 0 auto
-        width: 100%
-        white-space: nowrap
+  .headerPage .card-image
+      height: 250px
 
-    .tabs .tab a 
-        color: #00bcd4
-        display: block
-        width: 100%
-        height: 100%
-        text-overflow: ellipsis
-        overflow: hidden
-        -webkit-transition: color 0.28s ease
-        -moz-transition: color 0.28s ease
-        -o-transition: color 0.28s ease
-        -ms-transition: color 0.28s ease
-        transition: color 0.28s ease
-    
-    .profile-page-wall .tab-content
-        padding: 10px
+  .tabs
+      display: -webkit-box
+      display: -moz-box
+      display: -ms-flexbox
+      display: -webkit-flex
+      display: flex
+      position: relative
+      overflow-x: hidden
+      overflow-y: hidden
+      height: 48px
+      background-color: #fff
+      margin: 0 auto
+      width: 100%
+      white-space: nowrap
 
+  .tabs .tab a 
+      color: #00bcd4
+      display: block
+      width: 100%
+      height: 100%
+      text-overflow: ellipsis
+      overflow: hidden
+      -webkit-transition: color 0.28s ease
+      -moz-transition: color 0.28s ease
+      -o-transition: color 0.28s ease
+      -ms-transition: color 0.28s ease
+      transition: color 0.28s ease
 
-    .btnFollowProfile
-        margin: 30px 0
+  .profile-page-wall .tab-content
+      padding: 10px
 
-    .nameDrawer 
-        margin-top: 12px
-        text-align: center
-    
-    .imgDrawer
-        text-align: center
+  .btnFollowProfile
+      margin: 30px 0
 
-    .imgDrawer img
-        height: 90px
+  .nameDrawer 
+      margin-top: 12px
+      text-align: center
 
-    .imgProfile
-        height: 100px
-    .logoweb
-        //max-width: 100%
-        height: inherit!important
-        width: inherit!important
-        border-radius: 100%
+  .imgDrawer
+      text-align: center
 
-    nav .nav-wrapper 
-        position: fixed
-        width: 100%
-        z-index: 2
-        height: inherit
+  .imgDrawer img
+      height: 90px
 
-    nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i 
-        height: 64px
-        line-height: 40px
+  .imgProfile
+      height: 100px
 
-    .side-nav.fixed 
-        left: 0
-        position: fixed
-        margin-top: 45px
+  .logoweb
+      height: inherit!important
+      width: inherit!important
+      border-radius: 100%
 
-    nav .brand-logo 
-        position: absolute
-        height: 30px
-        color: #fff
-        display: inline-block
-        font-size: 2.1rem
-        padding: 0px
-        padding-left: 10px
-        padding-top: 5px
-        white-space: nowrap
+  nav .nav-wrapper 
+      position: fixed
+      width: 100%
+      z-index: 2
+      height: inherit
 
-    .circle 
-        border-radius: 50%
+  nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i 
+      height: 64px
+      line-height: 40px
+
+  .side-nav.fixed 
+      left: 0
+      position: fixed
+      margin-top: 45px
+
+  nav .brand-logo 
+      position: absolute
+      height: 30px
+      color: #fff
+      display: inline-block
+      font-size: 2.1rem
+      padding: 0px
+      padding-left: 10px
+      padding-top: 5px
+      white-space: nowrap
+
+  .circle 
+      border-radius: 50%

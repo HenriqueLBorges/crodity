@@ -10,7 +10,7 @@ class FeedUnit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: true,
+    open: true,
       emojis: false,
       showEmojis: {
         likeOn: false,
@@ -49,10 +49,61 @@ class FeedUnit extends Component {
     this.forceUpdate();
   }
 
+  componentDidMount() {
+    event.preventDefault();
+    $('.carousel').carousel();
+  }
+
+  mediaRender() {
+    let data = this.props.data;
+    let self = this;
+
+    let media;
+
+    if (!(typeof data === 'undefined'))
+
+      if (Helpers.get(data, 'media.type') == 'video') {
+        return <video loop preload="auto" className="video" src={Helpers.get(data, 'media.post_video')} controls> </video>;
+      }
+
+    //console.log('HELPERS', Helpers.get(data, 'media.type'));
+
+    if (Helpers.get(data, 'media.type') == 'photo') {
+      return <div>
+        <p> {Helpers.get(data, 'media.description')} </p>
+        <img src={Helpers.get(data, 'media.post_image')} /> </div>;
+    }
+
+    if (Helpers.get(data, 'media.type') == 'checkin') {
+      return <figure>
+        <figcaption>{Helpers.get(data, 'location.name_location')}</figcaption>
+        <figcaption>{Helpers.get(data, 'media.description')}</figcaption>
+        <img src={Helpers.get(data, 'media.post_image')} />
+      </figure>;
+    }
+
+    if (Helpers.get(data, 'media.type') == 'gif') {
+      return <video loop preload="auto" className="video" src={Helpers.get(data, 'media.post_video')} autoPlay> </video>;
+    }
+
+    if (Helpers.get(data, 'media.type') == 'album') {
+      let album = [];
+      let post_image = [];
+      post_image = Helpers.get(data, 'media.post_image');
+      let i=0; 
+      return (<div className="carousel" key={i++}>
+      
+        {post_image.map((img_src, i, album) => {
+          return (
+            <p className="carousel-item"  ><img src={img_src}/></p>
+          );
+        })}
+      </div>);
+    }
+
+  }
+
   mouseOffEmoji() {
-
-
-
     this.state.emojis = false;
     this.forceUpdate();
   }
@@ -62,7 +113,9 @@ class FeedUnit extends Component {
     // console.log(this.state.emojiStyle.display);
     let data = this.props.data;
     formattedDate = moment(data.created).calendar();
+
     if (!(typeof data === 'undefined')) {
+      media = this.mediaRender();
       return (
         <div className="row row-card-total">
           <div className="col s12 m9 card-total">
@@ -71,24 +124,26 @@ class FeedUnit extends Component {
               <div className="card-content feed-unit-content">
                 <div className="row tittle-card">
 
-                  <div className="col s1 tittle-card-image "><img src={data.user.image} className="responsive-img" width="50" /></div>
+                  <div className="col s1 tittle-card-image "><img src={data.user.image} className="responsive-img feed-unit-user-img" width="50" /></div>
                   <div className="feedUnitTittle col s10 tittle-card">
+
                     <div>{data.title} {Helpers.get(data, 'location') ? <p><i className="fa fa-map-marker" aria-hidden="true"> </i>{Helpers.get(data, 'location.name')}</p> : ""}</div>
                     <p className="feed-unit-date">{formattedDate}</p>
+
                   </div>
                   <div className="feedUnitService col s1 tittle-card-image">{Helpers.socialIcon(data.service, 2)}</div>
                 </div>
                 <p>{data.content}</p>
                 <div className="card-image">
-                  <img src={Helpers.get(data, 'post_image')} />
+                  {media}
                   <div onMouseOver={this.mouseOnEmoji.bind(this)}>{this.state.emojis}</div>
                 </div>
                 <div className="card-action feed-unit-action">
-                  <div className="like" ref='like' onClick={this.toLike.bind(this, data.id)} onMouseOver={this.mouseOnEmoji.bind(this)} onMouseLeave={this.mouseOffEmoji.bind(this)}>
+                  <div ref='like' onClick={this.toLike.bind(this, data.id)} onMouseOver={this.mouseOnEmoji.bind(this)} onMouseLeave={this.mouseOffEmoji.bind(this)}>
                     <i className="fa fa-thumbs-o-up" aria-hidden="true"></i> Like
                   </div>
-                  <i className="fa fa-comments-o grey-text" aria-hidden="true"></i>
-                  <a > Comment</a>
+                    <i className="fa fa-comments-o grey-text" aria-hidden="true"></i>
+                    <a > Comment</a>                  
                   <i className="fa fa-share grey-text" aria-hidden="true"></i>
                   <a > Share</a>
                 </div>
