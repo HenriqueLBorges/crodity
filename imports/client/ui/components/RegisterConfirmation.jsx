@@ -69,7 +69,7 @@ class RegisterConfirmation extends Component {
 		if ((!this.props.route.currentUser.registered_emails.length) && (!this.props.route.currentUser.registered_phones.length)) {
 			return (
 				<form onSubmit={this.handleSubmitEmailAndPhone.bind(this)} autocomplete="off">
-					<div className="email-field-component">
+					<div className="email-field-register-confirmation">
 						<p>Por favor, realize a confirmação de dados para continuar:</p>
 						{this.EmailField()}
 						{this.PhoneField()}

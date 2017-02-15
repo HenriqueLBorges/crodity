@@ -174,15 +174,31 @@ let convertTwitterFeedToGlobal = function (feed) {
         image: feed[i].user.profile_image_url
       }
     }
-    //Saving Twitter feed on data base
+    
+    //Saving twitter posts on database 
     // if (Posts.findOne({ id: globalFeed[i].id })) {
     //   console.log("true");
 
     // } else {
-    //   Posts.insert(globalFeed[i]);
+    //   Posts.insert({
+    //     external_id: feed[i].id,
+    //     title: feed[i].user.name + ' @' + feed[i].user.screen_name,
+    //   service: 'twitter',
+    //   created: new Date(feed[i].created_at),
+    //   content: feed[i].text,
+    //   likes: Math.max(feed[i].retweeted_status.favorite_count, feed[i].quoted_status.favorite_count, feed[i].favorite_count),
+    //   shares: feed[i].retweet_count,
+    //   comments: false,
+    //   media: false,
+    //   location: feed[i].geo,
+    //   user: {
+    //     name: feed[i].user.name,
+    //     screen_name: feed[i].user.screen_name,
+    //     image: feed[i].user.profile_image_url
+    //   }
+    //   });
     //   console.log("false");
-    // }
-    
+    // }    
   }
 
   return globalFeed;
@@ -262,7 +278,7 @@ let convertFacebookFeedToGlobal = function (feed) {
     } else {
       Posts.insert({
         //_id: ObjectId(feed[i].id),
-        id: feed[i].id,
+        external_id: feed[i].id,
         title: (feed[i].story ? feed[i].story : feed[i].from.name),
         service: 'facebook',
         created: new Date(feed[i].created_time),

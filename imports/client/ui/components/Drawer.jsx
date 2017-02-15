@@ -74,7 +74,7 @@ class Drawer extends Component {
       return (
         <div className="drawer-mobile">
           <ul id="slide-out" className="side-nav">
-            <li><div className="userView">
+            <li><div className="userView user-view">
               <div className="background">
                 <img className="responsive-img" src={Helpers.get(this.props, 'currentUser.profile.cover')} />
               </div>

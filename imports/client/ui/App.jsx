@@ -20,7 +20,7 @@ class App extends Component {
     - Using </> we can return the result of the variable (or const) used
     */
     if (this.props.loading) {
-      return <div className="mainLoading"><i className="fa fa-spinner fa-pulse fa-5x fa-fw"></i></div>
+      return <div className="main-loading"><i className="fa fa-spinner fa-pulse fa-5x fa-fw"></i></div>
     } else {
       if (this.props.currentUser != null) {
 

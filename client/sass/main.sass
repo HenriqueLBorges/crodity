@@ -29,7 +29,7 @@ $colorCrodity: #ffca43
         margin: 30px 0
 
 body
-    background: lightsteelblue
+    background: #FFFCF4
 
 .bt-select-social-newtwork
     text-decoration: none
@@ -47,30 +47,43 @@ body
     border: none
     border-radius: 2px
     display: inline-block
-    line-height: 36px
-    padding: 0 2rem
+    line-height: 25px
+    padding: 0 1rem
     vertical-align: middle
     -webkit-tap-highlight-color: transparent
     text-transform: none
+    z-index: 0
 
 .bt-select-social-newtwork:hover
     background-color: #60A49D
 
-.NewPost
-    padding: 10px
+.new-post
+    padding: 5px
     background-color: white
     border-radius: 0 0 2px 2px
+    border-style: groove
+    margin: 0px
 
-.col-avatar-NewPost
+.row-card-total
+    margin-bottom: 0px!important
+
+.user-view
+    margin-bottom: 8px!important
+
+.col-avatar-new-post
     padding-top: 2rem!important
+    padding: 0 0.2rem!important
+    margin-top: 2rem
+    border-radius: 100%
 
 .app-main
-    background: whitesmoke
+    background: #FFCA43
     cursor: 'pointer'
-    color: '#000'
+    color: '#FFFFF'!important
     position: fixed
     height: 40px
     z-index: 1
+    font-weight: bold
 
 .row-reactions a
     margin-right: 20px
@@ -79,7 +92,10 @@ body
 .row-reactions 
     padding: 5px
 
-.card .card-action a
+.feed-unit
+    border-style: groove
+
+.feed-unit .feed-unit-action a
     color: gray
     margin-right: 20px
     -webkit-transition: color .3s ease
@@ -91,27 +107,29 @@ body
     text-transform: none
     z-index: -1
 
-.card .card-action a:hover 
+.feed-unit .feed-unit-action a:hover 
     color: dark orange
 
-.card .card-action 
+.feed-unit .feed-unit-action 
     border-top: 1px solid rgba(160, 160, 160, 0.2)
     border-bottom: 1px solid rgba(160, 160, 160, 0.2)
     padding: 5px
 
-.card .card-content 
+.feed-unit .feed-unit-content
     padding: 12px
     border-radius: 0 0 2px 2px
 
 .waves-effect.waves-crodityColor
     background-color: $colorCrodity
+    
+.tittle-card-image
+    padding: 0rem!important
+    border-radius: 100%
 
-.row .col 
-    float: left
-    -webkit-box-sizing: border-box
-    -moz-box-sizing: border-box
-    box-sizing: border-box
-    padding: 0 0.2rem
+.row-new-post
+    margin-left: auto
+    margin-right: auto
+    margin-bottom: 0px
 
 .email-field-component
     padding-left: 20px
@@ -121,6 +139,7 @@ body
 
 .card-total
     width: 100%!important
+    padding: 0px!important
 
 .side-nav .userView .background 
     overflow: hidden
@@ -232,9 +251,23 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
     padding-right: 5px
     font-size: 40px
 
+.feed-unit-date
+    font-size: 12px
+    color: gray!important
+
 .share-icons
-    font-size: 30px
-    padding-left: 30px
+    font-size: 20px
+    padding-left: 15px
+
+.bt-send-new-post
+    padding: 0!important
+
+.new-post-select-social-networks
+    font-size: 16px!important
+
+.new-post-reveal
+    padding: 10px!important
+    z-index: 0!important
 
 .icon-share
     padding: 5px
@@ -242,6 +275,13 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
 
 .div-feed-post
     padding-top: 45px
+
+.logoweb
+    border-radius: 100%
+    height: inherit!important
+
+.logo-crodity
+    height: inherit!important
 
 //==== WEB =====
 @media (min-width: 600px)
@@ -319,9 +359,10 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
     .imgProfile
         height: 100px
     .logoweb
-        max-width: 100%
+        //max-width: 100%
         height: inherit!important
         width: inherit!important
+        border-radius: 100%
 
     nav .nav-wrapper 
         position: fixed
