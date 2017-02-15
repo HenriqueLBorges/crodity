@@ -95,7 +95,7 @@ class FeedContainer extends Component {
 		this.getFeed('instagram');
 
 		let self = this;
-		let timeout = (Meteor.user() ? 60000 : 500);
+		let timeout = (Meteor.user() ? 90000 : 500);
 		setTimeout(self.getAllFeeds.bind(self), timeout);
 	}
 

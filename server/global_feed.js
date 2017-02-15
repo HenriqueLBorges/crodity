@@ -52,7 +52,7 @@ Meteor.methods({
       access_token_secret: user.services.twitter.accessTokenSecret
     });
     //home_timeline
-    Twitter.get('statuses/user_timeline', {}, function (err, data, response) {
+    Twitter.get('statuses/home_timeline', { count: '25' }, function (err, data, response) {
       if (err) {
         console.log(err);
       }
@@ -185,12 +185,21 @@ let convertTwitterFeedToGlobal = function (feed) {
     try {
 
 
-      if (typeof feed[i].extended_entities === 'undefined') {
-        type = 'text';
-        post_image = '';
-        post_video = '';
-        description = feed[i].text;
-      }
+
+      // let regexLink = /(((?=.*[http])(?=.*[.:/])[http://-https://]{4,}))/;
+
+      // if (typeof feed[i].extended_entities === 'undefined') {
+       
+      //   post_image = '';
+      //   post_video = '';
+      //   description = feed[i].text;
+
+      //   if (regexLink.exec(feed[i].text)) {
+      //     type = 'link';
+      //   }else
+      //   type = 'text';
+
+      // }
 
       if ((typeof feed[i].extended_entities.media[0].video_info !== 'undefined')) {
 
@@ -289,7 +298,7 @@ let convertTwitterFeedToGlobal = function (feed) {
         post_image: post_image,
       },
     }
-    
+
     //Saving twitter posts on database 
 
     // if (Posts.findOne({ id: globalFeed[i].id })) {
@@ -322,9 +331,10 @@ let convertTwitterFeedToGlobal = function (feed) {
 
 let convertFacebookFeedToGlobal = function (feed) {
 
+  feed = feed.feed.data;
   // Creates the global feed array
   globalFeed = [];
-  feed = feed.feed.data;
+
   let post_image;
   let post_video;
   let type;
@@ -395,7 +405,7 @@ let convertFacebookFeedToGlobal = function (feed) {
 
     let comments = [];
     if (typeof feed[i].comments !== 'undefined' && typeof feed[i].comments !== 'undefined') {
-      
+
       comments = feed[i].comments.data.map((comment, i) => {
         return ({
           id: comment.id,

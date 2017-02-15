@@ -101,6 +101,11 @@ class FeedUnit extends Component {
       </div>);
     }
 
+    // if (Helpers.get(data, 'media.type') == 'link') {
+
+
+    // }
+
   }
 
   mouseOffEmoji() {
