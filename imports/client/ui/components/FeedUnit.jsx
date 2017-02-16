@@ -10,7 +10,7 @@ class FeedUnit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    open: true,
+      open: true,
       emojis: false,
       showEmojis: {
         likeOn: false,
@@ -37,8 +37,8 @@ class FeedUnit extends Component {
   }
 
   mouseOnEmoji() {
-    console.log(this.refs);
-    
+    //    console.log(this.refs);
+
     this.state.emojis = <div className="emojis">
       {emojione.shortnameToUnicode(':thumbsup:')}
       {emojione.shortnameToUnicode(':heart:')}
@@ -54,23 +54,61 @@ class FeedUnit extends Component {
     $('.carousel').carousel();
   }
 
+
+  textVerify() {
+    let data = this.props.data;
+    let self = this;
+    let urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    let text = Helpers.get(data, 'media.description');
+
+    var link;
+
+    text.replace(urlRegex, function (u) {
+      self.link = u;
+      return self.link;
+    })
+
+    var mediaDescription = text.replace(urlRegex, function (u) {
+      return '';
+    })
+
+    let textDescription = {
+      link: self.link,
+      description: mediaDescription
+    }
+
+    return (textDescription);
+  }
+
   mediaRender() {
     let data = this.props.data;
     let self = this;
 
     let media;
 
+
     if (!(typeof data === 'undefined'))
 
-      if (Helpers.get(data, 'media.type') == 'video') {
-        return <video loop preload="auto" className="video" src={Helpers.get(data, 'media.post_video')} controls> </video>;
+      if (Helpers.get(data, 'media.type') == 'text') {
+        return <div><p> {this.textVerify().description ? this.textVerify().description : data.content} </p>
+          {this.textVerify().link ? <a href={this.textVerify().link}> {this.textVerify().link} </a> : ""}
+        </div>;
       }
 
-    //console.log('HELPERS', Helpers.get(data, 'media.type'));
+    if (Helpers.get(data, 'media.type') == 'video') {
+      return <div><p> {this.textVerify().description} </p>
+        <a href={this.textVerify().link}> {this.textVerify().link} </a>
+        <video loop preload="auto" className="video" src={Helpers.get(data, 'media.post_video')} controls> </video>
+      </div>;
+
+    }
+
+    console.log('HELPERS', Helpers.get(data, 'media.type'));
 
     if (Helpers.get(data, 'media.type') == 'photo') {
       return <div>
-        <p> {Helpers.get(data, 'media.description')} </p>
+        <p> {this.textVerify().description} </p>
+       {this.textVerify().link ? <a href={this.textVerify().link}> {this.textVerify().link} </a> : ""}
         <img src={Helpers.get(data, 'media.post_image')} /> </div>;
     }
 
@@ -90,12 +128,12 @@ class FeedUnit extends Component {
       let album = [];
       let post_image = [];
       post_image = Helpers.get(data, 'media.post_image');
-      let i=0; 
+      let i = 0;
       return (<div className="carousel" key={i++}>
-      
+
         {post_image.map((img_src, i, album) => {
           return (
-            <p className="carousel-item"  ><img src={img_src}/></p>
+            <p className="carousel-item"  ><img src={img_src} /></p>
           );
         })}
       </div>);
@@ -118,6 +156,7 @@ class FeedUnit extends Component {
     // console.log(this.state.emojiStyle.display);
     let data = this.props.data;
     formattedDate = moment(data.created).calendar();
+    console.log(data);
 
     if (!(typeof data === 'undefined')) {
       media = this.mediaRender();
@@ -132,23 +171,24 @@ class FeedUnit extends Component {
                   <div className="col s1 tittle-card-image "><img src={data.user.image} className="responsive-img feed-unit-user-img" width="50" /></div>
                   <div className="feedUnitTittle col s10 tittle-card">
 
-                    <div>{data.title} {Helpers.get(data, 'location') ? <p><i className="fa fa-map-marker" aria-hidden="true"> </i>{Helpers.get(data, 'location.name')}</p> : ""}</div>
+                    <div>{data.title} {Helpers.get(data, 'location') ? <p><i className="fa fa-map-marker" aria-hidden="true">
+                    </i>{Helpers.get(data, 'location.name')}</p> : ""}</div>
                     <p className="feed-unit-date">{formattedDate}</p>
 
                   </div>
                   <div className="feedUnitService col s1 tittle-card-image">{Helpers.socialIcon(data.service, 2)}</div>
                 </div>
-                <p>{data.content}</p>
                 <div className="card-image">
                   {media}
+                  <p>{data.content}</p>
                   <div onMouseOver={this.mouseOnEmoji.bind(this)}>{this.state.emojis}</div>
                 </div>
                 <div className="card-action feed-unit-action">
                   <div ref='like' onClick={this.toLike.bind(this, data.id)} onMouseOver={this.mouseOnEmoji.bind(this)} onMouseLeave={this.mouseOffEmoji.bind(this)}>
                     <i className="fa fa-thumbs-o-up" aria-hidden="true"></i> Like
                   </div>
-                    <i className="fa fa-comments-o grey-text" aria-hidden="true"></i>
-                    <a > Comment</a>                  
+                  <i className="fa fa-comments-o grey-text" aria-hidden="true"></i>
+                  <a > Comment</a>
                   <i className="fa fa-share grey-text" aria-hidden="true"></i>
                   <a > Share</a>
                 </div>

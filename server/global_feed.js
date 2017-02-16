@@ -188,18 +188,10 @@ let convertTwitterFeedToGlobal = function (feed) {
 
       // let regexLink = /(((?=.*[http])(?=.*[.:/])[http://-https://]{4,}))/;
 
-      // if (typeof feed[i].extended_entities === 'undefined') {
-       
-      //   post_image = '';
-      //   post_video = '';
-      //   description = feed[i].text;
-
-      //   if (regexLink.exec(feed[i].text)) {
-      //     type = 'link';
-      //   }else
-      //   type = 'text';
-
-      // }
+      if (typeof feed[i].extended_entities === 'undefined') {
+        description = feed[i].text;
+        type = 'text';
+      }
 
       if ((typeof feed[i].extended_entities.media[0].video_info !== 'undefined')) {
 
@@ -278,7 +270,7 @@ let convertTwitterFeedToGlobal = function (feed) {
       title: feed[i].user.name + ' @' + feed[i].user.screen_name,
       service: 'twitter',
       created: new Date(feed[i].created_at),
-      content: feed[i].text,
+      content: (feed[i].retweeted_status.text ? feed[i].retweeted_status.text : feed[i].quoted_status.text),
       likes: Math.max(feed[i].retweeted_status.favorite_count, feed[i].quoted_status.favorite_count, feed[i].favorite_count),
       shares: feed[i].retweet_count,
       comments: false,
@@ -353,6 +345,7 @@ let convertFacebookFeedToGlobal = function (feed) {
 
     //Defining the image of each post
     try {
+
       likespost = feed[i].reactions.data.length;
 
       if ((typeof feed[i].source !== 'undefined') || feed[i].type == "video") {
@@ -362,11 +355,30 @@ let convertFacebookFeedToGlobal = function (feed) {
         post_video = feed[i].source;
       }
 
-      if (typeof feed[i].attachments.data[0].media.image.src !== 'undefined' && typeof feed[i].source === 'undefined') {
+       console.log('OI'); 
+
+        if (typeof feed[i].attachments.data[0].media.image.src !== 'undefined' && typeof feed[i].source === 'undefined') {
         type = 'photo'
         description = feed[i].attachments.data[0].description;
         post_image = feed[i].attachments.data[0].media.image.src;
       }
+
+      // if (typeof feed[i].attachments.data[0].media.image.src !== 'undefined' && 
+      // typeof feed[i].source === 'undefined'){
+      //     type = 'photo';
+      //     description = feed[i].attachments.data[0].description;
+      //     post_image = feed[i].attachments.data[0].media.image.src;
+      //   console.log('TO NO IF ')
+      // }
+
+       if ((typeof feed[i].attachments.data[0].subattachments.data[0].media.image.src !== 'undefined') &&
+         feed[i].attachments.data[0].subattachments.data.length > 1) {
+          type = 'album';
+          post_image = []
+          for (let j = 0; j < feed[i].attachments.data[0].subattachments.data.length; j++) {
+            post_image[j] = feed[i].attachments.data[0].subattachments.data[j].media.image.src;
+          }
+        } 
 
       // if (!(typeof feed[i].attachments.data[0].description === 'undefined')) {
       //   description = feed[i].attachments.data[0].description;
@@ -378,17 +390,19 @@ let convertFacebookFeedToGlobal = function (feed) {
       //   link = feed[i].link
       // }
 
-      if ((feed[i].type === 'status')) {
-        type = 'status'
-        description = feed[i].message;
-      }
+      // if ((feed[i].type === 'status')) {
+      //   type = 'status'
+      //   description = feed[i].message;
+      // }
 
     }
+
     catch (e) {
       console.log(e);
       feed_unit_image = '';
       likespost = '';
     }
+
 
     if (typeof (feed[i].place) !== 'undefined') {
       type = 'checkin';
@@ -402,6 +416,7 @@ let convertFacebookFeedToGlobal = function (feed) {
       } else description = feed[i].attachments.data[0].description;
       console.log('CHECKIN');
     }
+
 
     let comments = [];
     if (typeof feed[i].comments !== 'undefined' && typeof feed[i].comments !== 'undefined') {
@@ -438,6 +453,7 @@ let convertFacebookFeedToGlobal = function (feed) {
         type: type,
         post_video: post_video,
         post_image: post_image,
+        // message: message,
       },
 
       user: {
@@ -452,6 +468,7 @@ let convertFacebookFeedToGlobal = function (feed) {
         name_location: name_location,
         geo: geo
       }
+
     }
 
 
