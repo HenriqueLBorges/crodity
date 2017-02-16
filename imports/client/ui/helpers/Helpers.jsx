@@ -266,8 +266,8 @@ class Helpers {
 
 			case 'twitter':
 				return <i className={"blue-text fa fa-twitter-square fa-" + size + "x"} aria-hidden="true"></i>;
-			case 'instagram': 
-				return <i className={"black-text fa fa-instagram fa-" + size + "x" } aria-hidden="true"></i>
+			case 'instagram':
+				return <i className={"black-text fa fa-instagram fa-" + size + "x"} aria-hidden="true"></i>
 		}
 	};
 
@@ -280,6 +280,15 @@ class Helpers {
 			returnedContent = "";
 		}
 		return content;
+	}
+
+	static convertEmojiOneToReact(emojiOriginal) {
+		let emojiConvertedToReact = emojiOriginal.replace("class", "className");
+		// console.log(<div dangerouslySetInnerHTML={emojiConvertedToReact} />);
+		// console.log($(emojiConvertedToReact));
+		// let d = document.createElement('div');
+		// d.innerHTML = emojiConvertedToReact;
+		return <div className = 'emojione-unit' dangerouslySetInnerHTML={{__html: emojiConvertedToReact}} />;
 	}
 }
 
