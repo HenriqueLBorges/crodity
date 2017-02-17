@@ -10,32 +10,22 @@ import React from 'react';
 class AppBar extends React.Component {
 
     componentDidMount() {
-        $('input.autocomplete').autocomplete({
-            data: {
-                "Apple": null,
-                "Microsoft": null,
-                "Google": 'http://placehold.it/250x250'
-            },
-            limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
-        });
+        // $('input.autocomplete').autocomplete({
+        //     data: {
+        //         "Apple": null,
+        //         "Microsoft": null,
+        //         "Google": 'http://placehold.it/250x250'
+        //     },
+        //     limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+        // });
 
     }
 
     render() {
         return <nav className="app-main">
             <div className="nav-wrapper">
-                <a href="#" className="brand-logo left logo-crodity"><img className="responsive-img z-depth-2 logoweb" src="img/CrodityCircle300x300.png" /></a>
-                <div className="row">
-                    <div className="col s12 m6 offset-m6 fieldSearch">
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <i className="material-icons prefix">textsms</i>
-                                <input type="text" id="autocomplete-input" className="autocomplete" />
-                                <label htmlFor="autocomplete-input">Autocomplete</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <a href="#" className="brand-logo left logo-crodity"><img className="responsive-img  logoweb" src="img/CrodityCircle300x300.png" /></a>
+                
                 <ul id="nav-mobile" className="right hide-on-med-and-down ">
                     <li><a href="sass.html" className="white-text" >Loja Virtual</a></li>
                     <li><a href="badges.html" className="white-text">Parceiros</a></li>

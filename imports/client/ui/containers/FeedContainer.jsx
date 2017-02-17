@@ -59,13 +59,22 @@ class FeedContainer extends Component {
 			let methodName;
 
 			if (typeof Helpers.get(this.props, 'route.feedType') === 'undefined') {
-				methodName = (this.props.feedType == 'profile' ? 'get' + serviceCapitalized + 'ProfileFeed' : 'get' + serviceCapitalized + 'Feed'); 
+				methodName = (this.props.feedType == 'home' ? 'get' + serviceCapitalized + 'HomeFeed' : 'get' + serviceCapitalized + 'Feed'); 
 			}
 			else {
 				// Setting the method name that we are going to call from the server, using Meteor.call()
-				methodName = (this.props.route.feedType == 'profile' ? 'get' + serviceCapitalized + 'ProfileFeed' : 'get' + serviceCapitalized + 'Feed');
+				methodName = (this.props.route.feedType == 'home' ? 'get' + serviceCapitalized + 'HomeFeed' : 'get' + serviceCapitalized + 'Feed');
 			}
 
+			console.log(methodName)
+			
+			// if (typeof Helpers.get(this.props, 'route.feedType') === 'undefined') {
+			// 	methodName = (this.props.feedType == 'profile' ? 'get' + serviceCapitalized + 'ProfileFeed' : 'get' + serviceCapitalized + 'Feed'); 
+			// }
+			// else {
+			// 	// Setting the method name that we are going to call from the server, using Meteor.call()
+			// 	methodName = (this.props.route.feedType == 'profile' ? 'get' + serviceCapitalized + 'ProfileFeed' : 'get' + serviceCapitalized + 'Feed');
+			// }
 
 			// Async calling the method whose name was set above
 			Meteor.call(methodName, function (error, result) {
