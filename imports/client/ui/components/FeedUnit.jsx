@@ -60,21 +60,34 @@ class FeedUnit extends Component {
     let self = this;
     let urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
     let text = Helpers.get(data, 'media.description');
+    let textDescription = {
+      link: '',
+      description: ''
+    }
 
     var link;
+    try {
+      text.replace(urlRegex, function (u) {
+        self.link = u;
+        return self.link;
+      })
 
-    text.replace(urlRegex, function (u) {
-      self.link = u;
-      return self.link;
-    })
+      var mediaDescription = text.replace(urlRegex, function (u) {
+        return '';
+      })
 
-    var mediaDescription = text.replace(urlRegex, function (u) {
-      return '';
-    })
+      textDescription = {
+        link: self.link,
+        description: mediaDescription
+      }
+    }
 
-    let textDescription = {
-      link: self.link,
-      description: mediaDescription
+    catch (e) {
+      console.log(e);
+      textDescription = {
+        link: '',
+        description: ''
+      }
     }
 
     return (textDescription);
@@ -88,12 +101,14 @@ class FeedUnit extends Component {
 
 
     if (!(typeof data === 'undefined'))
+      console.log(data);
+    console.log(Helpers.get(data, 'media.post_image'));
 
-      if (Helpers.get(data, 'media.type') == 'text') {
-        return <div><p> {this.textVerify().description ? this.textVerify().description : data.content} </p>
-          {this.textVerify().link ? <a href={this.textVerify().link}> {this.textVerify().link} </a> : ""}
-        </div>;
-      }
+    if (Helpers.get(data, 'media.type') == 'text') {
+      return <div><p> {this.textVerify().description ? this.textVerify().description : data.content} </p>
+        {this.textVerify().link ? <a href={this.textVerify().link}> {this.textVerify().link} </a> : ""}
+      </div>;
+    }
 
     if (Helpers.get(data, 'media.type') == 'video') {
       return <div><p> {this.textVerify().description} </p>
@@ -108,7 +123,7 @@ class FeedUnit extends Component {
     if (Helpers.get(data, 'media.type') == 'photo') {
       return <div>
         <p> {this.textVerify().description} </p>
-       {this.textVerify().link ? <a href={this.textVerify().link}> {this.textVerify().link} </a> : ""}
+        {this.textVerify().link ? <a href={this.textVerify().link}> {this.textVerify().link} </a> : ""}
         <img src={Helpers.get(data, 'media.post_image')} /> </div>;
     }
 

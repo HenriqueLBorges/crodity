@@ -79,15 +79,16 @@ class FeedContainer extends Component {
 			// Async calling the method whose name was set above
 			Meteor.call(methodName, function (error, result) {
 				if (error);
-				// console.log(error);
+				 console.log(error);
 
 				if (typeof result != 'undefined') {
 					let stateObject = {};
 					stateObject[service + 'Feed'] = result;
 					self.setState(stateObject);
+					console.log(stateObject);
 				}
-				// console.log(service+' feed');
-				// console.log(result);
+				console.log(service+' feed');
+				 console.log(result);
 				return true;
 			});
 		}
@@ -129,6 +130,7 @@ class FeedContainer extends Component {
 	// ========
 	render() {
 		if (this.state.facebookFeed.length > 0 || this.state.twitterFeed.length > 0 || this.state.instagramFeed.length > 0) {
+			console.log(this.state.facebookFeed)
 			return (
 				<FeedSorter facebookFeed={this.state.facebookFeed}
 					twitterFeed={this.state.twitterFeed}
