@@ -27,8 +27,6 @@ class FeedUnit extends Component {
   }
 
   reactToPost(reaction) {
-    console.log(reaction);
-
     Meteor.call('likeCrodity', this.props.data.id, this.props.data.user.name, reaction, function (e, r) {
       if (e)
         console.log(e);
@@ -62,32 +60,95 @@ class FeedUnit extends Component {
     $('.carousel').carousel();
   }
 
+
+  textVerify() {
+    let data = this.props.data;
+    let self = this;
+    let urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    let text = Helpers.get(data, 'media.description');
+    let textDescription = {
+      link: '',
+      description: ''
+    }
+
+    var link;
+    try {
+      text.replace(urlRegex, function (u) {
+        self.link = u;
+        return self.link;
+      })
+
+      var mediaDescription = text.replace(urlRegex, function (u) {
+        return '';
+      })
+
+      textDescription = {
+        link: self.link,
+        description: mediaDescription
+      }
+    }
+
+    catch (e) {
+      console.log(e);
+      textDescription = {
+        link: '',
+        description: ''
+      }
+    }
+
+    return (textDescription);
+  }
+
   mediaRender() {
     let data = this.props.data;
     let self = this;
 
     let media;
 
+
     if (!(typeof data === 'undefined'))
+      console.log(data);
+    console.log(Helpers.get(data, 'media.post_image'));
 
-      if (Helpers.get(data, 'media.type') == 'video') {
-        return <video loop preload="auto" className="video" src={Helpers.get(data, 'media.post_video')} controls> </video>;
-      }
+    if (Helpers.get(data, 'media.type') == 'text') {
+      return (
+        <div>
+          <p> {this.textVerify().description ? this.textVerify().description : data.content} </p>
+          {this.textVerify().link ? <a href={this.textVerify().link}> {this.textVerify().link} </a> : ""}
+        </div>
+      );
+    }
 
-    //console.log('HELPERS', Helpers.get(data, 'media.type'));
+    if (Helpers.get(data, 'media.type') == 'video') {
+      return (
+        <div>
+          <p> {this.textVerify().description} </p>
+          <a href={this.textVerify().link}> {this.textVerify().link} </a>
+          <video loop preload="auto" className="video" src={Helpers.get(data, 'media.post_video')} controls> </video>
+        </div>
+      );
+    }
+
+    console.log('HELPERS', Helpers.get(data, 'media.type'));
 
     if (Helpers.get(data, 'media.type') == 'photo') {
-      return <div>
-        <p> {Helpers.get(data, 'media.description')} </p>
-        <img src={Helpers.get(data, 'media.post_image')} /> </div>;
+      return (
+        <div>
+          <p>{this.textVerify().description}</p>
+          {this.textVerify().link ? <a href={this.textVerify().link}> {this.textVerify().link} </a> : ""}
+          <img src={Helpers.get(data, 'media.post_image')} />
+        </div>
+      );
     }
 
     if (Helpers.get(data, 'media.type') == 'checkin') {
-      return <figure>
-        <figcaption>{Helpers.get(data, 'location.name_location')}</figcaption>
-        <figcaption>{Helpers.get(data, 'media.description')}</figcaption>
-        <img src={Helpers.get(data, 'media.post_image')} />
-      </figure>;
+      return (
+        <figure>
+          <figcaption>{Helpers.get(data, 'location.name_location')}</figcaption>
+          <figcaption>{Helpers.get(data, 'media.description')}</figcaption>
+          <img src={Helpers.get(data, 'media.post_image')} />
+        </figure>
+      );
     }
 
     if (Helpers.get(data, 'media.type') == 'gif') {
@@ -108,6 +169,15 @@ class FeedUnit extends Component {
         })}
       </div>);
     }
+<<<<<<< HEAD
+=======
+
+    // if (Helpers.get(data, 'media.type') == 'link') {
+
+
+    // }
+
+>>>>>>> a51263ea84f90129cbdbbef884d85ab75646e620
   }
 
   hideEmojis() {
@@ -129,6 +199,8 @@ class FeedUnit extends Component {
     //Setting and formatting the date
     let data = this.props.data;
     formattedDate = moment(data.created).calendar();
+    console.log(data);
+
     if (!(typeof data === 'undefined')) {
       media = this.mediaRender();
       return (
@@ -142,16 +214,17 @@ class FeedUnit extends Component {
                   <div className="col s1 tittle-card-image "><img src={data.user.image} className="responsive-img feed-unit-user-img" width="50" /></div>
                   <div className="feedUnitTittle col s10 tittle-card">
 
-                    <div>{data.title} {Helpers.get(data, 'location') ? <p><i className="fa fa-map-marker" aria-hidden="true"> </i>{Helpers.get(data, 'location.name')}</p> : ""}</div>
+                    <div>{data.title} {Helpers.get(data, 'location') ? <p><i className="fa fa-map-marker" aria-hidden="true">
+                    </i>{Helpers.get(data, 'location.name')}</p> : ""}</div>
                     <p className="feed-unit-date">{formattedDate}</p>
 
                   </div>
                   <div className="feedUnitService col s1 tittle-card-image">{Helpers.socialIcon(data.service, 2)}</div>
                 </div>
-                <p>{data.content}</p>
                 <div className="card-image">
                   {media}
-                  {this.state.emojis}
+                  <p>{data.content}</p>
+                  <div onMouseOver={this.mouseOnEmoji.bind(this)}>{this.state.emojis}</div>
                 </div>
                 <div className="card-action feed-unit-action">
                   <div ref='like' onClick={this.reactToPost.bind(this, 'like')} onMouseOver={this.showEmojis.bind(this)} onMouseLeave={this.hideEmojis.bind(this)} >

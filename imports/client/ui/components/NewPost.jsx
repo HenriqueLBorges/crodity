@@ -20,7 +20,9 @@ class NewPost extends Component {
 
     this.state.facebookCheckBox ? Meteor.call('postFacebook', this.refs.postText.value, function (e, r) {
       console.log(r);
+      if (e){
       console.log(e);
+      }
     }) : false;
 
     this.state.twitterCheckBox ? Meteor.call('postTwitter', this.refs.postText.value, function (e, r) {

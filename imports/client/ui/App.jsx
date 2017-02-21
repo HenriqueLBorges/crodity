@@ -28,7 +28,7 @@ class App extends Component {
           <Router history={browserHistory}>
 
             <Route path='/' component={MainLayout} currentUser={this.props.loading ? false : this.props.currentUser}>
-              <IndexRoute component={FeedContainer} feedType='profile' />
+              <IndexRoute component={FeedContainer} feedType='home' />
               <Route path='RegisterConfirmation' component={RegisterConfirmation} currentUser={this.props.loading ? false : this.props.currentUser} />
             </Route>
             <Route path='/profile' component={ProfileContainer} />

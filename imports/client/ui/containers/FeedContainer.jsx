@@ -59,26 +59,36 @@ class FeedContainer extends Component {
 			let methodName;
 
 			if (typeof Helpers.get(this.props, 'route.feedType') === 'undefined') {
-				methodName = (this.props.feedType == 'profile' ? 'get' + serviceCapitalized + 'ProfileFeed' : 'get' + serviceCapitalized + 'Feed'); 
+				methodName = (this.props.feedType == 'home' ? 'get' + serviceCapitalized + 'HomeFeed' : 'get' + serviceCapitalized + 'ProfileFeed');
 			}
 			else {
 				// Setting the method name that we are going to call from the server, using Meteor.call()
-				methodName = (this.props.route.feedType == 'profile' ? 'get' + serviceCapitalized + 'ProfileFeed' : 'get' + serviceCapitalized + 'Feed');
+				methodName = (this.props.route.feedType == 'home' ? 'get' + serviceCapitalized + 'HomeFeed' : 'get' + serviceCapitalized + 'ProfileFeed');
 			}
 
+			console.log(methodName)
+
+			// if (typeof Helpers.get(this.props, 'route.feedType') === 'undefined') {
+			// 	methodName = (this.props.feedType == 'profile' ? 'get' + serviceCapitalized + 'ProfileFeed' : 'get' + serviceCapitalized + 'Feed');
+			// }
+			// else {
+			// 	// Setting the method name that we are going to call from the server, using Meteor.call()
+			// 	methodName = (this.props.route.feedType == 'profile' ? 'get' + serviceCapitalized + 'ProfileFeed' : 'get' + serviceCapitalized + 'Feed');
+			// }
 
 			// Async calling the method whose name was set above
 			Meteor.call(methodName, function (error, result) {
 				if (error);
-				// console.log(error);
+				 console.log(error);
 
 				if (typeof result != 'undefined') {
 					let stateObject = {};
 					stateObject[service + 'Feed'] = result;
 					self.setState(stateObject);
+					console.log(stateObject);
 				}
-				// console.log(service+' feed');
-				// console.log(result);
+				console.log(service+' feed');
+				 console.log(result);
 				return true;
 			});
 		}
@@ -95,7 +105,7 @@ class FeedContainer extends Component {
 		this.getFeed('instagram');
 
 		let self = this;
-		let timeout = (Meteor.user() ? 60000 : 500);
+		let timeout = (Meteor.user() ? 90000 : 500);
 		setTimeout(self.getAllFeeds.bind(self), timeout);
 	}
 
@@ -120,6 +130,7 @@ class FeedContainer extends Component {
 	// ========
 	render() {
 		if (this.state.facebookFeed.length > 0 || this.state.twitterFeed.length > 0 || this.state.instagramFeed.length > 0) {
+			console.log(this.state.facebookFeed)
 			return (
 				<FeedSorter facebookFeed={this.state.facebookFeed}
 					twitterFeed={this.state.twitterFeed}
