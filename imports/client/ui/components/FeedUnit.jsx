@@ -10,12 +10,8 @@ class FeedUnit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    open: true,
+      open: true,
       emojis: false,
-      showEmojis: {
-        likeOn: false,
-        emojisOn: false,
-      }
     };
   }
 
@@ -29,23 +25,33 @@ class FeedUnit extends Component {
     ReactDOM.findDOMNode(this.refs.comment).value = '';
   }
 
-  toLike(id) {
-    Meteor.call('likeCrodity', id, "felipe", "like", function (e, r) {
+  toLike(type) {
+    
+    Meteor.call('likeCrodity', this.props.data.id, this.props.data.user.name, type, function (e, r) {
       if (e)
         console.log(e);
     });
   }
 
   mouseOnEmoji() {
-    console.log(this.refs);
-    
-    this.state.emojis = <div className="emojis">
-      {emojione.shortnameToUnicode(':thumbsup:')}
-      {emojione.shortnameToUnicode(':heart:')}
-      {emojione.shortnameToUnicode(':laughing:')}
-      {emojione.shortnameToUnicode(':sob:')}
-      {emojione.shortnameToUnicode(':hushed:')}
-    </div>;
+
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+      this.state.emojis = <div className="emojis" onMouseLeave={this.mouseOffEmoji.bind(this)}>
+        <div onClick={this.toLike.bind(type)} className='emojione-unit' >{emojione.shortnameToUnicode(':thumbsup:')}</div>
+        <div className='emojione-unit' > {emojione.shortnameToUnicode(':heart:')}</div>
+        <div className='emojione-unit' > {emojione.shortnameToUnicode(':laughing:')}</div>
+        <div className='emojione-unit' >{emojione.shortnameToUnicode(':sob:')}</div>
+        <div className='emojione-unit' >{emojione.shortnameToUnicode(':hushed:')}</div>
+      </div>;
+    } else {
+      this.state.emojis = <div className="emojis" onMouseLeave={this.mouseOffEmoji.bind(this)}>
+        {Helpers.convertEmojiOneToReact(emojione.toImage(':thumbsup:'))}
+        {Helpers.convertEmojiOneToReact(emojione.toImage(':heart:'))}
+        {Helpers.convertEmojiOneToReact(emojione.toImage(':laughing:'))}
+        {Helpers.convertEmojiOneToReact(emojione.toImage(':sob:'))}
+        {Helpers.convertEmojiOneToReact(emojione.toImage(':hushed:'))}
+      </div>
+    }
     this.forceUpdate();
   }
 
@@ -90,12 +96,12 @@ class FeedUnit extends Component {
       let album = [];
       let post_image = [];
       post_image = Helpers.get(data, 'media.post_image');
-      let i=0; 
+      let i = 0;
       return (<div className="carousel" key={i++}>
-      
+
         {post_image.map((img_src, i, album) => {
           return (
-            <p className="carousel-item"  ><img src={img_src}/></p>
+            <p className="carousel-item"  ><img src={img_src} /></p>
           );
         })}
       </div>);
@@ -110,10 +116,8 @@ class FeedUnit extends Component {
 
   render() {
     //Setting and formatting the date
-    // console.log(this.state.emojiStyle.display);
     let data = this.props.data;
     formattedDate = moment(data.created).calendar();
-
     if (!(typeof data === 'undefined')) {
       media = this.mediaRender();
       return (
@@ -136,14 +140,14 @@ class FeedUnit extends Component {
                 <p>{data.content}</p>
                 <div className="card-image">
                   {media}
-                  <div onMouseOver={this.mouseOnEmoji.bind(this)}>{this.state.emojis}</div>
+                  {this.state.emojis}
                 </div>
                 <div className="card-action feed-unit-action">
-                  <div ref='like' onClick={this.toLike.bind(this, data.id)} onMouseOver={this.mouseOnEmoji.bind(this)} onMouseLeave={this.mouseOffEmoji.bind(this)}>
+                  <div ref='like' onClick={this.toLike.bind(this, data.id)} onMouseOver={this.mouseOnEmoji.bind(this)} >
                     <i className="fa fa-thumbs-o-up" aria-hidden="true"></i> Like
                   </div>
-                    <i className="fa fa-comments-o grey-text" aria-hidden="true"></i>
-                    <a > Comment</a>                  
+                  <i className="fa fa-comments-o grey-text" aria-hidden="true"></i>
+                  <a > Comment</a>
                   <i className="fa fa-share grey-text" aria-hidden="true"></i>
                   <a > Share</a>
                 </div>
