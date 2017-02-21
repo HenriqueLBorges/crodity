@@ -11,75 +11,396 @@ $twitterBlue: #46d0fe
 $lightGray: #d3dddf
 $colorCrodity: #ffca43
 
+@media (max-width: 599px)
+
+    .headerPage .card-profile-image 
+        z-index: 1 
+        left: 90px
+        position: relative
+        z-index: 1
+        cursor: pointer
+        margin: 0
+        margin-top: -110px
+
+    .headerPage .card-image
+        height: 250px
+
+    .btnFollowProfile
+        margin: 30px 0
+
+body
+    background: #FFFCF4
+
+.bt-select-social-newtwork
+    text-decoration: none
+    color: #fff
+    height: auto
+    background-color: #7DB2AD
+    text-align: left
+    letter-spacing: .5px
+    -webkit-transition: .2s ease-out
+    -moz-transition: .2s ease-out
+    -o-transition: .2s ease-out
+    -ms-transition: .2s ease-out
+    transition: .2s ease-out
+    cursor: pointer
+    border: none
+    border-radius: 2px
+    display: inline-block
+    line-height: 25px
+    padding: 0 1rem
+    vertical-align: middle
+    -webkit-tap-highlight-color: transparent
+    text-transform: none
+    z-index: 0
+
+.bt-select-social-newtwork:hover
+    background-color: #60A49D
+
+.new-post
+    padding: 5px
+    background-color: white
+    border-radius: 0 0 2px 2px
+    border-style: groove
+    margin: 0px
+
+.row-card-total
+    margin-bottom: 0px!important
+
+.user-view
+    margin-bottom: 8px!important
+
+.col-avatar-new-post
+    padding-top: 2rem!important
+    padding: 0 0.2rem!important
+    margin-top: 2rem
+    border-radius: 100%
+
+.app-main
+    background: #FFCA43
+    cursor: 'pointer'
+    color: '#FFFFF'!important
+    position: fixed
+    height: 40px
+    z-index: 1
+    font-weight: bold
+
+.row-reactions a
+    margin-right: 20px
+    color: gray
+
+.row-reactions 
+    padding: 5px
+
+.feed-unit
+    border-style: groove
+
+.feed-unit .feed-unit-action a, .feed-unit-action div
+    color: gray!important
+    margin-right: 20px
+    -webkit-transition: color .3s ease
+    -moz-transition: color .3s ease
+    -o-transition: color .3s ease
+    -ms-transition: color .3s ease
+    transition: color .3s ease
+    cursor: pointer
+    text-transform: none!important
+    z-index: -1
+
+.feed-unit .feed-unit-action a:hover 
+    color: dark orange
+
+.feed-unit .feed-unit-action 
+    border-top: 1px solid rgba(160, 160, 160, 0.2)
+    border-bottom: 1px solid rgba(160, 160, 160, 0.2)
+    padding: 5px
+
+.row .col
+    float: left
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+    padding: 0 0.75rem
+
+.feed-unit .feed-unit-content
+    padding: 12px
+    border-radius: 0 0 2px 2px
+
+.waves-effect.waves-crodityColor
+    background-color: $colorCrodity
+    
+.tittle-card-image
+    padding: 0rem!important
+    border-radius: 100%
+
+.tittle-card
+    margin-left: 0!important
+
+.row-new-post
+    margin-left: auto
+    margin-right: auto
+    margin-bottom: 0px
+
+.email-field-component
+    padding-left: 20px
+
+.mainLoading
+    padding: 300px
+
+.card-total
+    width: 100%!important
+    padding: 0px!important
+
+.side-nav .userView .background 
+    overflow: hidden
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    z-index: -1
+
+input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly])
+    border-bottom: 1px solid #F0E68C
+    box-shadow: 0 1px 0 0 #F0E68C
+
+.side-nav .userView
+    position: relative
+    padding: 32px 32px 0
+    margin-bottom: 8px
+
+.side-nav a
+    color: rgba(0,0,0,0.87)
+    display: block
+    font-size: 14px
+    font-weight: 500
+    height: 48px
+    line-height: 48px
+
+.side-nav li:hover, .side-nav li.active
+    background-color: #FFFFFF
+    opacity:.9
+
+.feed-unit-user-img
+    border-radius: 100%
+
+.feed-unit-action
+    color: gray!important
+    margin-right: 20px
+    -webkit-transition: color .3s ease
+    -moz-transition: color .3s ease
+    -o-transition: color .3s ease
+    -ms-transition: color .3s ease
+    transition: color .3s ease
+    cursor: pointer
+    text-transform: none!important
+    z-index: -1
+    display: -webkit-inline-box
+    width: 100%
+
+.side-nav .userView .circle 
+    height: 64px
+    width: 64px
+
+.side-nav .userView .circle, .side-nav .userView .name, .side-nav .userView .email 
+    display: block
+
+.side-nav .userView > a
+    height: auto
+    padding: 0px
+
+.icon-drawer
+    vertical-align: middle
+
+.bt-activate-drawer
+    z-index: 1
+    color: black
+    font-size: 40px
+
+.drawer-menu-icon
+    font-size: 35px!important
+    padding-left: 10px
+
+.side-nav li
+    padding: 0
+
+.div-AppBar-DrawerContainer
+    position: relative
+
+.drawer-mobile
+    position: fixed
+    top: 0
+    left: 0
+    z-index: 100
+
+.validUser
+    color: #64dd17
+
+.invalidUser
+    border-bottom: 1px solid #d50000
+    box-shadow: 0 1px 0 0 #d50000
+
+.btTwitter
+    background-color: #1da1f2
+
+#sidenav-overlay 
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    height: 120vh
+    background-color: rgba(0, 0, 0, 0.5)
+    z-index: 97
+    will-change: opacity
+
+.emojis
+    left: 0
+    bottom: 0
+    background: white
+    position: absolute
+    width: auto
+    border-radius: 20px
+    padding-left: 5px
+    padding-right: 5px
+    font-size: 40px
+
+.feed-unit-date
+    font-size: 12px
+    color: gray!important
+
+.share-icons
+    font-size: 20px
+    padding-left: 15px
+
+.bt-send-new-post
+    padding: 0!important
+
+.new-post-select-social-networks
+    font-size: 16px!important
+
+.new-post-reveal
+    padding: 10px!important
+    z-index: 0!important
+
+.icon-share
+    padding: 5px
+    margin: 5px
+
+.div-feed-post
+    padding-top: 45px
+
+.logoweb
+    border-radius: 100%
+    height: inherit!important
+
+.logo-crodity
+    height: inherit!important
+
+//==== WEB =====
 @media (min-width: 600px)
 
-    body
-        background: #fff
+  .backgroundCard
+      position: absolute
+      overflow: hidden
+      top: 0
+      right: 0
+      bottom: 0
+      left: 0
+      z-index: -1
 
-    .app-main
-        background: $colorCrodity
-        cursor: 'pointer'
-        color: '#000'
-
-    .waves-effect.waves-crodityColor
-        background-color: $colorCrodity
-
-    .card
-        padding: 20px
-
-    .email-field-component
-        padding-left: 20px
-
-    .mainLoading
-      padding: 300px
-
-    .reactionIcon
-        padding-left: 20px
-
-    .background
-        position: absolute
-        overflow: hidden
-        top: 0
-        right: 0
-        bottom: 0
-        left: 0
-        z-index: -1
-
-    .side-nav .userView
-        position: relative
-        padding: 32px 32px 0
-        margin-bottom: 8px
-
-    .side-nav a
-        color: rgba(0,0,0,0.87)
-        display: block
-        font-size: 14px
-        font-weight: 500
-        height: 48px
-        line-height: 48px
-        padding: 0 32px
-
-    .side-nav .userView > a
-        height: auto
-        padding: 0px
-
-    .side-nav li:hover, .side-nav li.active
-        background-color: #FFFFFF
-        opacity:.9
-
-    .side-nav li
-        padding: 0
-
-    .main-logged
-        padding-left: 245px
-
-    .validUser
-        color: #64dd17
-        
+  .div-feed-post
+      width: 45%
+      margin-left: 245px
     
-    .invalidUser
-        border-bottom: 1px solid #d50000
-        box-shadow: 0 1px 0 0 #d50000
+  .headerPage .card-profile-image 
+      width: 110px 
+      position: absolute 
+      top: 190px 
+      z-index: 1 
+      left: 40px 
+      cursor: pointer 
+      margin: 0 
 
-    .btTwitter
-        background-color: #1da1f2
+  .headerPage .card-image
+      height: 250px
+
+  .tabs
+      display: -webkit-box
+      display: -moz-box
+      display: -ms-flexbox
+      display: -webkit-flex
+      display: flex
+      position: relative
+      overflow-x: hidden
+      overflow-y: hidden
+      height: 48px
+      background-color: #fff
+      margin: 0 auto
+      width: 100%
+      white-space: nowrap
+
+  .tabs .tab a 
+      color: #00bcd4
+      display: block
+      width: 100%
+      height: 100%
+      text-overflow: ellipsis
+      overflow: hidden
+      -webkit-transition: color 0.28s ease
+      -moz-transition: color 0.28s ease
+      -o-transition: color 0.28s ease
+      -ms-transition: color 0.28s ease
+      transition: color 0.28s ease
+
+  .profile-page-wall .tab-content
+      padding: 10px
+
+  .btnFollowProfile
+      margin: 30px 0
+
+  .nameDrawer 
+      margin-top: 12px
+      text-align: center
+
+  .imgDrawer
+      text-align: center
+
+  .imgDrawer img
+      height: 90px
+
+  .imgProfile
+      height: 100px
+
+  .logoweb
+      height: inherit!important
+      width: inherit!important
+      border-radius: 100%
+
+  nav .nav-wrapper 
+      position: fixed
+      width: 100%
+      z-index: 2
+      height: inherit
+
+  nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i 
+      height: 64px
+      line-height: 40px
+
+  .side-nav.fixed 
+      left: 0
+      position: fixed
+      margin-top: 45px
+
+  nav .brand-logo 
+      position: absolute
+      height: 30px
+      color: #fff
+      display: inline-block
+      font-size: 2.1rem
+      padding: 0px
+      padding-left: 10px
+      padding-top: 5px
+      white-space: nowrap
+
+  .circle 
+      border-radius: 50%
