@@ -15,12 +15,9 @@ Meteor.startup(() => {
 		requestPermissions: {
 			facebook: ['email, feed']
 		}
-
-
-
 	});
 
-	Meteor.absoluteUrl.defaultOptions.rootUrl = 'http://b328f530.ngrok.io'
+	//Meteor.absoluteUrl.defaultOptions.rootUrl = 'http://b328f530.ngrok.io'
 
 	// Locale configurations for the client (from the moment.js module)
 	moment.locale('pt-br');
