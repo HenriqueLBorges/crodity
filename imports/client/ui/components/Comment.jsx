@@ -36,7 +36,7 @@ class Comment extends Component {
    
 
   render() {
-
+    console.log(this.props.comment); 
 
 
     return (
@@ -51,6 +51,9 @@ class Comment extends Component {
           </p>
         </li>
       </ul>
+
+
+      
     );
   }
 }
