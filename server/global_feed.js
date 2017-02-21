@@ -58,7 +58,7 @@ Meteor.methods({
       }
       else {
         // console.log('USER: +++++++++++++++++++++++++++++++++++$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$+');
-        // //console.log(data); 
+        // //console.log(data);
         // console.log('USER: +++++++++++++++++++++++++++++++++++$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$+');
         future["return"](convertTwitterFeedToGlobal(data));
       }
@@ -89,7 +89,7 @@ Meteor.methods({
           // console.log(response + error);
           if (!error) {
             // console.log(response.content);
-            future["return"](convertFacebookFeedToGlobal(response.data));
+            future["return"](convertFacebookProfileFeedToGlobal(response.data));
 
           }
         }
@@ -164,7 +164,7 @@ Meteor.methods({
           console.log(error);
           if (!error) {
             //console.log(response.data.data.type);
-            future["return"](convertInstagramFeedToGlobal(response.data.data));
+            future["return"](convertInstagramProfileFeedToGlobal(response.data.data));
 
           }
         }
@@ -288,7 +288,7 @@ let convertTwitterFeedToGlobal = function (feed) {
       feed[i].quoted_status = { favorite_count: 0 }
 
     // if (typeof feed[i].entities.media.media_url === 'undefined')
-    //feed[i].entities.media.media_url = false; 
+    //feed[i].entities.media.media_url = false;
 
 
 
@@ -374,7 +374,7 @@ let convertTwitterFeedToGlobal = function (feed) {
     // console.log('----------------------------------------------------------------------------');
 
 
-    //console.log(media.type); 
+    //console.log(media.type);
 
     globalFeed[i] = {
       title: feed[i].user.name + ' @' + feed[i].user.screen_name,
@@ -401,7 +401,7 @@ let convertTwitterFeedToGlobal = function (feed) {
       },
     }
 
-    //Saving twitter posts on database 
+    //Saving twitter posts on database
 
     // if (Posts.findOne({ id: globalFeed[i].id })) {
     //   //console.log("true");
@@ -425,7 +425,7 @@ let convertTwitterFeedToGlobal = function (feed) {
     //   }
     //   });
     //   //console.log("false");
-    // }    
+    // }
   }
   return globalFeed;
 }
@@ -473,7 +473,7 @@ let convertFacebookProfileFeedToGlobal = function (feed) {
         post_image = feed[i].attachments.data[0].media.image.src;
       }
 
-      // if (typeof feed[i].attachments.data[0].media.image.src !== 'undefined' && 
+      // if (typeof feed[i].attachments.data[0].media.image.src !== 'undefined' &&
       // typeof feed[i].source === 'undefined'){
       //     type = 'photo';
       //     description = feed[i].attachments.data[0].description;
@@ -624,7 +624,7 @@ let convertFacebookHomeFeedToGlobal = function (feed) {
   // Creates the global feed array
   globalFeed = [];
 
-  //Create global variables 
+  //Create global variables
   let post_image;
   let post_video;
   let type;
@@ -750,7 +750,7 @@ let convertFacebookHomeFeedToGlobal = function (feed) {
       //       attachments: comment.attachments,
       //       like: comment.like_count,
       //     });
-      //   }); 
+      //   });
       // }
 
       // Created the globalFeed[i] object
@@ -925,8 +925,8 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
     console.log(error);
 
     if (typeof result != 'undefined') {
-        console.log(result.data.length); 
-        
+        console.log(result.data.length);
+
         feedMount = Meteor.call('getInstagramMediaHomeFeed', _id , function (error, result) {
 
 
