@@ -651,7 +651,7 @@ let convertFacebookHomeFeedToGlobal = function (feed) {
   let count = 0;
   // initializating and mount array feed for data convert
   feedMount = feed;
-  console.log(feed);
+  // console.log(feed);
 
   for (let k = 0; k < feedMount.length; k++) {
     //     console.log(feedMount)
@@ -670,7 +670,7 @@ let convertFacebookHomeFeedToGlobal = function (feed) {
 
       //Defining the image of each post
       try {
-        console.log('OI');
+        // console.log('OI');
         // console.log('FEED I ', feed[i].attachments.data[0].media.image.src)
         // type = 'photo'
         // description = feed[i].attachments.data[0].description;
@@ -696,7 +696,7 @@ let convertFacebookHomeFeedToGlobal = function (feed) {
           type = 'photo';
           description = feed[i].attachments.data[0].description;
           post_image = feed[i].attachments.data[0].media.image.src;
-          console.log('TO NO IF ')
+          // console.log('TO NO IF ')
         }
 
         // if ((typeof feed[i].attachments.data[0].subattachments.data[0].media.image.src !== 'undefined') &&
@@ -936,7 +936,7 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
 
 
   for (let i = 0; i < feed.length; i++) {
-    console.log('TO NO FOR', i)
+    // console.log('TO NO FOR', i)
     Meteor.call('getInstagramMediaHomeFeed', feed[i].id, function (e, result) {
       try {
         //console.log(result);
@@ -951,7 +951,7 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
     });
   }
 
-  console.log('FEEDMOUNT:  '  ,feedMount)
+  // console.log('FEEDMOUNT:  '  ,feedMount)
   feed = feedMount; 
 
 

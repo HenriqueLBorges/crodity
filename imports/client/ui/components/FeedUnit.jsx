@@ -12,6 +12,7 @@ class FeedUnit extends Component {
     this.state = {
       open: true,
       emojis: false,
+      isOver: false,
     };
   }
 
@@ -25,36 +26,37 @@ class FeedUnit extends Component {
     ReactDOM.findDOMNode(this.refs.comment).value = '';
   }
 
-  toLike(type) {
-
-    Meteor.call('likeCrodity', this.props.data.id, this.props.data.user.name, type, function (e, r) {
+  reactToPost(reaction) {
+    Meteor.call('likeCrodity', this.props.data.id, this.props.data.user.name, reaction, function (e, r) {
       if (e)
         console.log(e);
     });
   }
 
-  mouseOnEmoji() {
-
+  showEmojis() {
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-      this.state.emojis = <div className="emojis" onMouseLeave={this.mouseOffEmoji.bind(this)}>
-        <div onClick={this.toLike.bind(type)} className='emojione-unit' >{emojione.shortnameToUnicode(':thumbsup:')}</div>
-        <div className='emojione-unit' > {emojione.shortnameToUnicode(':heart:')}</div>
-        <div className='emojione-unit' > {emojione.shortnameToUnicode(':laughing:')}</div>
-        <div className='emojione-unit' >{emojione.shortnameToUnicode(':sob:')}</div>
-        <div className='emojione-unit' >{emojione.shortnameToUnicode(':hushed:')}</div>
+      this.state.emojis = <div className="emojis" onMouseOver={this.showEmojis.bind(this)} onMouseLeave={this.hideEmojis.bind(this)}>
+        <div onClick={this.reactToPost.bind(this, 'like')} className='emojione-unit' >{emojione.shortnameToUnicode(':thumbsup:')}</div>
+        <div onClick={this.reactToPost.bind(this, 'love')} className='emojione-unit' > {emojione.shortnameToUnicode(':heart:')}</div>
+        <div onClick={this.reactToPost.bind(this, 'laughing')} className='emojione-unit' > {emojione.shortnameToUnicode(':laughing:')}</div>
+        <div onClick={this.reactToPost.bind(this, 'crying')} className='emojione-unit' >{emojione.shortnameToUnicode(':sob:')}</div>
+        <div onClick={this.reactToPost.bind(this, 'surprised')} className='emojione-unit' >{emojione.shortnameToUnicode(':hushed:')}</div>
       </div>;
     } else {
-      this.state.emojis = <div className="emojis" onMouseLeave={this.mouseOffEmoji.bind(this)}>
-        {Helpers.convertEmojiOneToReact(emojione.toImage(':thumbsup:'))}
-        {Helpers.convertEmojiOneToReact(emojione.toImage(':heart:'))}
-        {Helpers.convertEmojiOneToReact(emojione.toImage(':laughing:'))}
-        {Helpers.convertEmojiOneToReact(emojione.toImage(':sob:'))}
-        {Helpers.convertEmojiOneToReact(emojione.toImage(':hushed:'))}
+      this.state.emojis = <div className="emojis" onMouseOver={this.showEmojis.bind(this)} onMouseLeave={this.hideEmojis.bind(this)}>
+        <div onClick={this.reactToPost.bind(this, 'like')} >{Helpers.convertEmojiOneToReact(emojione.toImage(':thumbsup:'))}</div>
+        <div onClick={this.reactToPost.bind(this, 'love')} >{Helpers.convertEmojiOneToReact(emojione.toImage(':heart:'))}</div>
+        <div onClick={this.reactToPost.bind(this, 'laughing')} >{Helpers.convertEmojiOneToReact(emojione.toImage(':laughing:'))}</div>
+        <div onClick={this.reactToPost.bind(this, 'crying')} >{Helpers.convertEmojiOneToReact(emojione.toImage(':sob:'))}</div>
+        <div onClick={this.reactToPost.bind(this, 'surprised')} >{Helpers.convertEmojiOneToReact(emojione.toImage(':hushed:'))}</div>
       </div>
     }
+    this.state.isOver = true;
     this.forceUpdate();
   }
+  componentWillMount() {
 
+  }
   componentDidMount() {
     event.preventDefault();
     $('.carousel').carousel();
@@ -89,7 +91,7 @@ class FeedUnit extends Component {
     }
 
     catch (e) {
-      console.log(e);
+      // console.log(e);
       textDescription = {
         link: '',
         description: ''
@@ -107,17 +109,17 @@ class FeedUnit extends Component {
 
 
     if (!(typeof data === 'undefined'))
-      console.log(data);
-    console.log(Helpers.get(data, 'media.post_image'));
+      // console.log(data);
+      // console.log(Helpers.get(data, 'media.post_image'));
 
-    if (Helpers.get(data, 'media.type') == 'text') {
-      return (
-        <div>
-          <p> {this.textVerify().description ? this.textVerify().description : data.content} </p>
-          {this.textVerify().link ? <a href={this.textVerify().link}> {this.textVerify().link} </a> : ""}
-        </div>
-      );
-    }
+      if (Helpers.get(data, 'media.type') == 'text') {
+        return (
+          <div>
+            <p> {this.textVerify().description ? this.textVerify().description : data.content} </p>
+            {this.textVerify().link ? <a href={this.textVerify().link}> {this.textVerify().link} </a> : ""}
+          </div>
+        );
+      }
 
     if (Helpers.get(data, 'media.type') == 'video') {
       return (
@@ -129,7 +131,7 @@ class FeedUnit extends Component {
       );
     }
 
-    console.log('HELPERS', Helpers.get(data, 'media.type'));
+    // console.log('HELPERS', Helpers.get(data, 'media.type'));
 
     if (Helpers.get(data, 'media.type') == 'photo') {
       return (
@@ -177,8 +179,18 @@ class FeedUnit extends Component {
 
   }
 
-  mouseOffEmoji() {
-    this.state.emojis = false;
+  hideEmojis() {
+    this.state.isOver = false;
+
+    let self = this;
+    //This syntax is used to pass arguments to the setTimeout function
+    setTimeout(verifyIsOver.bind(null, self), 1000);
+
+    function verifyIsOver(self) {
+      if (self.state.isOver == false) {
+        self.setState({ emojis: false });
+      }
+    }
     this.forceUpdate();
   }
 
@@ -186,7 +198,7 @@ class FeedUnit extends Component {
     //Setting and formatting the date
     let data = this.props.data;
     formattedDate = moment(data.created).calendar();
-    console.log(data);
+    // console.log(data);
 
     if (!(typeof data === 'undefined')) {
       media = this.mediaRender();
@@ -211,10 +223,10 @@ class FeedUnit extends Component {
                 <div className="card-image">
                   {media}
                   <p>{data.content}</p>
-                  <div onMouseOver={this.mouseOnEmoji.bind(this)}>{this.state.emojis}</div>
+                  <div onMouseOver={this.showEmojis.bind(this)}>{this.state.emojis}</div>
                 </div>
                 <div className="card-action feed-unit-action">
-                  <div ref='like' onClick={this.toLike.bind(this, data.id)} onMouseOver={this.mouseOnEmoji.bind(this)} >
+                  <div ref='like' onClick={this.reactToPost.bind(this, 'like')} onMouseOver={this.showEmojis.bind(this)} onMouseLeave={this.hideEmojis.bind(this)}>
                     <i className="fa fa-thumbs-o-up" aria-hidden="true"></i> Like
                   </div>
                   <i className="fa fa-comments-o grey-text" aria-hidden="true"></i>

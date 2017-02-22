@@ -10,6 +10,7 @@ import Register from './components/Register.jsx';
 import RegisterConfirmation from './components/RegisterConfirmation';
 import AccountsLogin from './components/AccountsLogin.jsx';
 import Profile from './components/Profile.jsx';
+import RecoverPassword from './components/RecoverPassword.jsx';
 
 class App extends Component {
 
@@ -41,6 +42,7 @@ class App extends Component {
           <Router history={browserHistory}>
             <Route path='/' component={AccountsLogin}></Route>
             <Route path='/register' component={Register} />
+            <Route path='/recoverPassword' component={RecoverPassword}/>
           </Router>
         );
       }

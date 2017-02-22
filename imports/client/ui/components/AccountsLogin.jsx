@@ -105,10 +105,18 @@ class AccountsLogin extends Component {
 					<LoginCrodityAccount />
 
 					<br />
+
+					<p className="center-align">
+						<Link to="/recoverPassword">
+							<button className="white btn-flat black-text col s12 m6 offset-m3" type="submit" name="action">
+								Forgot password?</button>
+						</Link>
+					</p>
+
 					<p className="center-align">
 						<Link to="/register">
 							<button className="white btn-flat black-text col s12 m6 offset-m3" type="submit" name="action">
-								CRIAR NOVA CONTA</button>
+								CREATE NEW ACCOUNT</button>
 						</Link>
 					</p>
 
