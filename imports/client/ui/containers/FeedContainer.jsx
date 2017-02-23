@@ -89,6 +89,7 @@ class FeedContainer extends Component {
 				}
 				console.log(service+' feed');
 				 console.log(result);
+				 console.log(methodName)
 				return true;
 			});
 		}
@@ -130,7 +131,7 @@ class FeedContainer extends Component {
 	// ========
 	render() {
 		if (this.state.facebookFeed.length > 0 || this.state.twitterFeed.length > 0 || this.state.instagramFeed.length > 0) {
-			console.log(this.state.facebookFeed)
+			console.log('INSTAFEED ', this.state.instagramFeed)
 			return (
 				<FeedSorter facebookFeed={this.state.facebookFeed}
 					twitterFeed={this.state.twitterFeed}

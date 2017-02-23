@@ -247,7 +247,7 @@ Meteor.methods({
 
             catch (error) {
               console.log('GET ERROR: ', error)
-              future["return"](convertInstagramHomeFeedToGlobal(''));
+              future["return"](convertInstagramHomeFeedToGlobal([]));
             }
           }
         );
@@ -921,17 +921,7 @@ let getInstagramIdFromUserFollow = function (_id) {
 
   for (let i = 0; i < _id.length; i++) {
     console.log('TO NO FOR', i)
-    Meteor.call('getInstagramMediaHomeFeed', _id[i].id, function (e, result) {
-      try {
-        console.log(result);
-        return convertInstagramHomeFeedToGlobal(result);
-      }
-      catch (e) {
-        console.log(e);
-        return false;
-      }
-
-    });
+     return Meteor.call('getInstagramMediaHomeFeed', _id[i].id);
   }
 
 
@@ -953,7 +943,7 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
   let geo;
   let feedMount = [];
 
-
+console.log(feed)
 
 
 
@@ -968,6 +958,7 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
   // console.log(feed.id);
 
   let textDescription;
+
   for (let i = 0; i < feed.length; i++) {
     type = '';
 
@@ -999,7 +990,7 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
       textDescription = feed[i].user.username;
     }
 
-    console.log( 'IMAGEM' ,post_image)
+    console.log('IMAGEM', post_image)
 
     globalFeed[i] = {
 
@@ -1028,7 +1019,12 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
       }
     }
   }
-  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! GLOBAL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-  console.log('GLOBAL FEED  ', globalFeed)
-  // return globalFeed;
+
+  // for (let k = 0; k < globalFeed.length; k++) {
+  //   console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! GLOBAL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+  //   console.log('GLOBAL FEED  ', globalFeed[k])
+  //   return globalFeed[k];
+
+// }
+  return globalFeed
 }
