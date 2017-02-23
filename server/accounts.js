@@ -54,8 +54,8 @@ Meteor.methods({
         number: phone,
         verified: false
       });
-      console.log("AQUI");
-      console.log(registered_phones);
+      // console.log("AQUI");
+      // console.log(registered_phones);
       // Updates the user in the database
       Meteor.users.update({ '_id': this.userId }, { $set: { registered_phones: registered_phones } });
     }
@@ -76,7 +76,7 @@ Meteor.methods({
       for (let i = 0; i < user.registered_emails.length; i++) {
         returnedEmails.push(user.registered_emails[i].address);
       }
-      console.log(returnedEmails);
+      // console.log(returnedEmails);
     }
 
     return returnedEmails;
@@ -114,9 +114,9 @@ Meteor.methods({
 
     // Updates the user in the database
     Meteor.users.update({ '_id': this.userId }, { $set: { registered_emails: registered_emails } });
-  }, 
+  },
 
-  //Getting user profile of Facebook  
+  //Getting user profile of Facebook
   'getFacebookProfile': function (accessToken) {
 
     // Sets future and user
@@ -140,8 +140,8 @@ Meteor.methods({
           if (!error) {
             // console.log(response+ 'RESPONSE');
             // console.log(response.data + ' DATA RESPONSE ');
-            console.log('TESTANDO O IF');
-            console.log(response);
+            // console.log('TESTANDO O IF');
+            // console.log(response);
             future["return"](convertFacebookProfileToGlobal(response.data));
 
           }
@@ -220,7 +220,7 @@ let convertFacebookProfileToGlobal = function (profile) {
       email: profile.email
     }
   }
-  console.log(globalProfile);
+  // console.log(globalProfile);
   return globalProfile;
 };
 

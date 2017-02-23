@@ -107,8 +107,8 @@ class FeedUnit extends Component {
 
 
     if (!(typeof data === 'undefined'))
-      console.log(data);
-    console.log(Helpers.get(data, 'media.post_image'));
+      //console.log(data);
+    //console.log(Helpers.get(data, 'media.post_image'));
 
     if (Helpers.get(data, 'media.type') == 'text') {
       return (
@@ -129,7 +129,7 @@ class FeedUnit extends Component {
       );
     }
 
-    console.log('HELPERS', Helpers.get(data, 'media.type'));
+    //console.log('HELPERS', Helpers.get(data, 'media.type'));
 
     if (Helpers.get(data, 'media.type') == 'photo') {
       return (
@@ -169,15 +169,7 @@ class FeedUnit extends Component {
         })}
       </div>);
     }
-<<<<<<< HEAD
-=======
 
-    // if (Helpers.get(data, 'media.type') == 'link') {
-
-
-    // }
-
->>>>>>> a51263ea84f90129cbdbbef884d85ab75646e620
   }
 
   hideEmojis() {
@@ -199,7 +191,7 @@ class FeedUnit extends Component {
     //Setting and formatting the date
     let data = this.props.data;
     formattedDate = moment(data.created).calendar();
-    console.log(data);
+    //console.log(data);
 
     if (!(typeof data === 'undefined')) {
       media = this.mediaRender();
@@ -224,7 +216,7 @@ class FeedUnit extends Component {
                 <div className="card-image">
                   {media}
                   <p>{data.content}</p>
-                  <div onMouseOver={this.mouseOnEmoji.bind(this)}>{this.state.emojis}</div>
+                  <div onMouseOver={this.showEmojis.bind(this)}>{this.state.emojis}</div>
                 </div>
                 <div className="card-action feed-unit-action">
                   <div ref='like' onClick={this.reactToPost.bind(this, 'like')} onMouseOver={this.showEmojis.bind(this)} onMouseLeave={this.hideEmojis.bind(this)} >
