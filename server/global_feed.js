@@ -179,7 +179,8 @@ Meteor.methods({
     }
   },
 
-  'getInstagramIdFromUserFollow': function () {
+  'getInstagramHomeFeed': function () {
+    //getInstagramIdFromUserFollow 
     // Sets future and user
     let future = new Future();
     let user = Meteor.users.findOne(this.userId);
@@ -199,7 +200,7 @@ Meteor.methods({
         function (error, response) {
           console.log(error);
           if (!error) {
-            console.log(response.data);
+            //console.log(response.data);
             future["return"](convertInstagramHomeFeedToGlobal(response.data.data));
 
           }
@@ -217,31 +218,41 @@ Meteor.methods({
 
 
   'getInstagramMediaHomeFeed': function (_id) {
-    console.log(data[0].id);
     console.log('AQUI!!!')
+    let future = new Future();
 
-    if (_id) {
+    let user = Meteor.users.findOne(this.userId);
 
-      HTTP.get(
-        'https://api.instagram.com/v1/users/' + _id + '/media/recent/?access_token=' + user.services.instagram.accessToken + '&count=3',
-        {
+    // console.log(user);
+    console.log('TOKEN:    ', user.services.instagram.accessToken);
 
-          headers: {
-            'Authorization': 'Bearer ' + user.services.instagram.accessToken
+    if (user.services.instagram.accessToken) {
+      if (_id) {
+
+        HTTP.get(
+          'https://api.instagram.com/v1/users/' + _id + '/media/recent/?access_token=' + user.services.instagram.accessToken + '&count=1',
+          {
+
+            headers: {
+              'Authorization': 'Bearer ' + user.services.instagram.accessToken
+            }
+          },
+          function (error, response) {
+            
+            try {
+              console.log('GET', response.data);
+              future["return"](convertInstagramHomeFeedToGlobal(response.data.data));
+          
+            }
+
+            catch (error) {
+              console.log(error)
+              future["return"](convertInstagramHomeFeedToGlobal([]));
+            }
           }
-        },
-        function (error, response) {
-          console.log(error);
-          if (!error) {
-            console.log(response.data);
-            future["return"](convertInstagramHomeFeedToGlobal(response.data.data));
-
-          }
-        }
-      );
-
-
-      return future.wait();
+        );
+        return future.wait();
+      }
     }
     // If the user does not have a facebook accessToken, returns an empty array
     else {
@@ -640,7 +651,7 @@ let convertFacebookHomeFeedToGlobal = function (feed) {
   let count = 0;
   // initializating and mount array feed for data convert
   feedMount = feed;
-  console.log(feed);
+  // console.log(feed);
 
   for (let k = 0; k < feedMount.length; k++) {
     //     console.log(feedMount)
@@ -659,7 +670,7 @@ let convertFacebookHomeFeedToGlobal = function (feed) {
 
       //Defining the image of each post
       try {
-        console.log('OI');
+        // console.log('OI');
         // console.log('FEED I ', feed[i].attachments.data[0].media.image.src)
         // type = 'photo'
         // description = feed[i].attachments.data[0].description;
@@ -685,7 +696,7 @@ let convertFacebookHomeFeedToGlobal = function (feed) {
           type = 'photo';
           description = feed[i].attachments.data[0].description;
           post_image = feed[i].attachments.data[0].media.image.src;
-          console.log('TO NO IF ')
+          // console.log('TO NO IF ')
         }
 
         // if ((typeof feed[i].attachments.data[0].subattachments.data[0].media.image.src !== 'undefined') &&
@@ -920,28 +931,34 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
   let geo;
   let feedMount = [];
 
-  Meteor.call('getInstagramIdFromUserFollow', function (error, result) {
-    if (error);
-    console.log(error);
 
-    if (typeof result != 'undefined') {
-        console.log(result.data.length);
-
-        feedMount = Meteor.call('getInstagramMediaHomeFeed', _id , function (error, result) {
+  //  console.log(feed[0].id)
 
 
-        });
-    }
-    console.log(service + ' feed');
-    console.log(result);
-    return true;
-  });
+  for (let i = 0; i < feed.length; i++) {
+    // console.log('TO NO FOR', i)
+    Meteor.call('getInstagramMediaHomeFeed', feed[i].id, function (e, result) {
+      try {
+        //console.log(result);
+        feedMount = result; 
+        return true;
+      }
+      catch (e) {
+        console.log(e);
+        return false;
+      }
+
+    });
+  }
+
+  // console.log('FEEDMOUNT:  '  ,feedMount)
+  feed = feedMount; 
 
 
   // Creates the global feed array
   globalFeed = new Array();
 
-  console.log(feed.id);
+  // console.log(feed.id);
 
   let textDescription;
   for (let i = 0; i < feed.length; i++) {

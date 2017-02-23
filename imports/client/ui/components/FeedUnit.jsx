@@ -43,7 +43,7 @@ class FeedUnit extends Component {
         <div onClick={this.reactToPost.bind(this, 'surprised')} className='emojione-unit' >{emojione.shortnameToUnicode(':hushed:')}</div>
       </div>;
     } else {
-      this.state.emojis = <div className="emojis" onMouseOver={this.showEmojis.bind(this)} onMouseLeave={this.hideEmojis.bind(this) }>
+      this.state.emojis = <div className="emojis" onMouseOver={this.showEmojis.bind(this)} onMouseLeave={this.hideEmojis.bind(this)}>
         <div onClick={this.reactToPost.bind(this, 'like')} >{Helpers.convertEmojiOneToReact(emojione.toImage(':thumbsup:'))}</div>
         <div onClick={this.reactToPost.bind(this, 'love')} >{Helpers.convertEmojiOneToReact(emojione.toImage(':heart:'))}</div>
         <div onClick={this.reactToPost.bind(this, 'laughing')} >{Helpers.convertEmojiOneToReact(emojione.toImage(':laughing:'))}</div>
@@ -54,7 +54,9 @@ class FeedUnit extends Component {
     this.state.isOver = true;
     this.forceUpdate();
   }
+  componentWillMount() {
 
+  }
   componentDidMount() {
     event.preventDefault();
     $('.carousel').carousel();
@@ -89,7 +91,7 @@ class FeedUnit extends Component {
     }
 
     catch (e) {
-      console.log(e);
+      // console.log(e);
       textDescription = {
         link: '',
         description: ''
@@ -118,6 +120,7 @@ class FeedUnit extends Component {
         </div>
       );
     }
+
 
     if (Helpers.get(data, 'media.type') == 'video') {
       return (
@@ -179,11 +182,11 @@ class FeedUnit extends Component {
     //This syntax is used to pass arguments to the setTimeout function
     setTimeout(verifyIsOver.bind(null, self), 1000);
 
-    function verifyIsOver(self){
-        if(self.state.isOver == false){
-          self.setState({emojis: false});
-        }
+    function verifyIsOver(self) {
+      if (self.state.isOver == false) {
+        self.setState({ emojis: false });
       }
+    }
     this.forceUpdate();
   }
 
@@ -191,7 +194,6 @@ class FeedUnit extends Component {
     //Setting and formatting the date
     let data = this.props.data;
     formattedDate = moment(data.created).calendar();
-    //console.log(data);
 
     if (!(typeof data === 'undefined')) {
       media = this.mediaRender();

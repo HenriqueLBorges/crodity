@@ -28,7 +28,7 @@ class RegisterConfirmation extends Component {
 		);
 	}
 
-	handleSubmitEmail() {
+	handleSubmitEmail(event) {
 		event.preventDefault();
 				let self = this;
 		this.props.router.push('/');
@@ -49,7 +49,7 @@ class RegisterConfirmation extends Component {
 		});
 	}
 
-	handleSubmitEmailAndPhone() {
+	handleSubmitEmailAndPhone(event) {
 		event.preventDefault();
 		let self = this;
 		Meteor.call('addRegisteredEmail', this.refs.email.value, function (e, r) {

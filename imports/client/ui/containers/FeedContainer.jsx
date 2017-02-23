@@ -66,7 +66,7 @@ class FeedContainer extends Component {
 				methodName = (this.props.route.feedType == 'home' ? 'get' + serviceCapitalized + 'HomeFeed' : 'get' + serviceCapitalized + 'ProfileFeed');
 			}
 
-			console.log(methodName)
+			// console.log(methodName)
 
 			// if (typeof Helpers.get(this.props, 'route.feedType') === 'undefined') {
 			// 	methodName = (this.props.feedType == 'profile' ? 'get' + serviceCapitalized + 'ProfileFeed' : 'get' + serviceCapitalized + 'Feed');
@@ -85,10 +85,10 @@ class FeedContainer extends Component {
 					let stateObject = {};
 					stateObject[service + 'Feed'] = result;
 					self.setState(stateObject);
-					console.log(stateObject);
+					// console.log(stateObject);
 				}
-				console.log(service+' feed');
-				 console.log(result);
+				// console.log(service+' feed');
+				//  console.log(result);
 				return true;
 			});
 		}
@@ -130,7 +130,7 @@ class FeedContainer extends Component {
 	// ========
 	render() {
 		if (this.state.facebookFeed.length > 0 || this.state.twitterFeed.length > 0 || this.state.instagramFeed.length > 0) {
-			console.log(this.state.facebookFeed)
+			// console.log(this.state.facebookFeed)
 			return (
 				<FeedSorter facebookFeed={this.state.facebookFeed}
 					twitterFeed={this.state.twitterFeed}

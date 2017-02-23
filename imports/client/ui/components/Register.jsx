@@ -39,7 +39,7 @@ class Register extends Component {
 
     event.preventDefault();
 
-    // validation email account  
+    // validation email account
     let regexEmail = /(((?=.*[a-zA-Z])(?=.*[._@#$%])[a-zA-Z0-9@$$%._-]{5,}))/;
 
     // Regex validation password
@@ -56,7 +56,7 @@ class Register extends Component {
     }
 
 
-    //Function for validation password 
+    //Function for validation password
     let isValidPassword = function (pwd, pwd2) {
       if (pwd === pwd2 && pwd.length >= 6) {
         if (!reg.exec(pwd)) {
@@ -128,7 +128,7 @@ class Register extends Component {
   }
 
 
-// function for find User 
+// function for find User
   findUser() {
     let user = this.refs.username.value;
     let self = this;
@@ -256,11 +256,11 @@ class Register extends Component {
               </div>
               <button style={styles.btn} className="btn waves-effect waver-light black-text"
                 type="submit" name="action"> Submit
-           <i className="material-icons right" aria-hidden="true">send</i>
+                <i className="material-icons right" aria-hidden="true">send</i>
               </button>
             </form>
 
-
+            
           </div>
 
         </div>

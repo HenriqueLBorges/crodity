@@ -18,8 +18,6 @@ const styles = {
 		margin: '0 25%',
 		border: '1px solid black',
 	}
-
-
 }
 
 class AccountsLogin extends Component {
@@ -40,6 +38,7 @@ class AccountsLogin extends Component {
 			Meteor.loginWithFacebook({ loginStyle: 'redirect' }, function (e) {
 				if (e)
 					console.log(e);
+
 			});
 		}
 	}
@@ -105,10 +104,18 @@ class AccountsLogin extends Component {
 					<LoginCrodityAccount />
 
 					<br />
+
+					<p className="center-align">
+						<Link to="/recover-password">
+							<button className="white btn-flat black-text col s12 m6 offset-m3" type="submit" name="action">
+								Forgot password?</button>
+						</Link>
+					</p>
+
 					<p className="center-align">
 						<Link to="/register">
 							<button className="white btn-flat black-text col s12 m6 offset-m3" type="submit" name="action">
-								CRIAR NOVA CONTA</button>
+								CREATE NEW ACCOUNT</button>
 						</Link>
 					</p>
 

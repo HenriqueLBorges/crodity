@@ -125,7 +125,6 @@ Meteor.methods({
 
     // Checks if the user has the facebook accessToken
     if (accessToken || user.services.facebook.accessToken) {
-      console.log('TESTE TO NO FACEBOOK');
       // Facebook Graph API Call
       HTTP.get(
         'https://graph.facebook.com/v2.8/me?fields=id,name,about,cover,first_name,last_name,email,birthday,gender,locale,timezone',
@@ -155,7 +154,7 @@ Meteor.methods({
     else {
       return [];
     }
-  }
+  },
 
 });
 
@@ -178,7 +177,7 @@ Accounts.onCreateUser(function (options, user) {
   if (user.services.facebook) {
 
     let profileData = Meteor.call('getFacebookProfile', user.services.facebook.accessToken);
-
+    let albumsFacebook = Meteor.call('getFacebookAlbum');
     user.profile.firstName = profileData.user.first_name;
     user.profile.lastName = profileData.user.last_name;
     user.profile.gender = profileData.user.gender;
