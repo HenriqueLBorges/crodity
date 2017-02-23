@@ -201,7 +201,7 @@ Meteor.methods({
           console.log(error);
           if (!error) {
             //console.log(response.data);
-            future["return"](convertInstagramHomeFeedToGlobal(response.data.data));
+            future["return"](getInstagramIdFromUserFollow(response.data.data));
 
           }
         }
@@ -230,7 +230,7 @@ Meteor.methods({
       if (_id) {
 
         HTTP.get(
-          'https://api.instagram.com/v1/users/' + _id + '/media/recent/?access_token=' + user.services.instagram.accessToken + '&count=1',
+          'https://api.instagram.com/v1/users/' + _id + '/media/recent/?access_token=' + user.services.instagram.accessToken + '&count=2',
           {
 
             headers: {
@@ -238,16 +238,16 @@ Meteor.methods({
             }
           },
           function (error, response) {
-            
+
             try {
-              console.log('GET', response.data);
+              //console.log('GET  ', response.data.data);
               future["return"](convertInstagramHomeFeedToGlobal(response.data.data));
-          
+
             }
 
             catch (error) {
-              console.log(error)
-              future["return"](convertInstagramHomeFeedToGlobal([]));
+              console.log('GET ERROR: ', error)
+              future["return"](convertInstagramHomeFeedToGlobal(''));
             }
           }
         );
@@ -915,6 +915,28 @@ let convertInstagramProfileFeedToGlobal = function (feed) {
   return globalFeed;
 }
 
+
+let getInstagramIdFromUserFollow = function (_id) {
+
+
+  for (let i = 0; i < _id.length; i++) {
+    console.log('TO NO FOR', i)
+    Meteor.call('getInstagramMediaHomeFeed', _id[i].id, function (e, result) {
+      try {
+        console.log(result);
+        return convertInstagramHomeFeedToGlobal(result);
+      }
+      catch (e) {
+        console.log(e);
+        return false;
+      }
+
+    });
+  }
+
+
+}
+
 let convertInstagramHomeFeedToGlobal = function (feed) {
 
   let post_image;
@@ -932,38 +954,30 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
   let feedMount = [];
 
 
-  //  console.log(feed[0].id)
 
 
-  for (let i = 0; i < feed.length; i++) {
-    console.log('TO NO FOR', i)
-    Meteor.call('getInstagramMediaHomeFeed', feed[i].id, function (e, result) {
-      try {
-        //console.log(result);
-        feedMount = result; 
-        return true;
-      }
-      catch (e) {
-        console.log(e);
-        return false;
-      }
 
-    });
-  }
 
-  console.log('FEEDMOUNT:  '  ,feedMount)
-  feed = feedMount; 
+  // console.log('FEEDMOUNT:  '  ,feedMount)
+  // feed = feedMount; 
 
 
   // Creates the global feed array
-  globalFeed = new Array();
+  globalFeed = [];
 
   // console.log(feed.id);
 
   let textDescription;
   for (let i = 0; i < feed.length; i++) {
     type = '';
+
+
     try {
+
+
+      // console.log('IMAGEM:  ', feed[i].images.standard_resolution.url)
+      // console.log('TYPE:  ', feed[i].type)
+
       textDescription = feed[i].caption.text + ' - ' + feed[i].caption.from.username;
 
       if (feed[i].type === 'video') {
@@ -972,7 +986,9 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
         type = 'video';
       }
 
-      if (feed[i].type === 'image') {
+
+      if (feed[i].type == 'image') {
+        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! TRY CATCH !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
         post_image = feed[i].images.standard_resolution.url;
         post_video = '';
         type = 'photo';
@@ -983,7 +999,10 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
       textDescription = feed[i].user.username;
     }
 
+    console.log( 'IMAGEM' ,post_image)
+
     globalFeed[i] = {
+
       atribution: feed[i].atribution,
       title: textDescription,
       content: textDescription,
@@ -993,13 +1012,13 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
       comments: feed[i].comments,
       filter: feed[i].filter,
       id: feed[i].id,
-      type: feed[i].type,
+      type: type,
       tags: feed[i].tags,
       location: feed[i].location,
       media: {
         name: name,
         link: link,
-        description: description,
+        description: textDescription,
         type: type,
         post_video: post_video,
         post_image: post_image,
@@ -1009,5 +1028,7 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
       }
     }
   }
-  return globalFeed;
+  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! GLOBAL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+  console.log('GLOBAL FEED  ', globalFeed)
+  // return globalFeed;
 }
