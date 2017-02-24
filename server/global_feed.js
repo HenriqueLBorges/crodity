@@ -223,7 +223,7 @@ Meteor.methods({
 
     let user = Meteor.users.findOne(this.userId);
 
-    // console.log(user);
+    console.log(_id);
     console.log('TOKEN:    ', user.services.instagram.accessToken);
 
     if (user.services.instagram.accessToken) {
@@ -247,7 +247,7 @@ Meteor.methods({
 
             catch (error) {
               console.log('GET ERROR: ', error)
-              future["return"](convertInstagramHomeFeedToGlobal([]));
+              // future["return"](convertInstagramHomeFeedToGlobal([]));
             }
           }
         );
@@ -917,14 +917,29 @@ let convertInstagramProfileFeedToGlobal = function (feed) {
 
 
 let getInstagramIdFromUserFollow = function (_id) {
+//let i = 0;
+let feedMount = []; 
 
+console.log (_id.length)
 
-  for (let i = 0; i < _id.length; i++) {
+ for (let i = 0; i < _id.length; i++) {
     console.log('TO NO FOR', i)
-     return Meteor.call('getInstagramMediaHomeFeed', _id[i].id);
+    feedMount = Meteor.call('getInstagramMediaHomeFeed', _id[i].id);
+
+    console.log('GET ID LENGTH'  ,feedMount.length);
+
+    if (typeof feedMount.length !== 'undefined' && feedMount.length > 1) {
+      // console.log('IF ', feedMount);
+    
+      feedMount = Meteor.call('getInstagramMediaHomeFeed', _id[i].id);
+    }
+    else {
+      feedMount = [];
+    }
+
   }
 
-
+ return feedMount; 
 }
 
 let convertInstagramHomeFeedToGlobal = function (feed) {
@@ -942,8 +957,7 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
   let id_location;
   let geo;
   let feedMount = [];
-
-console.log(feed)
+  let count = 0; 
 
 
 
@@ -958,66 +972,76 @@ console.log(feed)
   // console.log(feed.id);
 
   let textDescription;
+  if (typeof feed !== 'undefined') {
 
-  for (let i = 0; i < feed.length; i++) {
-    type = '';
-
-
-    try {
+    console.log('FEED LENGTH: ', feed.length); 
 
 
-      // console.log('IMAGEM:  ', feed[i].images.standard_resolution.url)
-      // console.log('TYPE:  ', feed[i].type)
 
-      textDescription = feed[i].caption.text + ' - ' + feed[i].caption.from.username;
+    for (let i = 0; i < feed.length; i++) {
+      type = '';
 
-      if (feed[i].type === 'video') {
-        post_image = feed[i].images.standard_resolution.url;
-        post_video = feed[i].videos.standard_resolution.url;
-        type = 'video';
+
+      try {
+
+
+        // console.log('IMAGEM:  ', feed[i].images.standard_resolution.url)
+        // console.log('TYPE:  ', feed[i].type)
+
+        textDescription = feed[i].caption.text + ' - ' + feed[i].caption.from.username;
+
+        if (feed[i].type === 'video') {
+          post_image = feed[i].images.standard_resolution.url;
+          post_video = feed[i].videos.standard_resolution.url;
+          type = 'video';
+        }
+
+
+        if (feed[i].type == 'image') {
+          post_image = feed[i].images.standard_resolution.url;
+          post_video = '';
+          type = 'photo';
+        }
+
+      }
+      catch (err) {
+        textDescription = feed[i].user.username;
       }
 
 
-      if (feed[i].type == 'image') {
-        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! TRY CATCH !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-        post_image = feed[i].images.standard_resolution.url;
-        post_video = '';
-        type = 'photo';
-      }
+      globalFeed[i] = {
 
-    }
-    catch (err) {
-      textDescription = feed[i].user.username;
-    }
-
-    console.log('IMAGEM', post_image)
-
-    globalFeed[i] = {
-
-      atribution: feed[i].atribution,
-      title: textDescription,
-      content: textDescription,
-      service: 'instagram',
-      created: new Date(feed[i].created_time * 1000),
-      likes: feed[i].likes.count,
-      comments: feed[i].comments,
-      filter: feed[i].filter,
-      id: feed[i].id,
-      type: type,
-      tags: feed[i].tags,
-      location: feed[i].location,
-      media: {
-        name: name,
-        link: link,
-        description: textDescription,
+        atribution: feed[i].atribution,
+        title: textDescription,
+        content: textDescription,
+        service: 'instagram',
+        created: new Date(feed[i].created_time * 1000),
+        likes: feed[i].likes.count,
+        comments: feed[i].comments,
+        filter: feed[i].filter,
+        id: feed[i].id,
         type: type,
-        post_video: post_video,
-        post_image: post_image,
-      },
-      user: {
-        image: feed[i].user.profile_picture,
+        tags: feed[i].tags,
+        location: feed[i].location,
+        media: {
+          name: name,
+          link: link,
+          description: textDescription,
+          type: type,
+          post_video: post_video,
+          post_image: post_image,
+        },
+        user: {
+          image: feed[i].user.profile_picture,
+        }
       }
     }
+    
+    console.log('PASSANDO O FEED DO USER: ', globalFeed[0].title)
+  }
+
+  else {
+    globalFeed = []; 
   }
 
   // for (let k = 0; k < globalFeed.length; k++) {
@@ -1025,6 +1049,7 @@ console.log(feed)
   //   console.log('GLOBAL FEED  ', globalFeed[k])
   //   return globalFeed[k];
 
-// }
+  // }
+  
   return globalFeed
 }
