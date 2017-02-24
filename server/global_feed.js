@@ -179,7 +179,7 @@ Meteor.methods({
     }
   },
 
-  'getInstagramHomeFeed': function () {
+  'getInstagramMediaHomeFeed': function () {
     //getInstagramIdFromUserFollow 
     // Sets future and user
     let future = new Future();
@@ -217,20 +217,22 @@ Meteor.methods({
   },
 
 
-  'getInstagramMediaHomeFeed': function (_id) {
+  'getInstagramHomeFeed': function (_id) {
     console.log('AQUI!!!')
     let future = new Future();
 
+    _id = Meteor.call('getInstagramMediaHomeFeed')
+
     let user = Meteor.users.findOne(this.userId);
 
-    console.log(_id);
+    //    console.log(_id[0]);
     console.log('TOKEN:    ', user.services.instagram.accessToken);
 
     if (user.services.instagram.accessToken) {
       if (_id) {
 
         HTTP.get(
-          'https://api.instagram.com/v1/users/' + _id + '/media/recent/?access_token=' + user.services.instagram.accessToken + '&count=2',
+          'https://api.instagram.com/v1/users/' + _id + '/media/recent/?access_token=' + user.services.instagram.accessToken + '&count=1',
           {
 
             headers: {
@@ -917,30 +919,34 @@ let convertInstagramProfileFeedToGlobal = function (feed) {
 
 
 let getInstagramIdFromUserFollow = function (_id) {
-//let i = 0;
-let feedMount = []; 
+  //let i = 0;
+  let feedMount = [];
+  let feed = [];
+  console.log(_id.length)
 
-console.log (_id.length)
+  for (let i = 0; i < _id.length; i++) {
 
- for (let i = 0; i < _id.length; i++) {
-    console.log('TO NO FOR', i)
-    feedMount = Meteor.call('getInstagramMediaHomeFeed', _id[i].id);
 
-    console.log('GET ID LENGTH'  ,feedMount.length);
+    // console.log('GET ID LENGTH'  ,feedMount.length);
 
-    if (typeof feedMount.length !== 'undefined' && feedMount.length > 1) {
+    // if (typeof Meteor.call('getInstagramMediaHomeFeed', _id[i].id).length !== 'undefined'
+    //   && Meteor.call('getInstagramMediaHomeFeed', _id[i].id).length > 0) {
       // console.log('IF ', feedMount);
-    
-      feedMount = Meteor.call('getInstagramMediaHomeFeed', _id[i].id);
-    }
-    else {
-      feedMount = [];
-    }
+      // for (let k = 0; k < Meteor.call('getInstagramMediaHomeFeed', _id[i].id).length; k++) {
+        feedMount = Meteor.call('getInstagramMediaHomeFeed').id;
+      // }
+      //feed = Meteor.call('getInstagramMediaHomeFeed', _id[i].id)
+    // }
+    // else {
+    //   feedMount = [];
+    // }
 
   }
 
- return feedMount; 
+  
+  return feedMount.id;
 }
+
 
 let convertInstagramHomeFeedToGlobal = function (feed) {
 
@@ -957,7 +963,7 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
   let id_location;
   let geo;
   let feedMount = [];
-  let count = 0; 
+  let count = 0;
 
 
 
@@ -974,7 +980,7 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
   let textDescription;
   if (typeof feed !== 'undefined') {
 
-    console.log('FEED LENGTH: ', feed.length); 
+    console.log('FEED LENGTH: ', feed.length);
 
 
 
@@ -1036,12 +1042,12 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
         }
       }
     }
-    
-    console.log('PASSANDO O FEED DO USER: ', globalFeed[0].title)
+
+    //console.log('PASSANDO O FEED DO USER: ', globalFeed[0].title)
   }
 
   else {
-    globalFeed = []; 
+    globalFeed = [];
   }
 
   // for (let k = 0; k < globalFeed.length; k++) {
@@ -1050,6 +1056,6 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
   //   return globalFeed[k];
 
   // }
-  
+
   return globalFeed
 }
