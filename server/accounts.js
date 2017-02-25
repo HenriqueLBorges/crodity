@@ -194,6 +194,17 @@ Accounts.onCreateUser(function (options, user) {
   return user;
 });
 
+
+// =======================
+// Accounts.onLogin()
+// =======================
+// This is called after the user login is sucessful
+Accounts.onLogin(function (user) {
+  Meteor.call('getFacebookAlbums',function(e,r){
+    console.log(r);
+  });
+});
+
 let convertFacebookProfileToGlobal = function (profile) {
 
 
@@ -231,7 +242,7 @@ let meldUserCallback = function (src_user, dst_user) {
   console.log('meldUserCallback');
 
   if (src_user.createdAt < dst_user.createdAt)
-    dst_user.createdAt = src_user.createdAt;
+  dst_user.createdAt = src_user.createdAt;
 
   // 'profile' field
   let profile = {};
@@ -239,7 +250,7 @@ let meldUserCallback = function (src_user, dst_user) {
   _.defaults(profile, src_user.profile || {});
 
   if (!_.isEmpty(profile))
-    dst_user.profile = profile;
+  dst_user.profile = profile;
 };
 
 let meldDBCallback = function (src_user_id, dst_user_id) {
@@ -253,7 +264,7 @@ let serviceAddedCallback = function (user_id, service_name) {
     let link = user.services[service_name].link;
 
     if (link)
-      Meteor.users.update(user_id, { $set: { "profile.fb_link": link } });
+    Meteor.users.update(user_id, { $set: { "profile.fb_link": link } });
   }
 };
 

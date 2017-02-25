@@ -56,7 +56,7 @@ Meteor.methods({
             name: name,
             type: type
         }
-        let post = Posts.findOne({ 'id': postId });
+        let post = Posts.findOne({ id: postId });
         Posts.update({ id: postId }, { $push: { crodity_reactions: reaction } });
         console.log(post);
     },

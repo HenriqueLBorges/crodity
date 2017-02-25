@@ -180,7 +180,7 @@ Meteor.methods({
   },
 
   'getInstagramHomeFeed': function () {
-    //getInstagramIdFromUserFollow 
+    //getInstagramIdFromUserFollow
     // Sets future and user
     let future = new Future();
     let user = Meteor.users.findOne(this.userId);
@@ -238,11 +238,11 @@ Meteor.methods({
             }
           },
           function (error, response) {
-            
+
             try {
               console.log('GET', response.data);
               future["return"](convertInstagramHomeFeedToGlobal(response.data.data));
-          
+
             }
 
             catch (error) {
@@ -940,7 +940,7 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
     Meteor.call('getInstagramMediaHomeFeed', feed[i].id, function (e, result) {
       try {
         //console.log(result);
-        feedMount = result; 
+        feedMount = result;
         return true;
       }
       catch (e) {
@@ -952,7 +952,7 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
   }
 
   // console.log('FEEDMOUNT:  '  ,feedMount)
-  feed = feedMount; 
+  feed = feedMount;
 
 
   // Creates the global feed array

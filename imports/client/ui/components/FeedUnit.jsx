@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Helpers } from '../helpers/Helpers';
 import CommentList from './CommentList.jsx';
 import ReactDOM from 'react-dom';
+//temporary
+
 
 //Constructing a const called card, it'll be used where FeedUnit.jsx is imported
 
