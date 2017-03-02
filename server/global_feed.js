@@ -28,11 +28,11 @@ Meteor.methods({
     // Getting the user timeline that will be returned
     Twitter.get('statuses/user_timeline', { count: '10' }, function (err, data, response) {
       if (err) {
-        // console.log(err);
+        // //console.log(err);
 
       }
       else {
-        //console.log(data);
+        ////console.log(data);
         future["return"](convertTwitterFeedToGlobal(data));
       }
     });
@@ -54,12 +54,12 @@ Meteor.methods({
     //home_timeline
     Twitter.get('statuses/home_timeline', { count: '10' }, function (err, data, response) {
       if (err) {
-        console.log(err);
+        //console.log(err);
       }
       else {
-        // console.log('USER: +++++++++++++++++++++++++++++++++++$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$+');
-        // //console.log(data);
-        // console.log('USER: +++++++++++++++++++++++++++++++++++$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$+');
+        // //console.log('USER: +++++++++++++++++++++++++++++++++++$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$+');
+        // ////console.log(data);
+        // //console.log('USER: +++++++++++++++++++++++++++++++++++$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$+');
         future["return"](convertTwitterFeedToGlobal(data));
       }
     });
@@ -86,9 +86,9 @@ Meteor.methods({
           }
         },
         function (error, response) {
-          // console.log(response + error);
+          // //console.log(response + error);
           if (!error) {
-            // console.log(response.content);
+            // //console.log(response.content);
             future["return"](convertFacebookProfileFeedToGlobal(response.data));
 
           }
@@ -123,10 +123,10 @@ Meteor.methods({
           }
         },
         function (error, response) {
-          console.log(response + error);
+          //console.log(response + error);
           if (!error) {
-            //console.log(response.content);
-            console.log('GET', response.data.data.length);
+            ////console.log(response.content);
+            //console.log('GET', response.data.data.length);
             future["return"](convertFacebookHomeFeedToGlobal(response.data.data));
 
           }
@@ -161,9 +161,9 @@ Meteor.methods({
           }
         },
         function (error, response) {
-          console.log(error);
+          //console.log(error);
           if (!error) {
-            //console.log(response.data.data.type);
+            ////console.log(response.data.data.type);
             future["return"](convertInstagramProfileFeedToGlobal(response.data.data));
 
           }
@@ -179,7 +179,7 @@ Meteor.methods({
     }
   },
 
-  'getInstagramMediaHomeFeed': function () {
+  'getInstagramHomeFeed': function () {
     //getInstagramIdFromUserFollow 
     // Sets future and user
     let future = new Future();
@@ -198,9 +198,9 @@ Meteor.methods({
           }
         },
         function (error, response) {
-          console.log(error);
+          //console.log(error);
           if (!error) {
-            //console.log(response.data);
+            ////console.log(response.data);
             future["return"](getInstagramIdFromUserFollow(response.data.data));
 
           }
@@ -217,16 +217,16 @@ Meteor.methods({
   },
 
 
-  'getInstagramHomeFeed': function (_id) {
-    console.log('AQUI!!!')
+  'getInstagramMediaHomeFeed': function (_id) {
+    //console.log('AQUI!!!')
     let future = new Future();
 
-    _id = Meteor.call('getInstagramMediaHomeFeed')
+    //_id = Meteor.call('getInstagramMediaHomeFeed')
 
     let user = Meteor.users.findOne(this.userId);
 
-    //    console.log(_id[0]);
-    console.log('TOKEN:    ', user.services.instagram.accessToken);
+    //    //console.log(_id[0]);
+    //console.log('TOKEN:    ', user.services.instagram.accessToken);
 
     if (user.services.instagram.accessToken) {
       if (_id) {
@@ -242,13 +242,12 @@ Meteor.methods({
           function (error, response) {
 
             try {
-              //console.log('GET  ', response.data.data);
+              ////console.log('GET  ', response.data.data);
               future["return"](convertInstagramHomeFeedToGlobal(response.data.data));
-
             }
 
             catch (error) {
-              console.log('GET ERROR: ', error)
+              //console.log('GET ERROR: ', error)
               // future["return"](convertInstagramHomeFeedToGlobal([]));
             }
           }
@@ -368,26 +367,26 @@ let convertTwitterFeedToGlobal = function (feed) {
     }
 
     catch (e) {
-      // console.log(e);
-      //console.log(video);
-      ///console.log(media);
+      // //console.log(e);
+      ////console.log(video);
+      /////console.log(media);
 
     }
 
     // Created the globalFeed[i] object
 
 
-    //console.log('----------------------------------------------------------------------------');
-    //console.log(type, description);
+    ////console.log('----------------------------------------------------------------------------');
+    ////console.log(type, description);
 
-    // console.log('----------------------------------------------------------------------------');
-    // console.log(video);
-    // console.log('----------------------------------------------------------------------------');
-    // console.log(image);
-    // console.log('----------------------------------------------------------------------------');
+    // //console.log('----------------------------------------------------------------------------');
+    // //console.log(video);
+    // //console.log('----------------------------------------------------------------------------');
+    // //console.log(image);
+    // //console.log('----------------------------------------------------------------------------');
 
 
-    //console.log(media.type);
+    ////console.log(media.type);
 
     globalFeed[i] = {
       title: feed[i].user.name + ' @' + feed[i].user.screen_name,
@@ -417,7 +416,7 @@ let convertTwitterFeedToGlobal = function (feed) {
     //Saving twitter posts on database
 
     // if (Posts.findOne({ id: globalFeed[i].id })) {
-    //   //console.log("true");
+    //   ////console.log("true");
 
     // } else {
     //   Posts.insert({
@@ -437,7 +436,7 @@ let convertTwitterFeedToGlobal = function (feed) {
     //     image: feed[i].user.profile_image_url
     //   }
     //   });
-    //   //console.log("false");
+    //   ////console.log("false");
     // }
   }
   return globalFeed;
@@ -478,7 +477,7 @@ let convertFacebookProfileFeedToGlobal = function (feed) {
         post_video = feed[i].source;
       }
 
-      console.log('OI');
+      //console.log('OI');
 
       if (typeof feed[i].attachments.data[0].media.image.src !== 'undefined' && typeof feed[i].source === 'undefined') {
         type = 'photo'
@@ -491,7 +490,7 @@ let convertFacebookProfileFeedToGlobal = function (feed) {
       //     type = 'photo';
       //     description = feed[i].attachments.data[0].description;
       //     post_image = feed[i].attachments.data[0].media.image.src;
-      //   console.log('TO NO IF ')
+      //   //console.log('TO NO IF ')
       // }
 
       if ((typeof feed[i].attachments.data[0].subattachments.data[0].media.image.src !== 'undefined') &&
@@ -523,7 +522,7 @@ let convertFacebookProfileFeedToGlobal = function (feed) {
     }
 
     catch (e) {
-      console.log(e);
+      //console.log(e);
       feed_unit_image = '';
       likespost = '';
     }
@@ -539,7 +538,7 @@ let convertFacebookProfileFeedToGlobal = function (feed) {
       if (typeof feed[i].attachments.data[0].description === 'undefined') {
         description = '';
       } else description = feed[i].attachments.data[0].description;
-      console.log('CHECKIN');
+      //console.log('CHECKIN');
     }
 
 
@@ -600,7 +599,7 @@ let convertFacebookProfileFeedToGlobal = function (feed) {
 
     //Creating a global feed on Database
     if (Posts.findOne({ id: globalFeed[i].id })) {
-      // console.log("true");
+      // //console.log("true");
 
     } else {
       Posts.insert({
@@ -623,7 +622,7 @@ let convertFacebookProfileFeedToGlobal = function (feed) {
           image: 'http://graph.facebook.com/v2.8/' + feed[i].from.id + '/picture?width=100&height=100',
         }
       });
-      // console.log("false");
+      // //console.log("false");
     }
   }
   return globalFeed;
@@ -631,7 +630,7 @@ let convertFacebookProfileFeedToGlobal = function (feed) {
 
 let convertFacebookHomeFeedToGlobal = function (feed) {
 
-  //console.log('CONVERT', feed)
+  ////console.log('CONVERT', feed)
   let feedMount = [];
 
   // Creates the global feed array
@@ -653,27 +652,27 @@ let convertFacebookHomeFeedToGlobal = function (feed) {
   let count = 0;
   // initializating and mount array feed for data convert
   feedMount = feed;
-  console.log(feed);
+  //console.log(feed);
 
   for (let k = 0; k < feedMount.length; k++) {
-    //     console.log(feedMount)
-    //     console.log(feedMount.length, 'VALOR:', k);
+    //     //console.log(feedMount)
+    //     //console.log(feedMount.length, 'VALOR:', k);
     feed = feedMount[k].posts.data;
 
-    // console.log('FEEDMOUNT', feedMount.length, 'VALOR', k)
-    // // console.log('CONVERT', feedMount[k].posts.data, k)
+    // //console.log('FEEDMOUNT', feedMount.length, 'VALOR', k)
+    // // //console.log('CONVERT', feedMount[k].posts.data, k)
 
-    // console.log(feedMount.length)
+    // //console.log(feedMount.length)
     for (let i = 0; i < feed.length; i++) {
-      // console.log('FEED', feed.length, 'VALOR ', i)
+      // //console.log('FEED', feed.length, 'VALOR ', i)
 
       type = '';
 
 
       //Defining the image of each post
       try {
-        console.log('OI');
-        // console.log('FEED I ', feed[i].attachments.data[0].media.image.src)
+        //console.log('OI');
+        // //console.log('FEED I ', feed[i].attachments.data[0].media.image.src)
         // type = 'photo'
         // description = feed[i].attachments.data[0].description;
         // post_image = feed[i].attachments.data[0].media.image.src;
@@ -698,7 +697,7 @@ let convertFacebookHomeFeedToGlobal = function (feed) {
           type = 'photo';
           description = feed[i].attachments.data[0].description;
           post_image = feed[i].attachments.data[0].media.image.src;
-          console.log('TO NO IF ')
+          //console.log('TO NO IF ')
         }
 
         // if ((typeof feed[i].attachments.data[0].subattachments.data[0].media.image.src !== 'undefined') &&
@@ -730,7 +729,7 @@ let convertFacebookHomeFeedToGlobal = function (feed) {
       }
 
       catch (e) {
-        console.log(e);
+        //console.log(e);
         post_image = '';
         likespost = '';
       }
@@ -746,7 +745,7 @@ let convertFacebookHomeFeedToGlobal = function (feed) {
       //   if (typeof feed[i].attachments.data[0].description === 'undefined') {
       //     description = '';
       //   } else description = feed[i].attachments.data[0].description;
-      //   console.log('CHECKIN');
+      //   //console.log('CHECKIN');
       // }
 
 
@@ -809,7 +808,7 @@ let convertFacebookHomeFeedToGlobal = function (feed) {
 
       //Creating a global feed on Database
       // if (Posts.findOne({ id: globalFeed[i].id })) {
-      //   // console.log("true");
+      //   // //console.log("true");
 
       // } else {
       //   Posts.insert({
@@ -832,16 +831,16 @@ let convertFacebookHomeFeedToGlobal = function (feed) {
       //       image: 'http://graph.facebook.com/v2.8/' + feed[i].from.id + '/picture?width=100&height=100',
       //     }
       //   });
-      //   // console.log("false");
+      //   // //console.log("false");
       // }
 
     }
-    // console.log('GLOBALFEED:', globalFeed, k)
-    // console.log(feedMount[k], 'VALOR: ', k)
+    // //console.log('GLOBALFEED:', globalFeed, k)
+    // //console.log(feedMount[k], 'VALOR: ', k)
     //return globalFeed[k];
   }
   // count++;
-  // console.log('CONTADOR', count++);
+  // //console.log('CONTADOR', count++);
   return globalFeed;
 
 
@@ -922,29 +921,29 @@ let getInstagramIdFromUserFollow = function (_id) {
   //let i = 0;
   let feedMount = [];
   let feed = [];
-  console.log(_id.length)
+  let count = 0 ; 
+  //console.log(_id.length)
 
   for (let i = 0; i < _id.length; i++) {
 
 
-    // console.log('GET ID LENGTH'  ,feedMount.length);
+    // //console.log('GET ID LENGTH'  ,feedMount.length);
 
-    // if (typeof Meteor.call('getInstagramMediaHomeFeed', _id[i].id).length !== 'undefined'
-    //   && Meteor.call('getInstagramMediaHomeFeed', _id[i].id).length > 0) {
-      // console.log('IF ', feedMount);
-      // for (let k = 0; k < Meteor.call('getInstagramMediaHomeFeed', _id[i].id).length; k++) {
-        feedMount = Meteor.call('getInstagramMediaHomeFeed').id;
+    if (typeof Meteor.call('getInstagramMediaHomeFeed', _id[i].id).length !== 'undefined'
+      && Meteor.call('getInstagramMediaHomeFeed', _id[i].id).length > 0 &&  Meteor.call('getInstagramMediaHomeFeed', _id[i].id) != null) {
+      //console.log('IF ', feedMount);
+
+      feed[count] = Meteor.call('getInstagramMediaHomeFeed', _id[i].id)
+      // else {
+      //   feedMount = [];
       // }
-      //feed = Meteor.call('getInstagramMediaHomeFeed', _id[i].id)
-    // }
-    // else {
-    //   feedMount = [];
-    // }
-
+      count++; 
+    }
   }
 
-  
-  return feedMount.id;
+    console.log(feed.length)
+
+  return feed;
 }
 
 
@@ -967,32 +966,32 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
 
 
 
-
-  // console.log('FEEDMOUNT:  '  ,feedMount)
+console.log (typeof feed)
+  // //console.log('FEEDMOUNT:  '  ,feedMount)
   // feed = feedMount; 
 
 
   // Creates the global feed array
   globalFeed = [];
 
-  // console.log(feed.id);
+  // //console.log(feed.id);
 
   let textDescription;
-  if (typeof feed !== 'undefined') {
+  if (typeof feed !== 'undefined' && typeof feed != 'null') {
 
-    console.log('FEED LENGTH: ', feed.length);
+    //console.log('FEED LENGTH: ', feed.length);
 
 
 
     for (let i = 0; i < feed.length; i++) {
       type = '';
-
+      globalFeed = []; 
 
       try {
 
 
-        // console.log('IMAGEM:  ', feed[i].images.standard_resolution.url)
-        // console.log('TYPE:  ', feed[i].type)
+        // //console.log('IMAGEM:  ', feed[i].images.standard_resolution.url)
+        // //console.log('TYPE:  ', feed[i].type)
 
         textDescription = feed[i].caption.text + ' - ' + feed[i].caption.from.username;
 
@@ -1015,7 +1014,7 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
       }
 
 
-      globalFeed[i] = {
+      globalFeed[count] = {
 
         atribution: feed[i].atribution,
         title: textDescription,
@@ -1041,21 +1040,23 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
           image: feed[i].user.profile_picture,
         }
       }
+      count++;
     }
 
-    //console.log('PASSANDO O FEED DO USER: ', globalFeed[0].title)
+    ////console.log('PASSANDO O FEED DO USER: ', globalFeed[0].title)
   }
 
   else {
     globalFeed = [];
   }
-
+  //console.log('Global Feed',globalFeed);
   // for (let k = 0; k < globalFeed.length; k++) {
-  //   console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! GLOBAL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-  //   console.log('GLOBAL FEED  ', globalFeed[k])
+  //   //console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! GLOBAL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+  //   //console.log('GLOBAL FEED  ', globalFeed[k])
   //   return globalFeed[k];
 
   // }
 
   return globalFeed
 }
+
