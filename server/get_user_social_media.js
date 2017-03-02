@@ -30,25 +30,30 @@ Meteor.methods({
           if (error) {
             console.log(error);
           }else{
-            // console.log('Resposta',response.data.data.length);
+            //It lace walks through the albums and inserts them on the UserMedia collection
             for(let i = 0 ;i<response.data.data.length;i++){
-              UserMedia.insert({
-                external_id: response.data.data[i].id,
-                media_type: 'album',
-                service: 'facebook',
-                can_upload: response.data.data[i].can_upload,
-                count: response.data.data[i].count,
-                cover_photo: response.data.data[i].cover_photo,
-                created_time: response.data.data[i].created_time,
-                from: response.data.data[i].from,
-                link: response.data.data[i].link,
-                name: response.data.data[i].name,
-                privacy: response.data.data[i].privacy,
-                type: response.data.data[i].type,
-                updated_time: response.data.data[i].updated_time,
-              });
+              //If the external_id isn't find this album is inserted
+              if(!UserMedia.findOne({ external_id: response.data.data[i].id })){
+                UserMedia.insert({
+                  external_id: response.data.data[i].id,
+                  media_type: 'album',
+                  service: 'facebook',
+                  can_upload: response.data.data[i].can_upload,
+                  count: response.data.data[i].count,
+                  cover_photo: response.data.data[i].cover_photo,
+                  created_time: response.data.data[i].created_time,
+                  from: response.data.data[i].from,
+                  link: response.data.data[i].link,
+                  name: response.data.data[i].name,
+                  privacy: response.data.data[i].privacy,
+                  type: response.data.data[i].type,
+                  updated_time: response.data.data[i].updated_time,
+                });
+              }else{
+                console.log('Album already inserted');
+              }
             }
-            future["return"](convertFacebookAlbum(response.data.data, user));
+            future["return"](getFacebookAlbumsPhotos(response.data.data, user));
           }
         }
       );
@@ -58,7 +63,7 @@ Meteor.methods({
   },
 
 });
-let convertFacebookAlbum = function (albums, user){
+let getFacebookAlbumsPhotos = function (albums, user){
 
   // console.log('Tamanho albuns',albums.length);
   for(let i = 0; i< albums.length;i++){
@@ -76,6 +81,9 @@ let convertFacebookAlbum = function (albums, user){
           console.log(error);
         }else{
           // console.log('Testeeeee',UserMedia.findOne({ external_id: albums[i].id}));
+          // if(!UserMedia.findOne({ 'photos[0][0].id': '272498469427882' })){
+          //
+          // }
           UserMedia.update({ external_id: albums[i].id }, { $push: { photos: response.data.data} });
         }
       }

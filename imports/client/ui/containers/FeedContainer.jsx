@@ -78,7 +78,7 @@ class FeedContainer extends Component {
 
 			// Async calling the method whose name was set above
 			Meteor.call(methodName, function (error, result) {
-				if (error);
+				if (error)
 				 console.log(error);
 
 				if (typeof result != 'undefined') {
