@@ -65,13 +65,16 @@ class FeedUnit extends Component {
     let data = this.props.data;
     let self = this;
     let urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+  
     let text = Helpers.get(data, 'media.description');
+    
+    var link = '';
     let textDescription = {
       link: '',
       description: ''
     }
 
-    var link;
+    
     try {
       text.replace(urlRegex, function (u) {
         self.link = u;
@@ -113,8 +116,9 @@ class FeedUnit extends Component {
     if (Helpers.get(data, 'media.type') == 'text') {
       return (
         <div>
-          <p> {this.textVerify().description ? this.textVerify().description : data.content} </p>
+          <p> {this.textVerify().description  ? this.textVerify().description + '-' : data.content + '-'} </p>
           {this.textVerify().link ? <a href={this.textVerify().link}> {this.textVerify().link} </a> : ""}
+          {Helpers.get(data, 'media.link') ? <a href={Helpers.get(data, 'media.link')}>  link  </a> : ""}
         </div>
       );
     }
@@ -122,8 +126,9 @@ class FeedUnit extends Component {
     if (Helpers.get(data, 'media.type') == 'video') {
       return (
         <div>
-          <p> {this.textVerify().description} </p>
+          <p> {this.textVerify().description + '-'} </p>
           <a href={this.textVerify().link}> {this.textVerify().link} </a>
+          <p>{Helpers.get(data, 'media.link') ? <a href={Helpers.get(data, 'media.link')}>  link  </a> : ""}</p> 
           <video loop preload="auto" className="video" src={Helpers.get(data, 'media.post_video')} controls> </video>
         </div>
       );
@@ -134,8 +139,9 @@ class FeedUnit extends Component {
     if (Helpers.get(data, 'media.type') == 'photo') {
       return (
         <div>
-          <p>{this.textVerify().description}</p>
+          <p>{this.textVerify().description + '-'}</p>
           {this.textVerify().link ? <a href={this.textVerify().link}> {this.textVerify().link} </a> : ""}
+          {Helpers.get(data, 'media.link') ? <a href={Helpers.get(data, 'media.link')}> link </a> : ""}
           <img src={Helpers.get(data, 'media.post_image')} />
         </div>
       );
@@ -186,7 +192,8 @@ class FeedUnit extends Component {
     //Setting and formatting the date
     let data = this.props.data;
     formattedDate = moment(data.created).calendar();
-    console.log(data);
+    console.log(data.service, 'FeedUnit' );
+    console.log(data, 'FeedUnit');
 
     if (!(typeof data === 'undefined')) {
       media = this.mediaRender();
@@ -210,7 +217,7 @@ class FeedUnit extends Component {
                 </div>
                 <div className="card-image">
                   {media}
-                  <p>{data.content}</p>
+                  {/*<p>{data.content}</p>*/}
                   <div onMouseOver={this.mouseOnEmoji.bind(this)}>{this.state.emojis}</div>
                 </div>
                 <div className="card-action feed-unit-action">

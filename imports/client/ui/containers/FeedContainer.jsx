@@ -86,7 +86,10 @@ class FeedContainer extends Component {
 					stateObject[service + 'Feed'] = result;
 					self.setState(stateObject);
 					console.log(stateObject);
-				}
+					console.log(service+' feed');
+				 console.log(result);
+				 console.log(methodName)
+			}
 				console.log(service+' feed');
 				 console.log(result);
 				 console.log(methodName)
@@ -106,7 +109,7 @@ class FeedContainer extends Component {
 		this.getFeed('instagram');
 
 		let self = this;
-		let timeout = (Meteor.user() ? 90000 : 500);
+		let timeout = (Meteor.user() ? 100000 : 500);
 		setTimeout(self.getAllFeeds.bind(self), timeout);
 	}
 
