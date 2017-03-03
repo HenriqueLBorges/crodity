@@ -126,7 +126,7 @@ Meteor.methods({
           console.log(response + error);
           if (!error) {
             //console.log(response.content);
-            console.log('GET', response.data.data.length);
+            // console.log('GET', response.data.data.length);
             future["return"](convertFacebookHomeFeedToGlobal(response.data.data));
 
           }
@@ -218,13 +218,12 @@ Meteor.methods({
 
 
   'getInstagramMediaHomeFeed': function (_id) {
-    console.log('AQUI!!!')
     let future = new Future();
 
     let user = Meteor.users.findOne(this.userId);
 
     // console.log(user);
-    console.log('TOKEN:    ', user.services.instagram.accessToken);
+    // console.log('TOKEN:    ', user.services.instagram.accessToken);
 
     if (user.services.instagram.accessToken) {
       if (_id) {
@@ -240,7 +239,7 @@ Meteor.methods({
           function (error, response) {
 
             try {
-              console.log('GET', response.data);
+              // console.log('GET', response.data);
               future["return"](convertInstagramHomeFeedToGlobal(response.data.data));
 
             }

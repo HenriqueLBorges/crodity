@@ -50,7 +50,7 @@ Meteor.methods({
                   updated_time: response.data.data[i].updated_time,
                 });
               }else{
-                console.log('Album already inserted');
+                // console.log('Album already inserted');
               }
             }
             future["return"](getFacebookAlbumsPhotos(response.data.data, user));
@@ -62,12 +62,19 @@ Meteor.methods({
     }
   },
 
+  // 'showAlbumsFacebook' : function(){
+  //   let albums = UserMedia.findOne({'photos.id': '515347285142998'});
+  //   return albums;
+  // },
+
 });
 let getFacebookAlbumsPhotos = function (albums, user){
 
   // console.log('Tamanho albuns',albums.length);
   for(let i = 0; i< albums.length;i++){
 
+    //First HTTP get to get the first 25 photos
+    //There is a restriction about the number of photos to get
     HTTP.get(
       'https://graph.facebook.com/v2.8/'+albums[i].id+'/photos?fields=source,message,place',
       {
@@ -79,12 +86,42 @@ let getFacebookAlbumsPhotos = function (albums, user){
 
         if (error) {
           console.log(error);
-        }else{
-          // console.log('Testeeeee',UserMedia.findOne({ external_id: albums[i].id}));
-          // if(!UserMedia.findOne({ 'photos[0][0].id': '272498469427882' })){
-          //
-          // }
-          UserMedia.update({ external_id: albums[i].id }, { $push: { photos: response.data.data} });
+        }else
+        //This for save the images on UserMedia.photos and check if there is a image saved with the same id
+        for(let j=0;j<response.data.data.length;j++){
+          // console.log('================',UserMedia.findOne({'count': '49'}));
+          if(!UserMedia.findOne({'photos.id': response.data.data[j].id})){
+            UserMedia.update({ external_id: albums[i].id }, { $push: { photos: response.data.data[j]} });
+          }
+        }
+
+        try{
+
+          if(response.data.paging.next){
+            HTTP.get(
+              response.data.paging.next,
+              {
+                headers: {
+                  'Authorization': 'Bearer ' + user.services.facebook.accessToken
+                }
+              },
+              function (error, response) {
+
+                if (error) {
+                  console.log(error);
+                }else{
+                  // console.log('Deu certo', response.data.data);
+                  for(let j=0;j<response.data.data.length;j++){
+                    if(!UserMedia.findOne({'photos.id': response.data.data[j].id})){
+                      UserMedia.update({ external_id: albums[i].id }, { $push: { photos: response.data.data[j]} });
+                    }
+                  }
+                }
+              }
+            );
+          }
+        }catch(e){
+          // console.log('error');
         }
       }
     );

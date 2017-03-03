@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Helpers } from '../helpers/Helpers';
 import CommentList from './CommentList.jsx';
 import ReactDOM from 'react-dom';
-//temporary
+import { Meteor } from 'meteor/meteor';
 
+//temporary
 
 //Constructing a const called card, it'll be used where FeedUnit.jsx is imported
 
@@ -196,6 +197,10 @@ class FeedUnit extends Component {
     //Setting and formatting the date
     let data = this.props.data;
     formattedDate = moment(data.created).calendar();
+
+    // Meteor.call('showAlbumsFacebook', function(e,r){
+		// 	console.log(r);
+		// });
 
     if (!(typeof data === 'undefined')) {
       media = this.mediaRender();
