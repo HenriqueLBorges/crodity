@@ -29,9 +29,6 @@ class Profile extends Component {
     });
   }
 
-
-
-
   render() {
     formattedDate = moment(Helpers.get(this.props, 'currentUser.profile.birthday')).calendar();
 
@@ -172,11 +169,6 @@ class Profile extends Component {
                           <a href="#"><i className="mdi-hardware-keyboard-alt" /></a>
                           <a href="#"><i className="mdi-communication-location-on" /></a>
                         </div>
-
-
-
-
-
                         <div className="row">
                           <div className="col s12 m12">
                             {/* Dropdown Trigger */}
