@@ -6,6 +6,7 @@ const Feed = ({feed}) => {
 	return (
 		<div className="feed">
 			<div className="padded-full">
+
 			{feed.map((feedUnitData,i) => (
 				<FeedUnit data={feedUnitData} key={i} />
 			))}

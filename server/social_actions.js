@@ -62,23 +62,20 @@ Meteor.methods({
     },
 
     'searchYoutube': function (string) {
-
+      let user = Meteor.users.findOne(this.userId);
         HTTP.get(
-            'https://www.googleapis.com/youtube/v3/search' + string,
+            'https://www.googleapis.com/youtube/v3/search?part=snippet',
             {
-                //   headers: {
-                //     'Authorization': 'Bearer ' + accessToken
-                //   }
+                  headers: {
+                    'Authorization': 'Bearer ' + user.services.google.accessToken
+                  }
             },
-            //console.log('TESTE');
             function (error, response) {
-
+              console.log('Aquiii',response);
                 if (!error) {
-                    // console.log(response+ 'RESPONSE');
-                    // console.log(response.data + ' DATA RESPONSE ');
-                    console.log('TESTANDO O IF');
-                    console.log(response);
-                    future["return"](convertFacebookProfileToGlobal(response.data));
+                    return response;
+                }else{
+                  console.log(error);
                 }
             }
         );

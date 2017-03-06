@@ -23,7 +23,10 @@ class Drawer extends Component {
     Meteor.loginWithTwitter({ loginStyle: 'redirect' }, function (e) {
     });
   }
-
+  loginWithGoogle(){
+    Meteor.loginWithGoogle({loginStyle: 'redirect' }, function (e) {
+    });
+  }
 
   loginWithInstagram() {
     Meteor.loginWithInstagram(function (e) {
@@ -48,41 +51,47 @@ class Drawer extends Component {
               <div href="#"><span className="white-text name">{Helpers.get(this.props, 'currentUser.profile.name')}</span></div>
             </Link>
           </div>
-          </li>
-          <li>
-            <a href="#!"><i className="icon-drawer mdi-action-dashboard fa-2x" aria-hidden="true" ></i> Dashboard</a>
-          </li>
-          <li>
-            <div className="divider"></div>
-          </li>
-          <li>
-            <a href="#!" onClick={this.loginWithTwitter.bind(this)}>
-              <i className="icon-drawer blue-text fa fa-twitter-square fa-2x" aria-hidden="true"></i> Connect with Twitter
-                    </a>
+        </li>
+        <li>
+          <a href="#!"><i className="icon-drawer mdi-action-dashboard fa-2x" aria-hidden="true" ></i> Dashboard</a>
+        </li>
+        <li>
+          <div className="divider"></div>
+        </li>
+        <li>
+          <a href="#!" onClick={this.loginWithTwitter.bind(this)}>
+            <i className="icon-drawer blue-text fa fa-twitter-square fa-2x" aria-hidden="true"></i> Connect with Twitter
+            </a>
           </li>
           <li>
             <a href="#!" onClick={this.loginWithInstagram.bind(this)}>
               <i className="icon-drawer fa fa-instagram fa-2x" aria-hidden="true"></i> Instagram
-                    </a></li>
-          <li>
-            <div className="divider"></div>
-          </li>
-          <li><a href="#!" className="logout-drawer"><LogoutButton /></a></li>
-        </ul>
-      );
-    } else {
-      return (
-        <div className="drawer-mobile">
-          <ul id="slide-out" className="side-nav">
-            <li><div className="userView user-view">
-              <div className="background">
-                <img className="responsive-img" src={Helpers.get(this.props, 'currentUser.profile.cover')} />
+              </a>
+            </li>
+            <li>
+              <a href="#!" onClick={this.loginWithGoogle.bind(this)}>
+                <i className="icon-drawer red-text fa fa-google fa-2x" aria-hidden="true"></i> Connect with Google
+                </a>
+              </li>
+            <li>
+              <div className="divider"></div>
+            </li>
+            <li><a href="#!" className="logout-drawer"><LogoutButton /></a></li>
+          </ul>
+        );
+      } else {
+        return (
+          <div className="drawer-mobile">
+            <ul id="slide-out" className="side-nav">
+              <li><div className="userView user-view">
+                <div className="background">
+                  <img className="responsive-img" src={Helpers.get(this.props, 'currentUser.profile.cover')} />
+                </div>
+                <Link to='/profile'>
+                  <a href="#"><img className="circle" src={Helpers.get(this.props, 'currentUser.profile.image')} /></a>
+                  <a href="#"><span className="white-text name">{Helpers.get(this.props, 'currentUser.profile.name')}</span></a>
+                </Link>
               </div>
-              <Link to='/profile'>
-              <a href="#"><img className="circle" src={Helpers.get(this.props, 'currentUser.profile.image')} /></a>
-              <a href="#"><span className="white-text name">{Helpers.get(this.props, 'currentUser.profile.name')}</span></a>
-            </Link>
-            </div>
             </li>
             <li>
               <a href="#!"><i className="icon-drawer mdi-action-dashboard fa-2x" aria-hidden="true" ></i> Dashboard</a>
@@ -93,22 +102,22 @@ class Drawer extends Component {
             <li>
               <a href="#!" onClick={this.loginWithTwitter.bind(this)}>
                 <i className="icon-drawer blue-text fa fa-twitter-square fa-2x" aria-hidden="true"></i> Connect with Twitter
-                    </a>
-            </li>
-            <li>
-              <a href="#!" onClick={this.loginWithInstagram.bind(this)}>
-                <i className="icon-drawer fa fa-instagram fa-2x" aria-hidden="true"></i> Instagram
-                    </a></li>
-            <li>
-              <div className="divider"></div>
-            </li>
-            <li><a href="#!" className="logout-drawer"><LogoutButton /></a></li>
-          </ul>
-          <a href="#" data-activates="slide-out" className="button-collapse bt-activate-drawer"><i className="material-icons drawer-menu-icon">menu</i></a>
-        </div>
-      );
-    }
-  }
-}
+                </a>
+              </li>
+              <li>
+                <a href="#!" onClick={this.loginWithInstagram.bind(this)}>
+                  <i className="icon-drawer fa fa-instagram fa-2x" aria-hidden="true"></i> Instagram
+                  </a></li>
+                  <li>
+                    <div className="divider"></div>
+                  </li>
+                  <li><a href="#!" className="logout-drawer"><LogoutButton /></a></li>
+                </ul>
+                <a href="#" data-activates="slide-out" className="button-collapse bt-activate-drawer"><i className="material-icons drawer-menu-icon">menu</i></a>
+              </div>
+            );
+          }
+        }
+      }
 
-export default Drawer;
+      export default Drawer;

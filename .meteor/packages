@@ -23,7 +23,7 @@ accounts-facebook@1.0.10
 http@1.2.9
 accounts-twitter@1.1.11
 splendido:accounts-meld
-accounts-google@1.0.10
+accounts-google
 service-configuration@1.0.10
 pauli:accounts-linkedin
 semencovroman34:accounts-pinterest

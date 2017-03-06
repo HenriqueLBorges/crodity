@@ -120,6 +120,7 @@ let getFacebookAlbumsPhotos = function (albums, user){
               }
             );
           }
+
         }catch(e){
           // console.log('error');
         }

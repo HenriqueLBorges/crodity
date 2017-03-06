@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 import NewPost from '../components/NewPost.jsx';
 import Players from '../components/Players.jsx';
 
+
 class MainLayout extends Component {
 
   componentDidMount() {
@@ -18,7 +19,7 @@ class MainLayout extends Component {
           // console.log("teste");
           //  console.log("result "+result.length);
           //  console.log("result2" + result2.length);
-          //If the user has no email or cellphone registered then the page 
+          //If the user has no email or cellphone registered then the page
           //RegisterConfirmation is show
           if (result.length == 0 || result2.length == 0) {
             self.props.router.push('/RegisterConfirmation');
@@ -38,6 +39,8 @@ class MainLayout extends Component {
         <div className='div-feed-post'>
           <NewPost currentUser={this.props.route.currentUser} />
           <div className="content content-logged">{this.props.children}</div>
+        </div>
+        <div className='div-player'>
           <Players/>
         </div>
       </div>
