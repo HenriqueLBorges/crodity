@@ -58,6 +58,8 @@ class FeedUnit extends Component {
   componentDidMount() {
     event.preventDefault();
     $('.carousel').carousel();
+
+    console.log('RENDERIZEI COMPONENT')
   }
 
 
@@ -65,25 +67,50 @@ class FeedUnit extends Component {
     let data = this.props.data;
     let self = this;
     let urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-  
-    let text = Helpers.get(data, 'media.description');
-    
+
+    let text; 
+
+    var mediaDescription = '';
+
     var link = '';
+
     let textDescription = {
       link: '',
       description: ''
     }
 
-    
+
     try {
+
+      mediaDescription = '';
+      link = '';
+
+      textDescription = {
+        link: '',
+        description: ''
+      }
+
+      text = '';
+
+      text = Helpers.get(data, 'media.description');
+
       text.replace(urlRegex, function (u) {
-        self.link = u;
+        if (typeof u !== 'undefined')
+          self.link = u;
+        else
+          self.link = ''
+
         return self.link;
       })
 
-      var mediaDescription = text.replace(urlRegex, function (u) {
+      console.log('Media description: ', mediaDescription);
+      mediaDescription = text.replace(urlRegex, function (u) {
         return '';
       })
+      console.log('DESCRIPTION:   ', textDescription = {
+        link: self.link,
+        description: mediaDescription
+      });
 
       textDescription = {
         link: self.link,
@@ -98,6 +125,8 @@ class FeedUnit extends Component {
         description: ''
       }
     }
+    console.log(' RENDERIZEI TEXTO')
+
 
     return (textDescription);
   }
@@ -107,7 +136,7 @@ class FeedUnit extends Component {
     let self = this;
 
     let media;
-
+    console.log('RENDERIZEI MEDIA')
 
     if (!(typeof data === 'undefined'))
       console.log(data);
@@ -116,9 +145,9 @@ class FeedUnit extends Component {
     if (Helpers.get(data, 'media.type') == 'text') {
       return (
         <div>
-          <p> {this.textVerify().description  ? this.textVerify().description + '-' : data.content + '-'} </p>
-          {this.textVerify().link ? <a href={this.textVerify().link}> {this.textVerify().link} </a> : ""}
-          {Helpers.get(data, 'media.link') ? <a href={Helpers.get(data, 'media.link')}>  link  </a> : ""}
+          <p> {this.textVerify().description ? this.textVerify().description + '-' : data.content + '-'} </p>
+          {this.textVerify().link ? <a target="_blank" href={this.textVerify().link}> {this.textVerify().link} </a> : ""}
+          {Helpers.get(data, 'media.link') ? <a target="_blank" href={Helpers.get(data, 'media.link')}>  link  </a> : ""}
         </div>
       );
     }
@@ -127,8 +156,8 @@ class FeedUnit extends Component {
       return (
         <div>
           <p> {this.textVerify().description + '-'} </p>
-          <a href={this.textVerify().link}> {this.textVerify().link} </a>
-          <p>{Helpers.get(data, 'media.link') ? <a href={Helpers.get(data, 'media.link')}>  link  </a> : ""}</p> 
+          <a target="_blank" href={this.textVerify().link}> {this.textVerify().link} </a>
+          <p>{Helpers.get(data, 'media.link') ? <a target="_blank" href={Helpers.get(data, 'media.link')}>  link  </a> : ""}</p>
           <video loop preload="auto" className="video" src={Helpers.get(data, 'media.post_video')} controls> </video>
         </div>
       );
@@ -140,8 +169,8 @@ class FeedUnit extends Component {
       return (
         <div>
           <p>{this.textVerify().description + '-'}</p>
-          {this.textVerify().link ? <a href={this.textVerify().link}> {this.textVerify().link} </a> : ""}
-          {Helpers.get(data, 'media.link') ? <a href={Helpers.get(data, 'media.link')}> link </a> : ""}
+          {this.textVerify().link ? <a target="_blank" href={this.textVerify().link}> {this.textVerify().link} </a> : ""}
+          {Helpers.get(data, 'media.link') ? <a target="_blank" href={Helpers.get(data, 'media.link')}> link </a> : ""}
           <img src={Helpers.get(data, 'media.post_image')} />
         </div>
       );
@@ -192,7 +221,7 @@ class FeedUnit extends Component {
     //Setting and formatting the date
     let data = this.props.data;
     formattedDate = moment(data.created).calendar();
-    console.log(data.service, 'FeedUnit' );
+    console.log(data.service, 'FeedUnit');
     console.log(data, 'FeedUnit');
 
     if (!(typeof data === 'undefined')) {
@@ -225,9 +254,9 @@ class FeedUnit extends Component {
                     <i className="fa fa-thumbs-o-up" aria-hidden="true"></i> Like
                   </div>
                   <i className="fa fa-comments-o grey-text" aria-hidden="true"></i>
-                  <a > Comment</a>
+                  <a> Comment</a>
                   <i className="fa fa-share grey-text" aria-hidden="true"></i>
-                  <a > Share</a>
+                  <a> Share</a>
                 </div>
                 <div className="row-reactions">
                   <i className="fa fa-heart reactionIcon" aria-hidden="true"></i><a>{" " + Helpers.get(data, 'likes') + " people"}</a>

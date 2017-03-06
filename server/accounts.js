@@ -114,7 +114,7 @@ Meteor.methods({
 
     // Updates the user in the database
     Meteor.users.update({ '_id': this.userId }, { $set: { registered_emails: registered_emails } });
-  }, 
+  },
 
   //Getting user profile of Facebook  
   'getFacebookProfile': function (accessToken) {
@@ -155,7 +155,23 @@ Meteor.methods({
     else {
       return [];
     }
+  },
+
+  'viewServicesController'(service) {
+
+    console.log('CHAMOU O METODO!!', service);
+
+    let user = Meteor.users.findOne(this.userId);
+    let self =this; 
+    let view = true; 
+        Meteor.users.insert({ '_id': this.userId }, {service: view});
+  console.log(user); 
+
+        
+
+
   }
+
 
 });
 
@@ -172,6 +188,10 @@ Accounts.onCreateUser(function (options, user) {
   user.profile.firstName = options.firstName;
   user.profile.lastName = options.lastName;
   user.registered_phones = [];
+  // user.profile.servicesPermissions = {
+  //   view: true,
+  // }
+
 
 
   // //Checking what is the service the user connected, and defining the informations about the profile
@@ -187,6 +207,7 @@ Accounts.onCreateUser(function (options, user) {
     user.profile.firstName = profileData.user.first_name;
     user.profile.image = profileData.midia.profile;
     user.profile.cover = profileData.midia.cover;
+
   } else if (user.services.twitter) {
 
   }

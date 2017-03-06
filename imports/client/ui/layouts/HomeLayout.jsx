@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import NewPost from '../components/NewPost.jsx';
 import Players from '../components/Players.jsx';
 
-class MainLayout extends Component {
+class HomeLayout extends Component {
 
   componentDidMount() {
     let self = this;
@@ -36,6 +36,7 @@ class MainLayout extends Component {
           <DrawerContainer />
         </div>
         <div className='div-feed-post'>
+          <NewPost currentUser={this.props.route.currentUser} />
           <div className="content content-logged">{this.props.children}</div>
           <Players />
         </div>
@@ -45,4 +46,4 @@ class MainLayout extends Component {
   }
 }
 
-export default withRouter(MainLayout);
+export default withRouter(HomeLayout);

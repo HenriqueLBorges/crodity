@@ -58,7 +58,7 @@ Meteor.methods({
 
       // Facebook Graph API Call
       HTTP.get(
-        'https://graph.facebook.com/v2.8/me/likes?fields=id,name,posts.limit(2){created_time,description,full_picture,from,id,message,link,name,picture,place,source,attachments,story,updated_time,to,event,reactions{type,name,username}}&limit=10',
+        'https://graph.facebook.com/v2.8/me/likes?fields=id,name,posts.limit(2){created_time,type,description,full_picture,from,id,message,link,name,picture,place,source,attachments,story,updated_time,to,event,reactions{type,name,username}}&limit=10',
         {
 
           headers: {
@@ -317,6 +317,10 @@ let convertFacebookHomeFeedToGlobal = function (feed) {
       type = '';
       description = '';
       link = '';
+      description = ''; 
+      post_image = ''; 
+      post_video = '';
+      name =  ''; 
 
 
       //Defining the image of each post
@@ -328,6 +332,8 @@ let convertFacebookHomeFeedToGlobal = function (feed) {
         // post_image = feed[i].attachments.data[0].media.image.src;
 
         likespost = feed[i].reactions.data.length;
+
+        console.log(feed[i].type)
 
         if ((typeof feed[i].source !== 'undefined') || feed[i].type == "video") {
           type = 'video';

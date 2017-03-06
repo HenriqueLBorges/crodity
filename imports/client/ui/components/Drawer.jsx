@@ -20,7 +20,12 @@ class Drawer extends Component {
   }
 
   loginWithTwitter() {
+    console.log(Meteor.call('viewServicesController', 'twitter', function (e){
+          if (e)
+            console.log(e)
+        }))
     Meteor.loginWithTwitter({ loginStyle: 'redirect' }, function (e) {
+       
     });
   }
 

@@ -4,7 +4,7 @@
 */
 
 import React from 'react';
-
+import { Link } from 'react-router';
 
 //Creating a component react
 class AppBar extends React.Component {
@@ -27,9 +27,13 @@ class AppBar extends React.Component {
                 <a href="#" className="brand-logo left logo-crodity"><img className="responsive-img  logoweb" src="img/CrodityCircle300x300.png" /></a>
                 
                 <ul id="nav-mobile" className="right hide-on-med-and-down ">
-                    <li><a href="sass.html" className="white-text" >Loja Virtual</a></li>
-                    <li><a href="badges.html" className="white-text">Parceiros</a></li>
-                    <li><a href="collapsible.html" className="white-text">Contato</a></li>
+                    <li>
+                        <Link to='/'><div href="#" className="white-text"><i className="fa fa-home" aria-hidden="true"></i> Home </div></Link></li>
+                    
+                    <li>
+                        <Link to='/profile'> <div href="#" className="white-text"><i className="fa fa-user" aria-hidden="true"></i> Profile </div></Link></li>
+                    <li>
+                        <Link to='/configuration' > <div href="#" className="white-text" ><i className="fa fa-cog" aria-hidden="true"></i> Config </div></Link></li>
                 </ul>
             </div>
         </nav>

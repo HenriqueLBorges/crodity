@@ -2,6 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import { Helpers } from '../helpers/Helpers.jsx';
 import FeedContainer from '../containers/FeedContainer.jsx';
+import NewPost from './NewPost.jsx';
+import AppBar from './AppBar.jsx';
 
 class Profile extends Component {
 
@@ -39,11 +41,14 @@ class Profile extends Component {
           <div className="wrapper">
 
             {/* START CONTENT */}
+            <AppBar />
             <section id="content">
               {/*start container*/}
+              
               <div className="container">
                 <div id="profile-page" className="section">
                   {/*  headerPage */}
+
                   <div id="headerPage" className="card headerPage">
                     <div className="card-image waves-effect waves-block waves-light">
                       <img className="activator " src={Helpers.get(this.props, 'currentUser.profile.cover')} alt="user background" />
@@ -136,160 +141,7 @@ class Profile extends Component {
                     <div id="profile-page-wall" className="col s12 m8">
                       {/* profile-page-wall-share */}
                       <div id="profile-page-wall-share" className="row">
-                        <div className="col s12">
-                          <ul className="tabs tab-profile z-depth-1 light-blue">
-                            <li className="tab col m3 s2"><a className="white-text waves-effect waves-light active" href="#UpdateStatus"><i className="mdi-editor-border-color" /> Update Status</a>
-                            </li>
-                            <li className="tab col m3 s2"><a className="white-text waves-effect waves-light" href="#AddPhotos"><i className="mdi-image-camera-alt" /> Add Photos</a>
-                            </li>
-                            <li className="tab col m3 s2"><a className="white-text waves-effect waves-light" href="#CreateAlbum"><i className="mdi-image-photo-album" /> Create Album</a>
-                            </li>
-                          </ul>
-                          {/* UpdateStatus*/}
-                          <div id="UpdateStatus" className="tab-content col s12  grey lighten-4">
-                            <div className="row">
-                              <div className="col s2">
-                                <img src={Helpers.get(this.props, 'currentUser.profile.image')} alt className="circle responsive-img valign profile-image-post" />
-                              </div>
-                              <div className="input-field col s10">
-                                <textarea id="textarea" className="materialize-textarea" />
-                                <label htmlFor="textarea" className>What's on your mind?</label>
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col s12 m6 share-icons">
-                                <a href="#"><i className="mdi-image-camera-alt" /></a>
-                                <a href="#"><i className="mdi-action-account-circle" /></a>
-                                <a href="#"><i className="mdi-hardware-keyboard-alt" /></a>
-                                <a href="#"><i className="mdi-communication-location-on" /></a>
-                              </div>
-
-
-
-
-
-                              <div className="row">
-                                <div className="col s12 m12">
-                                  {/* Dropdown Trigger */}
-
-                                  <div className="col s4">
-                                    <a className="dropdown-button btn" href="#" data-activates="postStatus"><i className="mdi-action-language left" /> Public</a>
-                                    {/* Dropdown Structure */}
-                                    <ul id="postStatus" className="dropdown-content">
-                                      <li><a href="#!"><i className="mdi-action-language" /> Public</a></li>
-                                      <li><a href="#!"><i className="mdi-action-face-unlock" /> Friends</a></li>
-                                      <li><a href="#!"><i className="mdi-action-lock-outline" /> Only Me</a></li>
-                                    </ul>
-                                  </div>
-                                  <div className="col s4">
-                                    <span className="dropdown-button btn" href="#" data-activates="socialDropDownStatus"><i className="mdi-action-language" /> Social</span>
-                                    {/* Dropdown Structure */}
-                                  </div>
-                                  <div className="col s4">
-                                    <ul id="socialDropDownStatus" className="dropdown-content col s12 m6">
-                                      <li><a href="#!"><i className="fa fa-facebook" aria-hidden="true"> </i> Facebook</a></li>
-                                      <li><a href="#!"><i className="fa fa-twitter" aria-hidden="true" > </i> Twitter</a></li>
-                                      <li><a href="#!"><i className="fa fa-instagram" aria-hidden="true"> </i> Instagram</a></li>
-                                    </ul>
-                                    <a className="waves-effect waves-light btn "><i className="mdi-maps-rate-review left" />Post</a>
-                                  </div>
-                                </div>
-
-                              </div>
-
-
-
-                            </div>
-                            {/* Dropdown Trigger */}
-
-                          </div>
-
-
-                          {/* AddPhotos */}
-                          <div id="AddPhotos" className="tab-content col s12  grey lighten-4">
-                            <div className="row">
-                              <div className="col s2">
-                                <img src={Helpers.get(this.props, 'currentUser.profile.image')} alt className="circle responsive-img valign profile-image-post" />
-                              </div>
-                              <div className="input-field col s10">
-                                <textarea id="textarea" className="materialize-textarea" defaultValue={""} />
-                                <label htmlFor="textarea" className>Share your favorites photos!</label>
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col s12 m6 share-icons">
-                                <a href="#"><i className="mdi-image-camera-alt" /></a>
-                                <a href="#"><i className="mdi-action-account-circle" /></a>
-                                <a href="#"><i className="mdi-hardware-keyboard-alt" /></a>
-                                <a href="#"><i className="mdi-communication-location-on" /></a>
-                              </div>
-
-
-
-
-
-                              <div className="col s12 m6 right-align">
-                                {/* Dropdown Trigger */}
-                                <a className="dropdown-button btn" href="#" data-activates="postPhotos"><i className="mdi-action-language" /> Public</a>
-                                {/* Dropdown Structure */}
-                                <ul id="postPhotos" className="dropdown-content">
-                                  <li><a href="#!"><i className="mdi-action-language" /> Public</a></li>
-                                  <li><a href="#!"><i className="mdi-action-face-unlock" /> Friends</a></li>
-                                  <li><a href="#!"><i className="mdi-action-lock-outline" /> Only Me</a></li>
-                                </ul>
-
-                                {/* Dropdown Trigger */}
-                                <a className="dropdown-button btn" href="#" data-activates="socialDropDownPhotos"><i className="mdi-action-language" /> Social</a>
-                                {/* Dropdown Structure */}
-                                <ul id="socialDropDownPhotos" className="dropdown-content">
-                                  <li><a href="#!"><i className="fa fa-facebook" aria-hidden="true"> </i> Facebook</a></li>
-                                  <li><a href="#!"><i className="fa fa-twitter" aria-hidden="true" > </i> Twitter</a></li>
-                                  <li><a href="#!"><i className="fa fa-instagram" aria-hidden="true"> </i> Instagram</a></li>
-                                </ul>
-                                <a className="waves-effect waves-light btn"><i className="mdi-maps-rate-review left" />Post</a>
-                              </div>
-                            </div>
-                          </div>
-
-
-
-                          {/* CreateAlbum */}
-                          <div id="CreateAlbum" className="tab-content col s12  grey lighten-4">
-                            <div className="row">
-                              <div className="col s2">
-                                <img src={Helpers.get(this.props, 'currentUser.profile.image')} alt className="circle responsive-img valign profile-image-post" />
-                              </div>
-                              <div className="input-field col s10">
-                                <textarea id="textarea" className="materialize-textarea" defaultValue={""} />
-                                <label htmlFor="textarea" className>Create awesome album.</label>
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col s12 m6 share-icons">
-                                <a href="#"><i className="mdi-image-camera-alt" /></a>
-                                <a href="#"><i className="mdi-action-account-circle" /></a>
-                                <a href="#"><i className="mdi-hardware-keyboard-alt" /></a>
-                                <a href="#"><i className="mdi-communication-location-on" /></a>
-                              </div>
-
-
-
-
-
-                              <div className="col s12 m6 right-align">
-                                {/* Dropdown Trigger */}
-                                <a className="dropdown-button btn" href="#" data-activates="profliePost3"><i className="mdi-action-language" /> Public</a>
-                                {/* Dropdown Structure */}
-                                <ul id="profliePost3" className="dropdown-content">
-                                  <li><a href="#!"><i className="mdi-action-language" /> Public</a></li>
-                                  <li><a href="#!"><i className="mdi-action-face-unlock" /> Friends</a></li>
-                                  <li><a href="#!"><i className="mdi-action-lock-outline" /> Only Me</a></li>
-                                </ul>
-                                <a className="waves-effect waves-light btn"><i className="mdi-maps-rate-review left" />Post</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                        <NewPost currentUser={this.props.currentUser} />
                       </div>
                       {/*/ profile-page-wall-share */}
                       {/* profile-page-wall-posts */}

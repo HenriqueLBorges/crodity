@@ -271,7 +271,7 @@ let convertInstagramHomeFeedToGlobal = function (feed) {
   let textDescription;
   if (typeof feed !== 'undefined' && typeof feed != 'null') {
 
-    console.log('FEED LENGTH: ', feed.length);
+
 
 
 
