@@ -14,12 +14,10 @@ class Players extends Component {
       }else{
         console.log(r);
       }
-
     });
   }
 
   render() {
-
     return (
       <div>
         <i className="fa fa-music fa-2x" aria-hidden="true"></i>
@@ -33,7 +31,6 @@ class Players extends Component {
           <a className="waves-effect waves-light btn" onClick={this.searchVideoYoutube.bind(this)}>Pesquisar</a>
         </div>
       );
-
     }
   }
   export default Players;

@@ -48,6 +48,7 @@ ServiceConfiguration.configurations.insert({
 // Google (Development)
 ServiceConfiguration.configurations.insert({
 	service: 'google',
+		scope: ['https://www.googleapis.com/auth/youtube'],
 	clientId: '688333420130-7pc9d108lfol64anj81b29goqm5c1hm1.apps.googleusercontent.com',
 	secret: 'jeEJnL9HVyqV1L2MkSBPLhzY'
 });

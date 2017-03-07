@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { Link } from 'react-router';
 import { Helpers } from '../helpers/Helpers.jsx';
 import LogoutButton from './LogoutButton.jsx';
+import {ButtonsLoginDrawer} from './AccountsButtonsLogin';
 
 class Drawer extends Component {
 
@@ -19,25 +20,6 @@ class Drawer extends Component {
     $(".button-collapse").sideNav();
   }
 
-  loginWithTwitter() {
-    Meteor.loginWithTwitter({ loginStyle: 'redirect' }, function (e) {
-    });
-  }
-  loginWithGoogle(){
-    Meteor.loginWithGoogle({loginStyle: 'redirect' }, function (e) {
-    });
-  }
-
-  loginWithInstagram() {
-    Meteor.loginWithInstagram(function (e) {
-
-      if (e) {
-        console.log('login failed', e);
-      } else {
-        console.log('login success', Meteor.user());
-      }
-    });
-  }
   render() {
     if (this.state.size >= 600) {
       return (
@@ -58,21 +40,8 @@ class Drawer extends Component {
         <li>
           <div className="divider"></div>
         </li>
-        <li>
-          <a href="#!" onClick={this.loginWithTwitter.bind(this)}>
-            <i className="icon-drawer blue-text fa fa-twitter-square fa-2x" aria-hidden="true"></i> Connect with Twitter
-            </a>
-          </li>
-          <li>
-            <a href="#!" onClick={this.loginWithInstagram.bind(this)}>
-              <i className="icon-drawer fa fa-instagram fa-2x" aria-hidden="true"></i> Instagram
-              </a>
-            </li>
-            <li>
-              <a href="#!" onClick={this.loginWithGoogle.bind(this)}>
-                <i className="icon-drawer red-text fa fa-google fa-2x" aria-hidden="true"></i> Connect with Google
-                </a>
-              </li>
+        <ButtonsLoginDrawer/>
+
             <li>
               <div className="divider"></div>
             </li>
@@ -99,15 +68,7 @@ class Drawer extends Component {
             <li>
               <div className="divider"></div>
             </li>
-            <li>
-              <a href="#!" onClick={this.loginWithTwitter.bind(this)}>
-                <i className="icon-drawer blue-text fa fa-twitter-square fa-2x" aria-hidden="true"></i> Connect with Twitter
-                </a>
-              </li>
-              <li>
-                <a href="#!" onClick={this.loginWithInstagram.bind(this)}>
-                  <i className="icon-drawer fa fa-instagram fa-2x" aria-hidden="true"></i> Instagram
-                  </a></li>
+            <ButtonsLoginDrawer/>
                   <li>
                     <div className="divider"></div>
                   </li>
