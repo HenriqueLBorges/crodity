@@ -50,11 +50,11 @@ Meteor.methods({
     // Adds the newly added phone to the registered_phones array
     // only if the phone was not already there.
     if (isUnique) {
+      Meteor.call('viewServicesController', user.services);
       registered_phones.push({
         number: phone,
         verified: false
       });
-      console.log("AQUI");
       console.log(registered_phones);
       // Updates the user in the database
       Meteor.users.update({ '_id': this.userId }, { $set: { registered_phones: registered_phones } });
@@ -86,7 +86,7 @@ Meteor.methods({
 
     // Get the logged user object
     let user = Meteor.users.findOne(this.userId);
-
+    
     // Sets the initial state of the registered_emails array to
     // later be updated inside the user object
     let registered_emails = new Array();
@@ -106,6 +106,7 @@ Meteor.methods({
     // Adds the newly added email to the registered_emails array
     // only if the email was not already there.
     if (isUnique) {
+      
       registered_emails.push({
         address: email,
         verified: true
@@ -157,22 +158,49 @@ Meteor.methods({
     }
   },
 
-  'viewServicesController'(service) {
 
-    console.log('CHAMOU O METODO!!', service);
+  'getTwitterProfile': function (accessToken, accessTokenSecret, id) {
 
+    let future = new Future();
     let user = Meteor.users.findOne(this.userId);
-    let self =this; 
-    let view = true; 
-        Meteor.users.insert({ '_id': this.userId }, {service: view});
-  console.log(user); 
-
-        
 
 
+    console.log(accessToken);
+    // Setting the user
+    // this.userId is already sent to the server when
+    // there is a user logged in the client
+
+    console.log('USER TT: ', id)
+
+    // Connecting to the Twiter API using the twit module
+    let Twitter = new Twit({
+      consumer_key: '1Scmykinx39JgSGgAm8CxapEw',
+      consumer_secret: 'CTYqmRkMC09urf61haguPnU7MPWyw97AXaDWDXMiZgoK5T90m8',
+      access_token: accessToken,
+      access_token_secret: accessTokenSecret
+    });
+
+    // Getting the user timeline that will be returned
+    Twitter.get('users/show', { user_id: id }, function (err, data, response) {
+      if (err) {
+        console.log(err);
+
+      }
+      else {
+        console.log(data);
+        future["return"](convertTwitterProfileToGlobal(data));
+      }
+    });
+    return future.wait();
+  },
+
+  'viewServicesController'(service) {
+    let user = Meteor.users.findOne(this.userId);
+    console.log(service)
+    Meteor.users.update({ '_id': this.userId }, {
+      $push: { 'profile.permissions': { [[service]]: { view: true } } }
+    })
   }
-
-
 });
 
 
@@ -188,14 +216,13 @@ Accounts.onCreateUser(function (options, user) {
   user.profile.firstName = options.firstName;
   user.profile.lastName = options.lastName;
   user.registered_phones = [];
-  // user.profile.servicesPermissions = {
-  //   view: true,
-  // }
+  user.profile.permissions = options.profile.permissions;
 
 
 
   // //Checking what is the service the user connected, and defining the informations about the profile
   if (user.services.facebook) {
+
 
     let profileData = Meteor.call('getFacebookProfile', user.services.facebook.accessToken);
 
@@ -207,8 +234,21 @@ Accounts.onCreateUser(function (options, user) {
     user.profile.firstName = profileData.user.first_name;
     user.profile.image = profileData.midia.profile;
     user.profile.cover = profileData.midia.cover;
+    
+    
+
 
   } else if (user.services.twitter) {
+    let profileData = Meteor.call('getTwitterProfile', user.services.twitter.accessToken, user.services.twitter.accessTokenSecret, user.services.twitter.id);
+
+    user.profile.firstName = profileData.user.first_name;
+    user.profile.lastName = profileData.user.last_name;
+    user.profile.gender = profileData.user.gender;
+    user.profile.birthday = profileData.user.birthday;
+    user.profile.timezone = profileData.user.timezone;
+    user.profile.firstName = profileData.user.first_name;
+    user.profile.image = profileData.midia.profile;
+    user.profile.cover = profileData.midia.cover;
 
   }
 
@@ -241,9 +281,41 @@ let convertFacebookProfileToGlobal = function (profile) {
       email: profile.email
     }
   }
+  Meteor.call('viewServicesController', globalProfile.service)
   console.log(globalProfile);
   return globalProfile;
 };
+
+
+let convertTwitterProfileToGlobal = function (profile) {
+
+  console.log('AQUI')
+  // Creates the global profile array
+  globalProfile = new Array();
+
+
+  globalProfile = {
+    service: 'twitter',
+    midia: {
+      profile: profile.profile_image_url_https,
+      cover: profile.profile_background_image_url_https
+    },
+
+    user: {
+      username: profile.screen_name,
+      first_name: profile.name,
+      last_name: profile.last_name,
+      service_id: profile.id,
+      gender: '',
+      locale: '',
+      timezone: '',
+      birthday: '',
+      email: profile.email
+    }
+  }
+  console.log(globalProfile);
+  return globalProfile;
+}
 
 // ==========================================
 // Meteor accounts-meld Package Configuration

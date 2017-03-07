@@ -26,7 +26,9 @@ class AccountsLogin extends Component {
 
 	loginWithFacebook() {
 
+
 		if (Meteor.isCordova) {
+
 			facebookConnectPlugin.login(['email'],
 				function () {
 					console.log('success');
@@ -37,14 +39,18 @@ class AccountsLogin extends Component {
 			);
 		}
 		else {
+
 			Meteor.loginWithFacebook({ loginStyle: 'redirect' }, function (e) {
 				if (e)
 					console.log(e);
 			});
 		}
+
+		//Meteor.call('viewServicesController', 'facebook');
 	}
 
 	loginWithTwitter() {
+		//Meteor.call('viewServicesController', 'twitter');
 		Meteor.loginWithTwitter({ loginStyle: 'redirect' }, function (e) {
 		});
 	}

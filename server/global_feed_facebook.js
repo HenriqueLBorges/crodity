@@ -21,7 +21,7 @@ Meteor.methods({
 
       // Facebook Graph API Call
       HTTP.get(
-        'https://graph.facebook.com/v2.8/me?fields=id,name,cover,feed.limit(15){id,story,message,message_tags,place,shares,source,to,link,comments,attachments,created_time,description,likes,sharedposts,name,from,reactions}',
+        'https://graph.facebook.com/v2.8/me?fields=id,name,cover,feed.limit(15){id,type,story,message,message_tags,place,shares,source,to,link,comments,attachments,created_time,description,likes,sharedposts,name,from,reactions}',
         {
 
           headers: {
@@ -114,83 +114,137 @@ let convertFacebookProfileFeedToGlobal = function (feed) {
   let geo;
 
   for (let i = 0; i < feed.length; i++) {
+
+
     type = '';
+    description = '';
+    link = '';
+    description = '';
+    post_image = '';
+    post_video = '';
+    name = '';
+
 
     //Defining the image of each post
     try {
 
+
       likespost = feed[i].reactions.data.length;
+
+      console.log('feed', feed[i].type); 
+
 
       if ((typeof feed[i].source !== 'undefined') || feed[i].type == "video") {
         type = 'video';
-        description = feed[i].attachments.data[0].description;
+
+        if (typeof feed[i].message !== 'undefined') {
+
+          if (feed[i].description === feed[i].message && typeof feed[i].name !== 'undefined') {
+            description = feed[i].name + ' - ' + feed[i].description;
+          }
+
+          if (typeof feed[i].name !== 'undefined' && typeof feed[i].message !== 'undefined') {
+            description = feed[i].name + ' - ' + feed[i].message;
+          } else {
+            description = feed[i].message;
+          }
+
+        } else description = feed[i].description;
+
+        if (typeof feed[i].link !== 'undefined') {
+          link = feed[i].link;
+        } else
+          link = '';
+
         post_image = feed[i].attachments.data[0].media.image.src;
         post_video = feed[i].source;
       }
 
-      //console.log('OI');
 
-      if (typeof feed[i].attachments.data[0].media.image.src !== 'undefined' && typeof feed[i].source === 'undefined') {
-        type = 'photo'
-        description = feed[i].attachments.data[0].description;
+      if (feed[i].type == "status") {
+        type = 'text';
+        console.log('TO NO IF', type)
+        if (typeof feed[i].message !== 'undefined') {
+
+          if (feed[i].description === feed[i].message && typeof feed[i].name !== 'undefined') {
+            description = feed[i].name + ' - ' + feed[i].description;
+          }
+
+          if (typeof feed[i].name !== 'undefined' && typeof feed[i].message !== 'undefined') {
+            description = feed[i].name + ' - ' + feed[i].message;
+          } else {
+            description = feed[i].message;
+          }
+
+        } else description = feed[i].description;
+
+        if (typeof feed[i].link !== 'undefined') {
+          link = feed[i].link;
+        } else
+          link = '';
+      }
+
+      if (typeof feed[i].attachments.data[0].media.image.src !== 'undefined' &&
+        typeof feed[i].source === 'undefined') {
+        type = 'photo';
+
+        if (typeof feed[i].message !== 'undefined') {
+
+          if (feed[i].description === feed[i].message && typeof feed[i].name !== 'undefined') {
+            description = feed[i].name + ' - ' + feed[i].description;
+          }
+
+          if (typeof feed[i].name !== 'undefined' && typeof feed[i].message !== 'undefined') {
+            description = feed[i].name + ' - ' + feed[i].message;
+          } else {
+            description = feed[i].message;
+          }
+
+        } else description = feed[i].description;
+
+        if (typeof feed[i].link !== 'undefined') {
+          link = feed[i].link;
+        } else
+          link = '';
+
         post_image = feed[i].attachments.data[0].media.image.src;
+
       }
 
-      // if (typeof feed[i].attachments.data[0].media.image.src !== 'undefined' &&
-      // typeof feed[i].source === 'undefined'){
-      //     type = 'photo';
-      //     description = feed[i].attachments.data[0].description;
-      //     post_image = feed[i].attachments.data[0].media.image.src;
-      //   //console.log('TO NO IF ')
+      // if ((typeof feed[i].attachments.data[0].subattachments.data[0].media.image.src !== 'undefined') &&
+      //   feed[i].attachments.data[0].subattachments.data.length > 1) {
+      //   type = 'album';
+      //   post_image = []
+
+      //   for (let j = 0; j < feed[i].attachments.data[0].subattachments.data.length; j++) {
+
+      //     post_image[j] = feed[i].attachments.data[0].subattachments.data[j].media.image.src;
+      //   }
       // }
 
-      if ((typeof feed[i].attachments.data[0].subattachments.data[0].media.image.src !== 'undefined') &&
-        feed[i].attachments.data[0].subattachments.data.length > 1) {
-        type = 'album';
-        post_image = []
+      if (typeof (feed[i].place) !== 'undefined') {
+        type = 'checkin';
+        post_image = feed[i].attachments.data[0].media.image.src;
+        name_location = feed[i].place.name;
+        id_location = feed[i].place.id;
+        geo = feed[i].place.location
 
-        for (let j = 0; j < feed[i].attachments.data[0].subattachments.data.length; j++) {
-
-          post_image[j] = feed[i].attachments.data[0].subattachments.data[j].media.image.src;
-        }
+        if (typeof feed[i].attachments.data[0].description === 'undefined') {
+          description = '';
+        } else description = feed[i].attachments.data[0].description;
+        //console.log('CHECKIN');
       }
 
-      // if (!(typeof feed[i].attachments.data[0].description === 'undefined')) {
-      //   description = feed[i].attachments.data[0].description;
-      // }
-
-      // if ((feed[i].type === "link")) {
-      //   name = feed[i].name;
-      //   description = feed[i].description;
-      //   link = feed[i].link
-      // }
-
-      // if ((feed[i].type === 'status')) {
-      //   type = 'status'
-      //   description = feed[i].message;
-      // }
 
     }
 
     catch (e) {
-      //console.log(e);
+      console.log(e);
       feed_unit_image = '';
       likespost = '';
     }
 
 
-    if (typeof (feed[i].place) !== 'undefined') {
-      type = 'checkin';
-      post_image = feed[i].attachments.data[0].media.image.src;
-      name_location = feed[i].place.name;
-      id_location = feed[i].place.id;
-      geo = feed[i].place.location
-
-      if (typeof feed[i].attachments.data[0].description === 'undefined') {
-        description = '';
-      } else description = feed[i].attachments.data[0].description;
-      //console.log('CHECKIN');
-    }
 
 
     let comments = [];
@@ -210,7 +264,7 @@ let convertFacebookProfileFeedToGlobal = function (feed) {
     }
 
     // Created the globalFeed[i] object
-
+    console.log('TYPE', type)
     globalFeed[i] = {
       id: feed[i].id,
       title: (feed[i].story ? feed[i].story : feed[i].from.name),
@@ -281,6 +335,8 @@ let convertFacebookProfileFeedToGlobal = function (feed) {
 
 let convertFacebookHomeFeedToGlobal = function (feed) {
 
+  
+
   ////console.log('CONVERT', feed)
   let feedMount = [];
 
@@ -317,10 +373,10 @@ let convertFacebookHomeFeedToGlobal = function (feed) {
       type = '';
       description = '';
       link = '';
-      description = ''; 
-      post_image = ''; 
+      description = '';
+      post_image = '';
       post_video = '';
-      name =  ''; 
+      name = '';
 
 
       //Defining the image of each post
@@ -338,16 +394,19 @@ let convertFacebookHomeFeedToGlobal = function (feed) {
         if ((typeof feed[i].source !== 'undefined') || feed[i].type == "video") {
           type = 'video';
 
-          if (feed[i].message.localeCompare(feed[i].description) == 0 && typeof feed[i].name !== 'undefined') {
-            description = feed[i].name + ' ' + feed[i].description;
-          } 
-          
-          if(typeof feed[i].name !== 'undefined') {
-            description =  feed[i].name + ' ' + feed[i].message;
-          }else {
-             description = feed[i].message;
-          }
+          if (typeof feed[i].message !== 'undefined') {
 
+            if (feed[i].description === feed[i].message && typeof feed[i].name !== 'undefined') {
+              description = feed[i].name + ' - ' + feed[i].description;
+            }
+
+            if (typeof feed[i].name !== 'undefined' && typeof feed[i].message !== 'undefined') {
+              description = feed[i].name + ' - ' + feed[i].message;
+            } else {
+              description = feed[i].message;
+            }
+
+          } else description = feed[i].description;
 
           if (typeof feed[i].link !== 'undefined') {
             link = feed[i].link;
@@ -363,16 +422,19 @@ let convertFacebookHomeFeedToGlobal = function (feed) {
           typeof feed[i].source === 'undefined') {
           type = 'text';
 
-          if (feed[i].message.localeCompare(feed[i].description) == 0 && typeof feed[i].name !== 'undefined') {
-            description = feed[i].name + ' ' + feed[i].description;
-          } 
-          
-          if(typeof feed[i].name !== 'undefined') {
-            description =  feed[i].name + ' ' + feed[i].message;
-          }else {
-             description = feed[i].message;
-          }
+          if (typeof feed[i].message !== 'undefined') {
 
+            if (feed[i].description === feed[i].message && typeof feed[i].name !== 'undefined') {
+              description = feed[i].name + ' - ' + feed[i].description;
+            }
+
+            if (typeof feed[i].name !== 'undefined' && typeof feed[i].message !== 'undefined') {
+              description = feed[i].name + ' - ' + feed[i].message;
+            } else {
+              description = feed[i].message;
+            }
+
+          } else description = feed[i].description;
 
           if (typeof feed[i].link !== 'undefined') {
             link = feed[i].link;
@@ -383,17 +445,21 @@ let convertFacebookHomeFeedToGlobal = function (feed) {
         if (typeof feed[i].attachments.data[0].media.image.src !== 'undefined' &&
           typeof feed[i].source === 'undefined') {
           type = 'photo';
-          
-          if (feed[i].message.localeCompare(feed[i].description) == 0 && typeof feed[i].name !== 'undefined') {
-            description = feed[i].name + ' ' + feed[i].description;
-          } 
-          
-          if(typeof feed[i].name !== 'undefined') {
-            description =  feed[i].name + ' ' + feed[i].message;
-          }else {
-             description = feed[i].message;
-          }
 
+
+          if (typeof feed[i].message !== 'undefined') {
+
+            if (feed[i].description === feed[i].message && typeof feed[i].name !== 'undefined') {
+              description = feed[i].name + ' - ' + feed[i].description;
+            }
+
+            if (typeof feed[i].name !== 'undefined' && typeof feed[i].message !== 'undefined') {
+              description = feed[i].name + ' - ' + feed[i].message;
+            } else {
+              description = feed[i].message;
+            }
+
+          } else description = feed[i].description;
 
           if (typeof feed[i].link !== 'undefined') {
             link = feed[i].link;
