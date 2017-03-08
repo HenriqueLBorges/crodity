@@ -5,9 +5,24 @@ import ReactDOM from 'react-dom';
 
 class Players extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      show: false
+    };
+  }
+
   searchVideoYoutube(event){
     event.preventDefault();
-    console.log('Entered here');
+    // console.log('Entered here');
+    console.log(this.refs.input_search.value);
+     if(this.refs.input_search.value == 'a'){
+       console.log("Ref has value");
+      this.setState({ show: true });
+    }else{
+      this.setState({ show: false });
+    }
+
     Meteor.call('searchYoutube', 'test', function (e, r) {
       if (e){
         console.log(e);
@@ -24,11 +39,12 @@ class Players extends Component {
         Search musics/videos
         <div className="row">
           <div className="input-field col s10">
-            <input placeholder="Placeholder" id="first_name" type="text" className="validate"/>
-              <label htmlFor="first_name">First Name</label>
+            <input ref="input_search" onChange={this.searchVideoYoutube.bind(this)} placeholder="Placeholder" id="music_video" type="text" className="validate"/>
+              <label htmlFor="music_video">Music/video</label>
             </div>
           </div>
-          <a className="waves-effect waves-light btn" onClick={this.searchVideoYoutube.bind(this)}>Pesquisar</a>
+          // <a className="waves-effect waves-light btn" onClick={this.searchVideoYoutube.bind(this)}>Pesquisar</a>
+          {this.state.show ? <div>Resultado da pesquisa</div> : ""}
         </div>
       );
     }

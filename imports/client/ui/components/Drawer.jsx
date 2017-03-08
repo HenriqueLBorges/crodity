@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { Link } from 'react-router';
 import { Helpers } from '../helpers/Helpers.jsx';
 import LogoutButton from './LogoutButton.jsx';
-import {ButtonsLoginDrawer} from './AccountsButtonsLogin';
+import {ButtonsLoginDrawer} from './LoginButtons';
 
 class Drawer extends Component {
 

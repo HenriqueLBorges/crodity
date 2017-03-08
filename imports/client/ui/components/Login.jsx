@@ -2,17 +2,16 @@ import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import LoginCrodityAccount from './LoginCrodityAccount.jsx';
 import { Link } from 'react-router';
-import {ButtonsLoginLogin} from './AccountsButtonsLogin';
+import {ButtonsLoginLogin} from './LoginButtons';
 
 const styles = {
-
 	hrStyle: {
 		margin: '0 25%',
 		border: '1px solid black',
 	}
 }
 
-class AccountsLogin extends Component {
+class Login extends Component {
 
 render() {
 	return (
@@ -51,4 +50,4 @@ render() {
 }
 }
 
-export default AccountsLogin;
+export default Login;

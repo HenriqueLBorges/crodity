@@ -26,7 +26,6 @@ class Comment extends Component {
 
   handleClose() {
     this.setState({ open: false });
-
   }
   render() {
 
@@ -50,4 +49,4 @@ class Comment extends Component {
 }
 
 
-export default Comment; 
+export default Comment;

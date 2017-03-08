@@ -8,7 +8,7 @@ import ProfileContainer from './containers/ProfileContainer.jsx';
 
 import Register from './components/Register.jsx';
 import RegisterConfirmation from './components/RegisterConfirmation';
-import AccountsLogin from './components/AccountsLogin.jsx';
+import Login from './components/Login.jsx';
 import Profile from './components/Profile.jsx';
 import RecoverPassword from './components/RecoverPassword.jsx';
 
