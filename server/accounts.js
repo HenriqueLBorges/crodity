@@ -50,7 +50,7 @@ Meteor.methods({
     // Adds the newly added phone to the registered_phones array
     // only if the phone was not already there.
     if (isUnique) {
-      Meteor.call('viewServicesController', user.services);
+
       registered_phones.push({
         number: phone,
         verified: false
@@ -86,7 +86,7 @@ Meteor.methods({
 
     // Get the logged user object
     let user = Meteor.users.findOne(this.userId);
-    
+
     // Sets the initial state of the registered_emails array to
     // later be updated inside the user object
     let registered_emails = new Array();
@@ -106,7 +106,7 @@ Meteor.methods({
     // Adds the newly added email to the registered_emails array
     // only if the email was not already there.
     if (isUnique) {
-      
+
       registered_emails.push({
         address: email,
         verified: true
@@ -194,13 +194,47 @@ Meteor.methods({
     return future.wait();
   },
 
-  'viewServicesController'(service) {
+
+
+
+  'permissionsServicesController'(service) {
     let user = Meteor.users.findOne(this.userId);
-    console.log(service)
-    Meteor.users.update({ '_id': this.userId }, {
-      $push: { 'profile.permissions': { [[service]]: { view: true } } }
-    })
+    let permissionsSocial = {};
+
+    // let verify = Meteor.users.findOne({ permissions: [service] })
+
+
+    // if (verify) {
+    //   console.log(verify)
+    //   console.log('ACHEI ', service)
+    // } else{
+    //   console.log('nao achei', service)
+    //      console.log(verify)
+    // }
+
+
+    // for (let i = 0; i < user.permissions.length; i++) {
+      permissionsSocial = {
+        [service]: {
+          view: true
+        }
+      }
+
+  
+      if (typeof user.services[service] == 'undefined') {
+        Meteor.users.update({ '_id': this.userId }, {
+          $push: { 'permissions': permissionsSocial }
+        })
+
+      }
+        permissionsSocial = {}
+    //  }
+
+
   }
+
+
+
 });
 
 
@@ -212,18 +246,20 @@ Accounts.onCreateUser(function (options, user) {
 
   // Use provided profile in options, or create an empty object
   user.profile = options.profile || {};
+
+
   // Assigns first and last names to the newly created user object
   user.profile.firstName = options.firstName;
   user.profile.lastName = options.lastName;
   user.registered_phones = [];
-  user.profile.permissions = options.profile.permissions;
+  user.permissions = [];
 
 
 
   // //Checking what is the service the user connected, and defining the informations about the profile
   if (user.services.facebook) {
 
-
+    let permissions = [];
     let profileData = Meteor.call('getFacebookProfile', user.services.facebook.accessToken);
 
     user.profile.firstName = profileData.user.first_name;
@@ -234,9 +270,11 @@ Accounts.onCreateUser(function (options, user) {
     user.profile.firstName = profileData.user.first_name;
     user.profile.image = profileData.midia.profile;
     user.profile.cover = profileData.midia.cover;
-    
-    
 
+
+
+    let service = profileData.service;
+    user.permissions.push({ [service]: { view: true } })
 
   } else if (user.services.twitter) {
     let profileData = Meteor.call('getTwitterProfile', user.services.twitter.accessToken, user.services.twitter.accessTokenSecret, user.services.twitter.id);
@@ -250,6 +288,9 @@ Accounts.onCreateUser(function (options, user) {
     user.profile.image = profileData.midia.profile;
     user.profile.cover = profileData.midia.cover;
 
+
+    let service = profileData.service;
+    user.permissions.push({ [service]: { view: true } })
   }
 
   // Returns the user object
@@ -281,7 +322,7 @@ let convertFacebookProfileToGlobal = function (profile) {
       email: profile.email
     }
   }
-  Meteor.call('viewServicesController', globalProfile.service)
+
   console.log(globalProfile);
   return globalProfile;
 };

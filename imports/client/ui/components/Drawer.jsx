@@ -20,7 +20,7 @@ class Drawer extends Component {
   }
 
   loginWithTwitter() {
-    Meteor.call('viewServicesController', 'twitter'); 
+    Meteor.call('permissionsServicesController', 'twitter'); 
     Meteor.loginWithTwitter({ loginStyle: 'redirect' }, function (e) {
        
     });
@@ -28,7 +28,7 @@ class Drawer extends Component {
 
 
   loginWithInstagram() {
-    Meteor.call('viewServicesController', 'instagram'); 
+    Meteor.call('permissionsServicesController', 'instagram'); 
     Meteor.loginWithInstagram(function (e) {
 
       if (e) {

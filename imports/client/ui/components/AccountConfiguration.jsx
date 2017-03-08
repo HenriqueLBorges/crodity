@@ -34,8 +34,8 @@ class AccountConfiguration extends Component {
 
       return( <div>
         <div className="switch">
-          <lable>{Helpers.socialIcon('instagram', 2)}</lable>
-          <label> Off <input type="checkbox" checked />
+          <p>{Helpers.socialIcon('instagram', 2)}</p>
+          <label> Off <input type="checkbox"  />
             <span className="lever"></span> On </label>
         </div>
       </div>); 
@@ -46,7 +46,7 @@ class AccountConfiguration extends Component {
 
       return (<div>
         <div className="switch">
-          <label> {Helpers.socialIcon('twitter', 2)}</label> 
+          <p> {Helpers.socialIcon('twitter', 2)}</p> 
           <label> Off <input type="checkbox" checked />
             <span className="lever"></span> On </label>
         </div>
