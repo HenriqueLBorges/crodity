@@ -35,7 +35,7 @@ class AccountConfiguration extends Component {
       return( <div>
         <div className="switch">
           <p>{Helpers.socialIcon('instagram', 2)}</p>
-          <label> Off <input type="checkbox"  />
+          <label> Off <input type="checkbox" checked />
             <span className="lever"></span> On </label>
         </div>
       </div>); 
@@ -50,7 +50,7 @@ class AccountConfiguration extends Component {
           <label> Off <input type="checkbox" checked />
             <span className="lever"></span> On </label>
         </div>
-      </div>);
+      </div>);      
 
     }
   }
