@@ -40,7 +40,7 @@ class App extends Component {
 
         return (
           <Router history={browserHistory}>
-            <Route path='/' component={AccountsLogin}></Route>
+            <Route path='/' component={Login}></Route>
             <Route path='/register' component={Register} />
             <Route path='/recover-password' component={RecoverPassword}/>
           </Router>

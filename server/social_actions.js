@@ -61,8 +61,11 @@ Meteor.methods({
     console.log(post);
   },
 
-  'searchYoutube': function (string) {
+  'searchYoutube': function (query) {
+
     let user = Meteor.users.findOne(this.userId);
+    let future = new Future();
+
     HTTP.get(
       'https://www.googleapis.com/youtube/v3/search',
       {
@@ -70,18 +73,21 @@ Meteor.methods({
           'Authorization': 'Bearer ' + user.services.google.accessToken,
         },
         params: {
-          part: 'snippet'
+          part: 'snippet',
+          q: query,
+          maxResults: 5
         }
       },
       function (error, response) {
-        console.log('Aquiii',response);
-        if (!error) {
-          return response;
-        }else{
+        if (error) {
           console.log(error);
-        }
+        }else{
+          future["return"](response.data.items);
+          // return response;
+          }
       }
     );
+    return future.wait();
   },
 
   'postTwitter': function (message) {
