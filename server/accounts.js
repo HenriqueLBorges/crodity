@@ -195,41 +195,50 @@ Meteor.methods({
   },
 
 
+  'getPermissionsServices': function () {
+    let user = Meteor.users.findOne(this.userId);
+    return user.permissions;
+
+  },
+
+  'setPermissionsServices': function (service, set_permission){
+
+    let permissionsService = 'permissions.' + service; 
+    permissionsSocial = {
+        view: set_permission,
+        post: true
+    }
 
 
-  'permissionsServicesController'(service) {
+       Meteor.users.update({ '_id': this.userId }, {
+        $set: { [permissionsService]: permissionsSocial }
+      })
+  },
+
+  'permissionsServicesController': function (service) {
     let user = Meteor.users.findOne(this.userId);
     let permissionsSocial = {};
-
-    // let verify = Meteor.users.findOne({ permissions: [service] })
-
-
-    // if (verify) {
-    //   console.log(verify)
-    //   console.log('ACHEI ', service)
-    // } else{
-    //   console.log('nao achei', service)
-    //      console.log(verify)
-    // }
+    let permissionService = 'permissions.'+ service; 
 
 
-    // for (let i = 0; i < user.permissions.length; i++) {
-      permissionsSocial = {
-        [service]: {
-          view: true
-        }
-      }
 
-  
-      if (typeof user.services[service] == 'undefined') {
-        Meteor.users.update({ '_id': this.userId }, {
-          $push: { 'permissions': permissionsSocial }
-        })
+    permissionsSocial = {
+        view: true,
+        post: true
+    }
 
-      }
-        permissionsSocial = {}
+    console.log(typeof user.services[service])
+
+    if (typeof user.services[service] == 'undefined') {
+      Meteor.users.update({ '_id': this.userId }, {
+        $set: { [permissionService]: permissionsSocial }
+      })
+
+    }
+    permissionsSocial = {}
     //  }
 
+    console.log(user.permissions);
 
   }
 
@@ -252,7 +261,7 @@ Accounts.onCreateUser(function (options, user) {
   user.profile.firstName = options.firstName;
   user.profile.lastName = options.lastName;
   user.registered_phones = [];
-  user.permissions = [];
+  user.permissions = {};
 
 
 
@@ -274,7 +283,10 @@ Accounts.onCreateUser(function (options, user) {
 
 
     let service = profileData.service;
-    user.permissions.push({ [service]: { view: true } })
+    user.permissions[service] = {
+        view: true,
+        post: true
+    };
 
   } else if (user.services.twitter) {
     let profileData = Meteor.call('getTwitterProfile', user.services.twitter.accessToken, user.services.twitter.accessTokenSecret, user.services.twitter.id);

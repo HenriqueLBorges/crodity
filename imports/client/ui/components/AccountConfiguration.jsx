@@ -1,10 +1,29 @@
 import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import { Helpers } from '../helpers/Helpers.jsx';
-
+import { get, set, update } from 'lodash'
 
 
 class AccountConfiguration extends Component {
+
+
+  constructor(props) {
+    super(props);
+
+    let permissions = props.currentUser.permissions;
+    // let checkedService = [];
+
+    // Object.keys(permissions).map((service,i) => {
+    //   checkedService.push({
+    //     name: service,
+    //     view: permissions[i].view
+    //   })
+    // });
+
+    this.state = {
+      checkedService: permissions
+    };
+  }
 
   handleSubmitEmail() {
     event.preventDefault();
@@ -15,53 +34,95 @@ class AccountConfiguration extends Component {
     });
   }
 
+  componenDidMount() {
 
-  servicesLogged() {
-/*
-    if (this.props.currentUser.services.facebook) {
+    Object.keys(this.props.currentUser.permissions).map((service, i) => {
 
-      return (<div>
-         <lable>{Helpers.socialIcon('facebook', 2)}</lable>
-        <div className="switch">
-          <label> Off <input type="checkbox" checked />
-            <span className="lever"></span> On </label>
-        </div>
-      </div>); 
-    }*/
+    });
+    this.setState({})
+  }
 
 
-    if (this.props.currentUser.services.instagram) {
+  getServices() {
+    Meteor.call('getPermissionsServices', (e, response) => {
+      if (!e) this.services = response;
+      else console.log(e);
+    });
 
-      return( <div>
-        <div className="switch">
-          <p>{Helpers.socialIcon('instagram', 2)}</p>
-          <label> Off <input type="checkbox" checked />
-            <span className="lever"></span> On </label>
-        </div>
-      </div>); 
+    return this.services;
+  }
+
+
+  handleChange(service) {
+    event.preventDefault();
+
+    this.state.service = service;
+
+    console.log(this.state.service)
+
+    let data = this.state.checkedService;
+    set(data, service + '.view', !this.state.checkedService[service].view); 
+
+    this.setState({ checkedService: data }, () => {
+      console.log(this.state)
+      Meteor.call('setPermissionsServices', service, this.state.checkedService, function (e, response) {
+        if (!e) console.log('ok');
+        else console.log(e);
+      });
+    });
+  }
+
+
+
+  servicesController() {
+
+    let services = [];
+    let service;
+    services = this.getServices();
+    let render = [];
+    let social_name;
+
+    if (typeof services !== 'undefined') {
+
+      // for (let i = 0; i < services.length; i++) {
+      //   if (typeof services[i] !== 'undefined') {
+      //     //service[i] = services = [i];
+      //     social_name = services[i].socialName;
+      //     console.log(social_name);
+      //     console.log(services[i][social_name].view);
+      //
+      //   }
+
+
+      //this.state.checkedService[service] = services[i][social_name].view;
+
+      Object.keys(services).map((service, i) => {
+
+        render[i] = (
+          <div className="switch" key={i}>
+            <ul>
+              <li> <label>{Helpers.socialIcon(service, 2)}</label>
+                <label>
+                  Off
+              <input type="checkbox" checked={this.state.checkedService[service].view} onChange={() => this.handleChange(service)} />
+                  <span className="lever"></span>
+                  On
+              </label></li>
+            </ul>
+          </div>);
+
+      });
 
     }
-
-    if (this.props.currentUser.services.twitter) {
-
-      return (<div>
-        <div className="switch">
-          <p> {Helpers.socialIcon('twitter', 2)}</p> 
-          <label> Off <input type="checkbox" checked />
-            <span className="lever"></span> On </label>
-        </div>
-      </div>);      
-
-    }
+    return render;
   }
 
   render() {
-    console.log(this.props.currentUser.services);
     return (
       <div className="row">
         <div className="col s12 m12">
           <div className="card-panel">
-            <h4 className="header2">Configuration </h4>
+            <h4 className="header2">Configuration</h4>
             <div className="row">
               <form className="col s12">
                 <div className="row">
@@ -71,6 +132,8 @@ class AccountConfiguration extends Component {
                     <label htmlFor="first_name">{Helpers.get(this.props, 'currentUser.profile.name')}</label>
                   </div>
                 </div>
+
+
                 <div className="row">
                   <div className="input-field col s12">
                     <i className="mdi-communication-email prefix" />
@@ -87,16 +150,8 @@ class AccountConfiguration extends Component {
                 </div>
 
                 <div className="row">
-                  <div className="input-field col s12">
-                    {this.servicesLogged()}
-                  </div>
-                </div>
-
-                <div className="row">
-                  <div className="input-field col s12">
-                    <button className="btn cyan waves-effect waves-light right" type="submit" name="action">Submit
-                        <i className="mdi-content-send right" />
-                    </button>
+                  <div className="col s12">
+                    {this.servicesController()}
                   </div>
                 </div>
               </form>
